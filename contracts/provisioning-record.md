@@ -65,6 +65,7 @@ blocks further authorization and preserves the rejected record for scoped audit.
 At the [pinned provisioning baseline](../docs/sources.md),
 `approved-development-only` reaches `security_applied`, classifies the release as
 `development_asset`, and retains `rollback_unimplemented`. Both readiness flags
-remain false. No fleet export endpoint currently implements this proposed
-adapter. Production `completion_evidence` examples are hypothetical; their
+remain false. The [development retained-export profile](../docs/integrations/provisioning-inbox.md)
+specifies the first offline adapter and controller inbox; it does not expose a
+live export endpoint or complete PR-06 authority verification. Production `completion_evidence` examples are hypothetical; their
 source-state strings do not add states to the provisioning implementation.

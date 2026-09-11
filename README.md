@@ -50,3 +50,5 @@ the owning project. See [contributing](CONTRIBUTING.md) and the
 The provisioning baseline is pinned in [sources](docs/sources.md). Its current
 development posture cannot enter `enrollment_ready`. The proposed production
 examples here do not change that status.
+
+The first implementation slice is documented in the [development provisioning inbox profile](docs/integrations/provisioning-inbox.md). It retains draft.1 schemas and adds a producer-generated synthetic conformance fixture.

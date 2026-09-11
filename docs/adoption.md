@@ -37,3 +37,7 @@ Record the contract-set tag/commit, supported wire versions, owning component,
 evidence of schema/local checks and runtime scenarios, compatibility/migration
 plan, and review approval. This baseline supplies no adoption records and no
 production eligibility grants.
+
+## First experimental slice
+
+See [development provisioning → controller inbox](integrations/provisioning-inbox.md) for the producer mapping, immutable export and query boundary. This is an observation-only pilot; production adoption and live authority verification remain open.
