@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.1.0-draft.1:publication",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "Publication"
+    },
+    "contract_version": {
+      "const": "0.1.0-draft.1"
+    },
+    "record_id": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id"
+    },
+    "revision": {
+      "const": 1
+    },
+    "issued_at": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/timestamp"
+    },
+    "authority_id": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id"
+    },
+    "tenant_id": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id"
+    },
+    "security_domain_id": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id"
+    },
+    "correlation_id": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id"
+    },
+    "status": {
+      "const": "accepted"
+    },
+    "accepted_at": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/timestamp"
+    },
+    "actor_id": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id"
+    },
+    "authorization_ref": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/evidenceRef"
+    },
+    "request_digest": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/digest"
+    },
+    "plan_ref": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/recordRef"
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/target"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "idempotency_key": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id"
+    }
+  },
+  "required": [
+    "contract",
+    "contract_version",
+    "record_id",
+    "revision",
+    "issued_at",
+    "authority_id",
+    "tenant_id",
+    "security_domain_id",
+    "correlation_id",
+    "status",
+    "accepted_at",
+    "actor_id",
+    "authorization_ref",
+    "request_digest",
+    "plan_ref",
+    "targets",
+    "idempotency_key"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,118 @@
+[
+  {
+    "path": "examples/valid/provisioning-development.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/provisioning-production-candidate.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/provisioning-production-complete.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/binding-staged.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/binding-active.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/binding-retired.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/publish-request.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/publication.json",
+    "valid": true
+  },
+  {
+    "path": "examples/invalid/development-readiness-upgrade.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "PR-02: development cannot claim readiness"
+  },
+  {
+    "path": "examples/invalid/missing-readiness-reason.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "PR-02: blocked readiness needs reasons"
+  },
+  {
+    "path": "examples/invalid/unsupported-version.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "exact wire version required"
+  },
+  {
+    "path": "examples/invalid/secret-field.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "SYS-04: secret field is outside contract"
+  },
+  {
+    "path": "examples/invalid/active-without-verification.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "DB-03: active snapshot requires activation evidence"
+  },
+  {
+    "path": "examples/invalid/staged-with-activation.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "DB-03: staged tuple cannot claim activation"
+  },
+  {
+    "path": "examples/invalid/reversed-certificate-window.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "DB-TIME: reversed validity"
+  },
+  {
+    "path": "examples/invalid/future-activation.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "DB-TIME: activation after record issuance"
+  },
+  {
+    "path": "examples/invalid/duplicate-instance.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "PUB-03: duplicate target with different expected revision"
+  },
+  {
+    "path": "examples/invalid/caller-selected-actor.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "PUB-01: actor comes from authenticated context"
+  },
+  {
+    "path": "examples/invalid/publication-claims-running.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "SYS-06: publication does not report execution"
+  },
+  {
+    "path": "examples/invalid/future-acceptance.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "PUB-TIME: accepted after issuance"
+  },
+  {
+    "path": "examples/invalid/malformed-digest.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "digest requires full SHA-256"
+  },
+  {
+    "path": "examples/invalid/invalid-timestamp.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "date-time format must be asserted"
+  }
+]

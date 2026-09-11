@@ -1,0 +1,33 @@
+{
+  "contract": "Publication",
+  "contract_version": "0.1.0-draft.1",
+  "record_id": "publication-fixture-001",
+  "revision": 1,
+  "issued_at": "2026-09-11T12:10:01Z",
+  "authority_id": "publication-fixture",
+  "tenant_id": "tenant-fixture",
+  "security_domain_id": "domain-fixture-production",
+  "correlation_id": "correlation-fixture-001",
+  "status": "accepted",
+  "accepted_at": "2026-09-11T12:10:00Z",
+  "actor_id": "actor-fixture",
+  "authorization_ref": {
+    "uri": "urn:kaiba:fixture:hypothetical-publish-policy",
+    "digest": "sha256:b3e9f8233498d0d665e385715e6319d05e0e138e92c5d1db195103e69dd22c1f"
+  },
+  "request_digest": "sha256:44cbb67d94af5877fc7ba455b50f6286d680ca818096620ae1b07ad51cd576d0",
+  "plan_ref": {
+    "record_id": "plan-fixture-001",
+    "revision": 1,
+    "digest": "sha256:c92b99a533f2c1893f2e2f3dc8269992b8c9c4b04e2cc1f588220a7f8864a0b0"
+  },
+  "targets": [
+    {
+      "logical_device_id": "device-fixture-001",
+      "instance_id": "instance-fixture-001",
+      "storage_generation": 1,
+      "expected_desired_state_revision": 0
+    }
+  ],
+  "idempotency_key": "publish-fixture-001"
+}

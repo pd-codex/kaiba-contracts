@@ -1,0 +1,47 @@
+{
+  "contract": "ProvisioningRecord",
+  "contract_version": "0.1.0-draft.1",
+  "record_id": "provision-fixture-prod",
+  "revision": 2,
+  "issued_at": "2026-09-11T12:05:00Z",
+  "authority_id": "provisioning-fixture",
+  "tenant_id": "tenant-fixture",
+  "security_domain_id": "domain-fixture-production",
+  "correlation_id": "correlation-fixture-001",
+  "purpose": "completion_evidence",
+  "asset_ref": "asset-fixture-prod",
+  "cohort": "production",
+  "source": {
+    "repository": "https://example.invalid/kaiba-provisioning",
+    "commit": "1111111111111111111111111111111111111111",
+    "transaction_id": "transaction-fixture-prod",
+    "state": "complete",
+    "profile_ref": {
+      "uri": "urn:kaiba:fixture:hypothetical-production-profile",
+      "digest": "sha256:eede4f5ac290e4732c030220f3c6ab10a5da27c216f218b811724262ea9194bf"
+    },
+    "posture_ref": {
+      "uri": "urn:kaiba:fixture:hypothetical-production-posture",
+      "digest": "sha256:684d3b6e5bbb8952a7e8b1b51ecbd6ae43b14e0b0598e2001f0d7ea7691dfdad"
+    },
+    "release_ref": {
+      "uri": "urn:kaiba:fixture:hypothetical-production-release",
+      "digest": "sha256:ae1066190287f47d92264ca4906afa16c59dd7ca6a9d27258015d752235d15aa"
+    }
+  },
+  "readiness": {
+    "production_ready": true,
+    "enrollment_ready": true,
+    "reasons": []
+  },
+  "evidence": {
+    "control_record": {
+      "uri": "urn:kaiba:fixture:hypothetical-complete-control",
+      "digest": "sha256:ba67e54f8dbff350a000ceb3c197fe0fc075a0b039ac41b076abadf0f99fcb07"
+    },
+    "audit_receipt": {
+      "uri": "urn:kaiba:fixture:hypothetical-complete-audit",
+      "digest": "sha256:67e6dae890103503efcc57943c4721afb019f0f191ec38938b3213e4f95b96b3"
+    }
+  }
+}

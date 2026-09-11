@@ -1,0 +1,19 @@
+{
+  "contract": "PublishRequest",
+  "contract_version": "0.1.0-draft.1",
+  "plan_ref": {
+    "record_id": "plan-fixture-001",
+    "revision": 1,
+    "digest": "sha256:c92b99a533f2c1893f2e2f3dc8269992b8c9c4b04e2cc1f588220a7f8864a0b0"
+  },
+  "targets": [
+    {
+      "logical_device_id": "device-fixture-001",
+      "instance_id": "instance-fixture-001",
+      "storage_generation": 1,
+      "expected_desired_state_revision": 0
+    }
+  ],
+  "idempotency_key": "publish-fixture-001",
+  "actor_id": "other-actor"
+}

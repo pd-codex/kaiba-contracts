@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.1.0-draft.1:publish-request",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "PublishRequest"
+    },
+    "contract_version": {
+      "const": "0.1.0-draft.1"
+    },
+    "plan_ref": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/recordRef"
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/target"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "idempotency_key": {
+      "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id"
+    }
+  },
+  "required": [
+    "contract",
+    "contract_version",
+    "plan_ref",
+    "targets",
+    "idempotency_key"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,45 @@
+{
+  "contract": "DeviceBinding",
+  "contract_version": "0.1.0-draft.1",
+  "record_id": "binding-fixture-001",
+  "revision": 2,
+  "issued_at": "2026-09-11T12:04:00Z",
+  "authority_id": "inventory-fixture",
+  "tenant_id": "tenant-fixture",
+  "security_domain_id": "domain-fixture-production",
+  "correlation_id": "correlation-fixture-001",
+  "logical_device_id": "device-fixture-001",
+  "instance_id": "instance-fixture-001",
+  "storage_generation": 1,
+  "bootstrap_identity_ref": {
+    "uri": "urn:kaiba:fixture:hypothetical-bootstrap-public-profile",
+    "digest": "sha256:90c686bf2dd72273f968f332aea22b8eb49adbc8d1f04443ae844e5d1b7bb7bf"
+  },
+  "provisioning_ref": {
+    "record_id": "provision-fixture-prod",
+    "revision": 1,
+    "digest": "sha256:f4b8243a0ca32246a2b929f2c86a6e52538023b78623c2c717089384ee550f65"
+  },
+  "credential": {
+    "slot": "slot-management",
+    "role": "outbound_management",
+    "key_generation": 1,
+    "spki_digest": "sha256:8b3ea10e852ccdbfdfde8fd2eeb3ce2524e8763943cb9b9219615dedeefe33cb",
+    "issuer_id": "issuer-fixture",
+    "certificate_serial": "1a2b",
+    "not_before": "2026-09-11T11:55:00Z",
+    "not_after": "2026-09-12T11:55:00Z"
+  },
+  "state": "staged",
+  "activation": {
+    "activated_at": "2026-09-11T12:03:00Z",
+    "verifier_receipt_ref": {
+      "uri": "urn:kaiba:fixture:hypothetical-pending-verifier",
+      "digest": "sha256:e252eb4f24f185ad48a2a6a3b0186d744d484ca73e45076341138fd89dae2af2"
+    },
+    "policy_ref": {
+      "uri": "urn:kaiba:fixture:hypothetical-activation-policy",
+      "digest": "sha256:2a1a0d77a23495a228d8743543e3acba95c51b31495050208206691b63d85c28"
+    }
+  }
+}
