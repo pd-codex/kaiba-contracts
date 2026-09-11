@@ -1,0 +1,52 @@
+{
+  "contract": "ProvisioningRecord",
+  "contract_version": "0.1.0-draft.1",
+  "record_id": "provisioning-e79094db415a27f00a9be8a40ab524eb6e8acedb577a49f236e14061cc07feba",
+  "revision": 26,
+  "issued_at": "2026-08-26T15:00:00Z",
+  "authority_id": "provisioning-rehearsal",
+  "tenant_id": "kaiba-lab",
+  "security_domain_id": "development",
+  "correlation_id": "transaction-1",
+  "purpose": "candidate_evidence",
+  "asset_ref": "asset-1",
+  "cohort": "development",
+  "source": {
+    "repository": "https://github.com/PseudoDesign/kaiba-provisioning",
+    "commit": "8d0ed51a8177f1431f4e6ff992df811fc134344d",
+    "transaction_id": "transaction-1",
+    "state": "security_applied",
+    "profile_ref": {
+      "uri": "urn:kaiba:evidence:sha256:44c939fcb1a689fd7c4ea66cf41bd667c8b351185dcec61a7d2f66e332363852",
+      "digest": "sha256:44c939fcb1a689fd7c4ea66cf41bd667c8b351185dcec61a7d2f66e332363852"
+    },
+    "posture_ref": {
+      "uri": "urn:kaiba:evidence:sha256:191cced2f74c8613281c5eea7a896bca9551c64c264542e8620805fbb1e06873",
+      "digest": "sha256:191cced2f74c8613281c5eea7a896bca9551c64c264542e8620805fbb1e06873"
+    },
+    "release_ref": {
+      "uri": "urn:kaiba:evidence:sha256:7443b96cabc2c487c6203e59cf6699b9eb5b32c68f65d3e0f93d5eee73c3e0b7",
+      "digest": "sha256:7443b96cabc2c487c6203e59cf6699b9eb5b32c68f65d3e0f93d5eee73c3e0b7"
+    }
+  },
+  "readiness": {
+    "production_ready": false,
+    "enrollment_ready": false,
+    "reasons": [
+      "approved-development-only",
+      "live_authority_verification_required",
+      "development_asset",
+      "rollback_unimplemented"
+    ]
+  },
+  "evidence": {
+    "control_record": {
+      "uri": "urn:kaiba:evidence:sha256:08e1a3e67ae415ad270cba10b64d7b30292b374eefa2a30bd943d01d34d5e4ea",
+      "digest": "sha256:08e1a3e67ae415ad270cba10b64d7b30292b374eefa2a30bd943d01d34d5e4ea"
+    },
+    "audit_receipt": {
+      "uri": "urn:kaiba:evidence:sha256:b01cab0ec29f15c0a2e103b666c87486d2b92caf43d8a01fe4a3af00457fce08",
+      "digest": "sha256:b01cab0ec29f15c0a2e103b666c87486d2b92caf43d8a01fe4a3af00457fce08"
+    }
+  }
+}

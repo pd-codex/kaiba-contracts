@@ -114,5 +114,9 @@
     "valid": false,
     "level": "schema",
     "reason": "date-time format must be asserted"
+  },
+  {
+    "path": "examples/valid/provisioning-export-development.json",
+    "valid": true
   }
 ]
