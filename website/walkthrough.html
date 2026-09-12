@@ -3,69 +3,91 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Follow a Kaiba device through its entry state, operations and exit state, from provisioning to configuration publication. Inspect the contracts behind each transition.">
-  <meta name="theme-color" content="#132c2c">
-  <title>Interactive workflow · Kaiba contracts</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="walkthrough.css">
+  <meta name="description" content="Follow one little device on a big journey. An illustrated, interactive introduction to how Kaiba prepares devices, brings them into a fleet, and publishes a plan for their work.">
+  <meta name="theme-color" content="#10151f">
+  <title>A device’s journey · Kaiba</title>
+  <link rel="stylesheet" href="journey.css">
+  <link rel="modulepreload" href="journey-content.mjs">
   <link rel="modulepreload" href="walkthrough-model.mjs">
-  <link rel="modulepreload" href="device-transitions.mjs">
   <link rel="modulepreload" href="walkthrough-data.mjs">
-  <script type="module" src="walkthrough.mjs"></script>
+  <script type="module" src="journey.mjs"></script>
 </head>
-<body class="walkthrough-page">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <aside class="sidebar" aria-label="Documentation navigation">
-    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">K</span><span>kaiba<span class="brand-sub">CONTRACTS</span></span></a>
-    <p class="nav-label">EXPLORE THE CONTRACTS</p>
-    <nav aria-label="Documentation"><a href="index.html">Process guide</a><a href="walkthrough.html" aria-current="page">Interactive workflow</a><a href="index.html#catalog">Contract catalog</a><a href="index.html#today">Implementation status</a></nav>
-    <div class="sidebar-note"><span class="status-dot" aria-hidden="true"></span> Guided simulation<p>{{version}}</p><small>Synthetic fixtures and hypothetical decisions. No device operations.</small></div>
-    <a class="repo-link" href="https://github.com/pd-codex/kaiba-contracts">View repository <span aria-hidden="true">↗</span></a>
-  </aside>
-  <main id="main">
-    <header class="topbar"><span>Kaiba / Interactive workflow</span><a href="index.html">Back to the process guide <span aria-hidden="true">↗</span></a></header>
-    <div class="content">
-      <header class="walkthrough-intro"><p class="eyebrow">FOLLOW THE DEVICE</p><h1>State in. Operations.<br>State out.</h1><p class="lead">See what the device brings into each step, what happens to it, and the state it leaves in.</p><p class="caption">Track physical preparation, identity, fleet participation and configuration intent. This teaching simulation uses synthetic fixtures and hypothetical decisions; no live device is contacted.</p></header>
-      <noscript><div class="notice"><strong>JavaScript is required for the interactive walkthrough.</strong> You can read all the steps and contracts in the <a href="index.html#pipeline">process guide</a>.</div></noscript>
-      <div id="loading" class="notice">Loading the walkthrough. If it does not load, <a href="index.html#pipeline">open the process guide</a>.</div>
-      <div id="walkthrough" hidden>
-        <div class="scenario-bar"><div><label for="scenario">Choose a scenario</label><select id="scenario"><option value="reviewed">Reviewed publication</option><option value="development">Current development block</option><option value="conflict">Desired revision changed</option><option value="lost">Publication response lost</option></select></div><button type="button" id="reset" class="secondary">Restart scenario ↺</button><p id="scenario-description"></p></div>
-        <div class="progress-heading"><span id="progress-label"></span><span id="progress-count"></span></div><progress id="progress" max="9" value="0" aria-label="Completed walkthrough steps"></progress>
-        <nav aria-label="Workflow steps" class="workflow-stepper"><ol id="stepper"></ol></nav>
-        <div class="workflow-workspace">
-          <article class="work-card" aria-labelledby="step-title">
-            <div class="step-kicker"><span id="step-number"></span><span id="step-status" class="badge deferred"></span></div>
-            <h2 id="step-title" tabindex="-1"></h2><p id="step-description"></p>
-            <p id="external-event" class="external-event" hidden></p>
-            <div class="device-transition" aria-label="Device entry state, operations and exit state">
-              <div class="device-state entering"><p class="state-column-label">01 / DEVICE ENTERING</p><h3 id="entry-phase"></h3><dl id="entry-state" class="state-facts"></dl></div>
-              <div class="device-operations"><p class="state-column-label">02 / OPERATIONS</p><h3 id="operations-heading">Operations to perform</h3><p class="operation-owner">Performed by <strong id="producer"></strong></p><ol id="operations"></ol><p id="device-effect" class="device-effect"></p></div>
-              <div id="exit-card" class="device-state exiting"><p class="state-column-label">03 / DEVICE ON EXIT</p><h3 id="exit-phase">Exit state not established</h3><p id="exit-pending">Run this step to reveal the exit state and highlight what changed.</p><dl id="exit-state" class="state-facts" hidden></dl><p id="exit-change-summary" class="exit-change-summary" hidden></p></div>
-            </div>
-            <div id="outcome" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" class="outcome" hidden></div>
-            <div class="step-actions"><button type="button" class="primary" id="evaluate"></button><button type="button" class="primary" id="reconcile" hidden>Retry identical request</button><button type="button" class="secondary" id="restart-blocked" hidden>Try another scenario ↑</button></div>
-            <div class="step-paging"><button type="button" id="back" class="quiet">← Previous</button><button type="button" id="next" class="quiet">Next step →</button></div>
-            <p id="step-note" class="step-note"></p>
-          </article>
-          <div class="contract-support"><p class="support-label">CONTRACTS THAT CARRY THIS TRANSITION</p>
-            <div id="contract-links" class="contract-links"></div>
-          </div>
-          <details id="contract-panel" class="contract-panel"><summary>Inspect supporting contracts, records and acceptance rules</summary>
-          <div class="contract-detail-grid">
-          <aside class="inspector" aria-label="Contract inspector">
-            <div class="inspector-heading"><p class="eyebrow">SUPPORTING EVIDENCE</p><h2>Contract inspector</h2></div>
-            <p id="record-label" class="record-label"></p><dl id="record-summary" class="record-summary"></dl>
-            <details id="record-details"><summary>Inspect the JSON fixture</summary><pre id="record-json" tabindex="0" aria-label="Synthetic contract JSON"></pre><a id="download" download>Download fixture JSON ↓</a></details>
-            <p id="record-caveat" class="caption"></p>
-            <div class="rehearsal-state"><h3>Simulated publication state</h3><dl><div><dt>Server acceptances</dt><dd id="acceptance-count">0</dd></div><div><dt>Flow’s view</dt><dd id="caller-state">Not requested</dd></div><div><dt>Confirmed running</dt><dd>Unproven</dd></div></dl><p id="publication-id"></p></div>
-          </aside>
-          <div class="gate-detail"><h3>Handoff requirements</h3><p class="caption">Consumed by <strong id="consumer"></strong></p><h4>Supporting inputs</h4><ul id="inputs" class="detail-list"></ul><h4>Acceptance rules</h4><ul id="gates" class="detail-list gates"></ul></div>
-          </div></details>
-        </div>
-        <div class="walkthrough-trace"><h2>The device’s journey</h2><ol id="trace"></ol><p class="caption">Each entry records the simulated exit from a completed step. Changing the scenario or restarting clears this rehearsal. No state is stored or sent anywhere.</p></div>
+<body data-motion="off" data-scene="observe" data-result="pending">
+  <a class="skip" href="#story-app">Skip to the story</a>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="icon-chip" viewBox="0 0 32 32"><rect x="8" y="8" width="16" height="16" rx="4"/><path d="M12 2v6m8-6v6M12 24v6m8-6v6M2 12h6m-6 8h6m16-8h6m-6 8h6"/></symbol>
+    <symbol id="icon-identity" viewBox="0 0 32 32"><rect x="4" y="5" width="24" height="23" rx="4"/><circle cx="12" cy="13" r="3"/><path d="M7 23c0-6 10-6 10 0m3-11h4m-4 5h4"/></symbol>
+    <symbol id="icon-fleet" viewBox="0 0 32 32"><rect x="11" y="3" width="10" height="8" rx="2"/><rect x="2" y="22" width="10" height="8" rx="2"/><rect x="20" y="22" width="10" height="8" rx="2"/><path d="M16 11v6H7v5m9-5h9v5"/></symbol>
+    <symbol id="icon-blocks" viewBox="0 0 32 32"><rect x="3" y="3" width="10" height="10" rx="2"/><rect x="19" y="3" width="10" height="10" rx="2"/><rect x="3" y="19" width="10" height="10" rx="2"/><path d="M24 19v10m-5-5h10"/></symbol>
+    <symbol id="icon-flow" viewBox="0 0 32 32"><rect x="2" y="3" width="10" height="9" rx="2"/><rect x="20" y="20" width="10" height="9" rx="2"/><path d="M7 12v9h13m-5-5 5 5-5 5"/></symbol>
+    <symbol id="icon-review" viewBox="0 0 32 32"><path d="M8 3h13l5 5v21H8zM20 3v7h6M12 18l3 3 6-7"/></symbol>
+    <symbol id="icon-send" viewBox="0 0 32 32"><path d="m3 13 26-9-9 25-5-11zM15 18 29 4"/></symbol>
+    <symbol id="icon-receipt" viewBox="0 0 32 32"><path d="M7 3h18v27l-5-3-4 3-4-3-5 3zM11 11h10m-10 5h10m-10 5h5"/></symbol>
+    <symbol id="icon-launch" viewBox="0 0 32 32"><path d="M12 23 6 17c4-10 10-13 22-13 0 12-3 18-13 22zm-5-8-4 1v10l7-3m8 1-1 6H7m3-3-6 3"/><circle cx="21" cy="11" r="3"/></symbol>
+  </defs></svg>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Kaiba process guide"><span class="brand-k">K</span>kaiba<span class="brand-divider"></span><span class="brand-caption">a device’s journey</span></a>
+    <nav aria-label="Site navigation"><a href="index.html">Process guide <span aria-hidden="true">↗</span></a><a href="technical.html">Technical view <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <noscript><p class="fallback">This illustrated story needs JavaScript. You can still read the <a href="index.html#pipeline">complete process guide</a>.</p></noscript>
+  <p id="loading" class="fallback">Setting the scene… <a href="index.html">Read the process guide</a> if the story does not load.</p>
+  <main id="story-app" hidden>
+    <div class="story-toolbar"><div class="story-tag"><span></span>INTERACTIVE STORY</div><div class="toolbar-actions"><button id="motion" type="button" aria-pressed="false">Motion off</button><button id="restart" type="button">Restart ↺</button><details id="what-if"><summary>What if…?</summary><div class="scenario-popover"><label for="scenario">Try a different path</label><select id="scenario"><option value="reviewed">The complete journey</option><option value="development">What if it is lab-only?</option><option value="conflict">What if someone changes the plan?</option><option value="lost">What if the confirmation gets lost?</option></select><p id="scenario-description"></p></div></details></div></div>
+    <div class="stage-layout">
+      <section class="story-copy" aria-labelledby="story-title">
+        <div class="chapter-line"><span id="chapter"></span><span class="chapter-rule"></span><span id="act"></span></div>
+        <h1 id="story-title" tabindex="-1"><span id="headline-first"></span><span id="headline-accent"></span></h1>
+        <p id="story-intro" class="story-intro"></p>
+        <div class="result-line"><span id="status-chip"></span><p id="outcome" hidden></p></div>
+        <div class="main-action"><button id="take-action" type="button">Prepare this device</button><p id="action-hint"></p></div>
+      </section>
+      <div id="scene" class="scene" role="group" aria-label="Animated illustration of Device 01 and the current step">
+        <div class="scene-halo"></div><div class="scene-grid"></div>
+        <div id="location-chip" class="location-chip"></div>
+        <svg id="device-art" viewBox="0 0 600 470" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="top-surface" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f9f0"/><stop offset=".5" stop-color="#dce5d6"/><stop offset="1" stop-color="#9fafaa"/></linearGradient>
+            <linearGradient id="left-surface" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#bdccc2"/><stop offset="1" stop-color="#6f8b84"/></linearGradient>
+            <linearGradient id="right-surface" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#719187"/><stop offset="1" stop-color="#39554e"/></linearGradient>
+            <radialGradient id="floor-glow"><stop stop-color="#b7ee7f" stop-opacity=".19"/><stop offset="1" stop-color="#8ad7c1" stop-opacity="0"/></radialGradient>
+            <filter id="soft-shadow"><feGaussianBlur stdDeviation="14"/></filter>
+            <filter id="led-glow"><feGaussianBlur stdDeviation="4"/></filter>
+          </defs>
+          <ellipse cx="307" cy="363" rx="228" ry="91" fill="url(#floor-glow)"/>
+          <g class="orbit-rings" fill="none" stroke="#809b8d"><ellipse cx="310" cy="349" rx="230" ry="99"/><ellipse cx="310" cy="349" rx="193" ry="78"/></g>
+          <g class="satellites" fill="none" stroke="#b3d783" stroke-width="1.4"><path class="signal-path" d="M166 114 310 192 500 116M310 280l193 108"/><g transform="translate(131 74)"><rect width="65" height="46" rx="12" fill="#273731"/><rect x="9" y="9" width="46" height="20" rx="5" fill="#546c56"/><path d="M12 36h22"/></g><g transform="translate(467 77)"><rect width="65" height="46" rx="12" fill="#273731"/><rect x="9" y="9" width="46" height="20" rx="5" fill="#546c56"/><path d="M12 36h22"/></g><g transform="translate(472 365)"><rect width="65" height="46" rx="12" fill="#273731"/><rect x="9" y="9" width="46" height="20" rx="5" fill="#546c56"/><path d="M12 36h22"/></g></g>
+          <ellipse class="device-shadow" cx="306" cy="354" rx="142" ry="37" fill="#000" opacity=".65" filter="url(#soft-shadow)"/>
+          <g class="device-unit">
+            <path d="M150 221 311 305v57L157 280q-9-5-9-14z" fill="url(#left-surface)"/>
+            <path d="m311 305 173-87v49q0 9-10 15l-163 80z" fill="url(#right-surface)"/>
+            <path d="m156 209 144-80q13-8 27-1l146 80q20 11 1 23l-149 78q-13 7-27-1l-144-76q-20-11 2-23z" fill="url(#top-surface)" stroke="#e9f0df" stroke-width="1.5"/>
+            <path d="m175 212 127-71q11-6 22 0l130 71q11 7-1 13l-130 68q-12 6-24 0l-127-67q-10-6 3-14z" fill="none" stroke="#8da89c" stroke-opacity=".5"/>
+            <path d="m241 207 64-34q9-5 17 0l63 34q9 5 0 11l-63 33q-9 5-18 0l-64-33q-9-5 1-11z" fill="#273d35" stroke="#8daea0" stroke-width="2"/>
+            <path d="m288 211 17-9m-8 4 10 6 17-20m-17 20 23 0" fill="none" stroke="#c7f582" stroke-width="6" stroke-linecap="round"/>
+            <g fill="#738d80"><ellipse cx="184" cy="218" rx="4" ry="2.3"/><ellipse cx="313" cy="148" rx="4" ry="2.3"/><ellipse cx="447" cy="218" rx="4" ry="2.3"/><ellipse cx="313" cy="285" rx="4" ry="2.3"/></g>
+            <g transform="matrix(.9,.47,0,1,173,254)"><circle class="device-led-glow" cx="10" cy="9" r="8" fill="#c1f482" filter="url(#led-glow)"/><circle class="device-led" cx="10" cy="9" r="4" fill="#778c81"/><text x="24" y="14" fill="#24453b" font-size="12" font-family="ui-monospace,monospace" font-weight="600">DEVICE 01</text></g>
+            <g transform="matrix(.87,-.46,0,1,352,304)" fill="#263e35"><rect width="33" height="12" rx="3"/><rect x="43" width="21" height="12" rx="3"/><rect x="72" width="21" height="12" rx="3"/></g>
+            <path class="scan-beam" d="m169 204 139-78 166 88-149 80z" fill="#c7f582" opacity="0"/>
+          </g>
+        </svg>
+        <div class="passport"><span class="passport-icon">✓</span><div><small>IDENTITY VERIFIED</small><strong>Device 01</strong></div></div>
+        <div class="artifact-card"><div class="artifact-top"><svg class="artifact-symbol" aria-hidden="true"><use id="artifact-icon" href="#icon-chip"/></svg><span id="artifact-check">…</span></div><p id="artifact-eyebrow"></p><h2 id="artifact-title"></h2><div class="artifact-lines"><i></i><i></i><i></i></div><div class="recipe-preview"><span>Read</span><b>→</b><span>Process</span><b>→</b><span>Send</span></div></div>
+        <div class="scene-caption"><span class="caption-dot"></span><span id="scene-caption"></span></div>
+        <div class="spark spark-one">+</div><div class="spark spark-two">+</div><div class="spark spark-three">·</div>
       </div>
-      <footer><span>KAIBA CONTRACTS · {{version}}</span><span><a href="{{source}}/docs/system.md">Specification ↗</a> · <a href="index.html#catalog">All contracts</a></span></footer>
     </div>
+    <section class="state-ribbon" aria-label="Device state before, action performed, and state after">
+      <div class="state-stop before"><span class="state-label">01 <i></i> BEFORE</span><h2 id="before-title"></h2><p id="before-detail"></p></div>
+      <div class="ribbon-arrow" aria-hidden="true">→</div>
+      <div class="state-stop operation"><span class="state-label">02 <i></i> KAIBA DOES</span><h2 id="operation-title"></h2><p id="operation-detail"></p></div>
+      <div class="ribbon-arrow" aria-hidden="true">→</div>
+      <div id="after-state" class="state-stop after waiting"><span class="state-label">03 <i></i> AFTER</span><h2 id="after-title"></h2><p id="after-detail"></p></div>
+    </section>
+    <div class="journey-navigation"><button id="previous" type="button">← Back</button><div class="progress-info"><progress id="journey-progress" value="0" max="9" aria-label="Chapters explored"></progress><span id="progress-count"></span></div><span class="demo-label">An illustration of Kaiba’s intended process</span></div>
+    <nav id="chapter-nav" class="chapter-nav" aria-label="Story chapters"></nav>
+    <details id="peek" class="peek"><summary>Curious about what happens behind the scenes? <span>Explore this step +</span></summary><div class="peek-body"><div><p class="eyebrow">IN THIS CHAPTER</p><ol id="story-tasks"></ol><p id="peek-note"></p></div><div><p class="eyebrow">THE CONTRACTS BEHIND THE STORY</p><div id="contract-list"></div><p>Example acceptances saved: <strong id="acceptance-count">0</strong>. All records are illustrative. No real device is changed.</p><a href="technical.html" class="technical-link">Open the detailed state walkthrough ↗</a></div></div></details>
+    <p id="story-announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
   </main>
+  <footer class="site-footer"><span>ONE DEVICE. A SHARED PROCESS.</span><span>Illustrative demo · <a href="{{source}}/README.md">{{version}}</a> · <a href="index.html#today">What exists today ↗</a></span></footer>
 </body>
 </html>
