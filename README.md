@@ -17,9 +17,11 @@ a visual walkthrough of the handoffs, ownership, contract coverage and current
 development slice. It is published by GitHub Pages once the repository's Pages
 source is enabled. See [website maintenance and setup](website/README.md).
 
-The [interactive workflow](https://pd-codex.github.io/kaiba-contracts/walkthrough.html)
-walks through synthetic contract handoffs, development and revision-conflict
-blocks, and reconciliation after a lost publication response.
+The [visual device story](https://pd-codex.github.io/kaiba-contracts/walkthrough.html)
+introduces the journey in plain language, with an animated device and before/after
+states. The [technical walkthrough](https://pd-codex.github.io/kaiba-contracts/technical.html)
+adds contract fixtures, exact state transitions and acceptance rules. Both support
+development restrictions, conflicting assignments and a lost confirmation.
 
 1. [System specification](docs/system.md): pipeline, authorities, and invariants.
 2. [Contract catalog](docs/catalog.md): every handoff, including deferred contracts.

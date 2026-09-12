@@ -18,12 +18,24 @@ generates the coverage counts and catalog table, pins specification links to the
 checked-out commit, and checks local files, anchors and repository source paths.
 All assets are relative, so the site works under the `/kaiba-contracts/` Pages
 project path. The process guide uses native navigation without JavaScript.
-The interactive workflow uses local JavaScript modules; neither page needs remote
+Both interactive views use local JavaScript modules. None of the pages need remote
 assets or calls to an API.
 
 ## Interactive workflow
 
-`walkthrough.html` follows the device through nine steps: **entry state → operations
+`walkthrough.html` is the public visual story: a plain-language introduction with
+an illustrated device, nine short chapters, animated operations, and a concise
+**before → action → after** view. The same four scenarios and progression gates
+come from the existing model. The detailed view remains at `technical.html`.
+
+The story uses `journey.mjs`, `journey-content.mjs`, and `journey.css`. Its artwork
+is local SVG/CSS, with no image service, third-party scripts or remote assets.
+Motion respects the operating-system preference and can be toggled in the page.
+Restart cancels any pending animation before clearing the scenario, preventing
+an old operation from changing a new story. Chapters advance only on user input.
+Technical contracts are available behind an optional disclosure.
+
+`technical.html` follows the device through nine steps: **entry state → operations
 → exit state**. Changed state dimensions are highlighted after each simulated
 operation. Physical preparation, identity, fleet eligibility, configuration intent,
 desired assignment and observed runtime remain distinct. The contract inspector
