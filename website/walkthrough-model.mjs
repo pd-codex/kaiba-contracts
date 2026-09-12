@@ -8,13 +8,13 @@ export const scenarios = {
 
 export const steps = [
   {
-    id: 'observe', label: 'Observe provisioning', title: 'Carry the observation forward',
+    id: 'observe', label: 'Prepare device', title: 'Carry the observation forward',
     producer: 'Provisioning authority', consumer: 'Identity / observation inbox', contracts: ['ProvisioningRecord'],
     description: 'Export one immutable observation of the physical transaction. Its source state and readiness claims stay separate from downstream decisions.',
     inputs: ['Approved profile and exact transaction', 'Scoped control state and independent audit evidence'],
     gates: ['Preserve source identity, revision, tenant and domain.', 'Consumers must authenticate origin and assess authoritative evidence and freshness.', 'Retained evidence checks in the development inbox do not close the live authority gate.'],
     note: 'The production fixture is early candidate evidence. Final completion must not be required before the identity activation that completion itself depends on.',
-    action: 'Inspect provisioning handoff',
+    action: 'Simulate preparation and observe exit',
     success: 'The observation is available to consumers. It is evidence of a source outcome, not permission to join the fleet.',
   },
   {
@@ -95,7 +95,7 @@ export const steps = [
     inputs: ['Accepted publication and exact resolved plan', 'Fresh policy, compare-and-swap revisions and attempt-correlated evidence'],
     gates: ['Bind complete effective inputs to approved artifact digests.', 'Recheck instance and expected revision at assignment.', 'Require observed release, health checks and independent appraisal for confirmation.'],
     note: 'Unknown outcomes stop rollout expansion. Offline targets remain deferred until a newly authorized attempt. This walkthrough creates no fulfillment records.',
-    action: 'Finish the walkthrough',
+    action: 'Review remaining device operations',
     success: 'Walkthrough complete: one publication is accepted. Built, authorized, assigned, running and confirmed remain separate, unproven outcomes in this simulation.',
   },
 ];
