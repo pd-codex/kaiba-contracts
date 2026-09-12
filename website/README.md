@@ -17,8 +17,39 @@ Open `http://localhost:8000`. The build reads `VERSION` and `docs/catalog.md`,
 generates the coverage counts and catalog table, pins specification links to the
 checked-out commit, and checks local files, anchors and repository source paths.
 All assets are relative, so the site works under the `/kaiba-contracts/` Pages
-project path. Navigation uses native links; no JavaScript or remote assets are
-required.
+project path. The process guide uses native navigation without JavaScript.
+The interactive workflow uses local JavaScript modules; neither page needs remote
+assets or calls to an API.
+
+## Interactive workflow
+
+`walkthrough.html` steps through nine handoffs with a contract inspector and a
+scenario trace. Choose a reviewed hypothetical publication, the current development
+block, a desired-state revision conflict, or a lost acceptance response. A gate
+must pass before the next step unlocks. An identical retry in the lost-response
+scenario recovers the existing publication without creating a second acceptance.
+Restarting or changing scenarios clears all in-memory state.
+
+The pure teaching state model lives in `website/walkthrough-model.mjs`, presentation
+in `website/walkthrough.mjs`, and page styling in `website/walkthrough.css`.
+The builder generates `walkthrough-data.mjs` from an allowlist of existing public
+fixtures and the authoritative catalog. It copies fixture bytes unchanged for
+download. Specified records show those fixtures; deferred handoffs show conceptual
+obligations, never an invented shared wire schema. Nothing is authenticated,
+provisioned, enrolled or published by this client-side simulation. The recorded
+fixture time is assumed; the browser does not assess current credential validity.
+
+Run the behavior checks with Node.js 22 or newer:
+
+```sh
+node --test tests/test_walkthrough.mjs
+```
+
+They cover progression gates, the development block, all-or-nothing conflict
+rejection, one durable acceptance across a lost response and retry, and reset.
+The Pages build workflow runs them before upload or deployment. Use the browser
+to verify both page navigation and scenario interactions at desktop/mobile widths;
+without JavaScript, the page links back to the complete static guide.
 
 Edit `website/index.html` for the narrative and `website/styles.css` for styling.
 Update the dated implementation snapshot when project status changes; preserve
