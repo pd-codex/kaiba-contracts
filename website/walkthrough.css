@@ -30,7 +30,7 @@ progress::-moz-progress-bar { background: var(--accent); border-radius: 10px; }
 .workflow-stepper button.passed { background: #edf3e5; color: #3c612c; }
 .workflow-stepper button.blocked, .workflow-stepper button.unknown { background: #faf0df; color: #825326; }
 .workflow-stepper button[aria-current="step"] { color: #fff; background: var(--ink); border-color: var(--ink); opacity: 1; }
-.workflow-workspace { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: start; gap: 22px; }
+.workflow-workspace { display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; gap: 18px; }
 .work-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 27px; min-width: 0; }
 .step-kicker { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 19px; }
 .step-kicker>span:first-child { font: 10px/1 ui-monospace, monospace; color: var(--accent); letter-spacing: .06em; }
@@ -81,3 +81,45 @@ progress::-moz-progress-bar { background: var(--accent); border-radius: 10px; }
 @media(max-width: 1200px) { .workflow-workspace { grid-template-columns: minmax(0, 1fr); } .inspector { display: block; } }
 @media(max-width: 800px) { .walkthrough-intro { padding-top: 30px; } .walkthrough-intro h1 { font-size: 2.5rem; } .scenario-bar { padding: 19px; } .workflow-stepper ol { gap: 6px; } }
 @media(max-width: 580px) { .scenario-bar>div { width: 100%; } .scenario-bar select { min-width: 0; width: 100%; font-size: 16px; } .scenario-bar p { font-size: 11px; } .workflow-stepper ol { grid-template-columns: repeat(2, minmax(0, 1fr)); } .workflow-stepper button { font-size: 10px; gap: 8px; } .work-card { padding: 21px; } .work-card h2 { font-size: 24px; } .boundary-route { padding: 12px; gap: 8px; } .inspector { padding: 21px; } .walkthrough-intro .lead { font-size: 16px; } .primary { width: 100%; } }
+
+/* The device transition is primary; contract details remain an optional reference. */
+.device-transition { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1fr); gap: 18px; margin: 26px 0 8px; }
+.device-transition>div { min-width: 0; padding: 22px; border-radius: 9px; }
+.device-state { background: #f4f6f0; border: 1px solid #dfe5d9; }
+.device-transition .state-column-label { font: 9px/1.5 ui-monospace, monospace; letter-spacing: .07em; margin: 0 0 15px; color: #64785a; }
+.device-transition h3 { font-size: 17px; line-height: 1.4; margin: 0 0 17px; }
+.state-facts { margin: 0; }
+.state-facts>div { padding: 12px 0; border-top: 1px solid #dce5d4; }
+.state-facts dt { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; font-size: 9px; color: var(--muted); margin-bottom: 4px; }
+.state-facts dd { font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; margin: 0; }
+.state-facts .changed dd { font-weight: 600; color: #24552d; }
+.change-label { font-size: 8px; padding: 1px 5px; border-radius: 3px; background: #dcebd0; color: #3b6427; }
+.device-state.exiting.passed, .device-state.exiting.unknown { background: #f1f6eb; border-color: #aabd9c; }
+.device-state.exiting.blocked { background: #fff8ed; border-color: #dbc8a7; }
+.device-state.exiting.unknown { border-style: dashed; }
+#exit-pending { font-size: 13px; color: var(--muted); margin-top: 25px; }
+.exit-change-summary { border-top: 1px solid #d1ddc6; padding-top: 14px; margin: 8px 0 0; font-size: 10px; color: var(--muted); }
+.device-operations { background: #183b35; color: #f2f7e9; position: relative; }
+.device-operations::before { content: '→'; position: absolute; left: -15px; top: 23px; color: #688358; font-size: 14px; }
+.device-operations::after { content: '→'; position: absolute; right: -15px; top: 23px; color: #688358; font-size: 14px; }
+.device-operations .state-column-label { color: #b5ceb0; }
+.operation-owner { font-size: 10px; color: #bdd3c3; line-height: 1.8; }
+.operation-owner strong { display: block; color: #e8f1df; font-weight: 500; }
+#operations { padding-left: 17px; margin: 25px 0; font-size: 12px; line-height: 1.85; color: #e0ecdd; }
+#operations li+li { margin-top: 18px; }
+#operations li::marker { color: #bad69e; font-size: 10px; }
+.device-effect { font-size: 11px; color: #d2e6b8; border-top: 1px solid #496757; padding-top: 16px; margin: 20px 0 0; }
+.external-event { padding: 13px 17px; border-left: 3px solid #b68b46; background: #fff5df; color: #76582a!important; font-size: 12px!important; }
+.contract-support { padding: 8px 3px 0; }
+.support-label { font-size: 9px; letter-spacing: .07em; font-weight: 650; color: var(--muted); margin: 0 0 10px; }
+.contract-support .contract-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.contract-panel { border: 1px solid var(--line); border-radius: 8px; padding: 0 19px; }
+.contract-panel>summary { cursor: pointer; padding: 17px 0; color: var(--accent); font-size: 12px; }
+.contract-detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 24px; padding-bottom: 20px; }
+.gate-detail { padding: 22px 7px; }
+.gate-detail h3 { font-size: 17px; }
+.gate-detail h4 { font-size: 12px; margin: 26px 0 10px; }
+.work-card .step-note { margin-bottom: 0; }
+@media(max-width: 1250px) { .device-transition { gap: 14px; } .device-transition>div { padding: 16px; } .device-transition h3 { font-size: 15px; } .device-operations::before { left: -12px; } .device-operations::after { right: -12px; } }
+@media(max-width: 1020px) { .device-transition { grid-template-columns: minmax(0, 1fr); gap: 22px; } .device-transition>div { padding: 21px; } .device-operations::before { content: '↓'; left: 22px; top: -23px; } .device-operations::after { content: '↓'; left: 22px; right: auto; top: auto; bottom: -23px; } .device-transition h3 { font-size: 17px; } .state-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 19px; } .contract-detail-grid { grid-template-columns: minmax(0, 1fr); gap: 0; } }
+@media(max-width: 580px) { .state-facts { grid-template-columns: minmax(0, 1fr); } .device-transition>div { padding: 19px; } .work-card { padding: 18px; } .device-transition { margin-top: 20px; } .contract-panel { padding: 0 14px; } }

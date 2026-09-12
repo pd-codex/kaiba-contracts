@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="An interactive, step-by-step Kaiba contract walkthrough. Explore provisioning, identity, configuration and publication with synthetic examples and failure scenarios.">
+  <meta name="description" content="Follow a Kaiba device through its entry state, operations and exit state, from provisioning to configuration publication. Inspect the contracts behind each transition.">
   <meta name="theme-color" content="#132c2c">
   <title>Interactive workflow · Kaiba contracts</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="walkthrough.css">
   <link rel="modulepreload" href="walkthrough-model.mjs">
+  <link rel="modulepreload" href="device-transitions.mjs">
   <link rel="modulepreload" href="walkthrough-data.mjs">
   <script type="module" src="walkthrough.mjs"></script>
 </head>
@@ -24,7 +25,7 @@
   <main id="main">
     <header class="topbar"><span>Kaiba / Interactive workflow</span><a href="index.html">Back to the process guide <span aria-hidden="true">↗</span></a></header>
     <div class="content">
-      <header class="walkthrough-intro"><p class="eyebrow">LEARN BY FOLLOWING THE HANDOFF</p><h1>One device.<br>Every contract boundary.</h1><p class="lead">Step through a publication, inspect what each project hands over, and try the conditions that stop the process.</p><p class="caption">This is a teaching simulation. Specified records use the repository’s synthetic fixtures at their recorded time. Other handoffs are conceptual; no live authority, fleet service or device is contacted.</p></header>
+      <header class="walkthrough-intro"><p class="eyebrow">FOLLOW THE DEVICE</p><h1>State in. Operations.<br>State out.</h1><p class="lead">See what the device brings into each step, what happens to it, and the state it leaves in.</p><p class="caption">Track physical preparation, identity, fleet participation and configuration intent. This teaching simulation uses synthetic fixtures and hypothetical decisions; no live device is contacted.</p></header>
       <noscript><div class="notice"><strong>JavaScript is required for the interactive walkthrough.</strong> You can read all the steps and contracts in the <a href="index.html#pipeline">process guide</a>.</div></noscript>
       <div id="loading" class="notice">Loading the walkthrough. If it does not load, <a href="index.html#pipeline">open the process guide</a>.</div>
       <div id="walkthrough" hidden>
@@ -35,24 +36,33 @@
           <article class="work-card" aria-labelledby="step-title">
             <div class="step-kicker"><span id="step-number"></span><span id="step-status" class="badge deferred"></span></div>
             <h2 id="step-title" tabindex="-1"></h2><p id="step-description"></p>
-            <div class="boundary-route"><div><span>PRODUCER</span><strong id="producer"></strong></div><span class="route-arrow" aria-hidden="true">→</span><div><span>CONSUMER</span><strong id="consumer"></strong></div></div>
-            <h3>What comes in</h3><ul id="inputs" class="detail-list"></ul>
-            <h3>What the gate requires</h3><ul id="gates" class="detail-list gates"></ul>
-            <p id="step-note" class="step-note"></p>
+            <p id="external-event" class="external-event" hidden></p>
+            <div class="device-transition" aria-label="Device entry state, operations and exit state">
+              <div class="device-state entering"><p class="state-column-label">01 / DEVICE ENTERING</p><h3 id="entry-phase"></h3><dl id="entry-state" class="state-facts"></dl></div>
+              <div class="device-operations"><p class="state-column-label">02 / OPERATIONS</p><h3 id="operations-heading">Operations to perform</h3><p class="operation-owner">Performed by <strong id="producer"></strong></p><ol id="operations"></ol><p id="device-effect" class="device-effect"></p></div>
+              <div id="exit-card" class="device-state exiting"><p class="state-column-label">03 / DEVICE ON EXIT</p><h3 id="exit-phase">Exit state not established</h3><p id="exit-pending">Run this step to reveal the exit state and highlight what changed.</p><dl id="exit-state" class="state-facts" hidden></dl><p id="exit-change-summary" class="exit-change-summary" hidden></p></div>
+            </div>
             <div id="outcome" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" class="outcome" hidden></div>
             <div class="step-actions"><button type="button" class="primary" id="evaluate"></button><button type="button" class="primary" id="reconcile" hidden>Retry identical request</button><button type="button" class="secondary" id="restart-blocked" hidden>Try another scenario ↑</button></div>
             <div class="step-paging"><button type="button" id="back" class="quiet">← Previous</button><button type="button" id="next" class="quiet">Next step →</button></div>
+            <p id="step-note" class="step-note"></p>
           </article>
-          <aside class="inspector" aria-label="Contract inspector">
-            <div class="inspector-heading"><p class="eyebrow">AT THE BOUNDARY</p><h2>Contract inspector</h2></div>
+          <div class="contract-support"><p class="support-label">CONTRACTS THAT CARRY THIS TRANSITION</p>
             <div id="contract-links" class="contract-links"></div>
+          </div>
+          <details id="contract-panel" class="contract-panel"><summary>Inspect supporting contracts, records and acceptance rules</summary>
+          <div class="contract-detail-grid">
+          <aside class="inspector" aria-label="Contract inspector">
+            <div class="inspector-heading"><p class="eyebrow">SUPPORTING EVIDENCE</p><h2>Contract inspector</h2></div>
             <p id="record-label" class="record-label"></p><dl id="record-summary" class="record-summary"></dl>
             <details id="record-details"><summary>Inspect the JSON fixture</summary><pre id="record-json" tabindex="0" aria-label="Synthetic contract JSON"></pre><a id="download" download>Download fixture JSON ↓</a></details>
             <p id="record-caveat" class="caption"></p>
             <div class="rehearsal-state"><h3>Simulated publication state</h3><dl><div><dt>Server acceptances</dt><dd id="acceptance-count">0</dd></div><div><dt>Flow’s view</dt><dd id="caller-state">Not requested</dd></div><div><dt>Confirmed running</dt><dd>Unproven</dd></div></dl><p id="publication-id"></p></div>
           </aside>
+          <div class="gate-detail"><h3>Handoff requirements</h3><p class="caption">Consumed by <strong id="consumer"></strong></p><h4>Supporting inputs</h4><ul id="inputs" class="detail-list"></ul><h4>Acceptance rules</h4><ul id="gates" class="detail-list gates"></ul></div>
+          </div></details>
         </div>
-        <div class="walkthrough-trace"><h2>This scenario’s trace</h2><ol id="trace"></ol><p class="caption">Changing the scenario or restarting clears this rehearsal. No state is stored or sent anywhere.</p></div>
+        <div class="walkthrough-trace"><h2>The device’s journey</h2><ol id="trace"></ol><p class="caption">Each entry records the simulated exit from a completed step. Changing the scenario or restarting clears this rehearsal. No state is stored or sent anywhere.</p></div>
       </div>
       <footer><span>KAIBA CONTRACTS · {{version}}</span><span><a href="{{source}}/docs/system.md">Specification ↗</a> · <a href="index.html#catalog">All contracts</a></span></footer>
     </div>

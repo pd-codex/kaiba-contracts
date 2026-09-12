@@ -23,8 +23,11 @@ assets or calls to an API.
 
 ## Interactive workflow
 
-`walkthrough.html` steps through nine handoffs with a contract inspector and a
-scenario trace. Choose a reviewed hypothetical publication, the current development
+`walkthrough.html` follows the device through nine steps: **entry state → operations
+→ exit state**. Changed state dimensions are highlighted after each simulated
+operation. Physical preparation, identity, fleet eligibility, configuration intent,
+desired assignment and observed runtime remain distinct. The contract inspector
+and acceptance rules are expandable supporting detail. Choose a reviewed hypothetical publication, the current development
 block, a desired-state revision conflict, or a lost acceptance response. A gate
 must pass before the next step unlocks. An identical retry in the lost-response
 scenario recovers the existing publication without creating a second acceptance.
@@ -32,6 +35,12 @@ Restarting or changing scenarios clears all in-memory state.
 
 The pure teaching state model lives in `website/walkthrough-model.mjs`, presentation
 in `website/walkthrough.mjs`, and page styling in `website/walkthrough.css`.
+`website/device-transitions.mjs` reconstructs each step's historical entry and exit
+and describes operations in the owning subsystem. Its state labels are presentation
+concepts, not shared wire contracts. Provisioning starts from an illustrative target
+whose prestate must be verified; no fresh-board qualification is implied. Later
+authoring and publication alter management intent without claiming a device update.
+The final step previews required execution work and leaves runtime unproven.
 The builder generates `walkthrough-data.mjs` from an allowlist of existing public
 fixtures and the authoritative catalog. It copies fixture bytes unchanged for
 download. Specified records show those fixtures; deferred handoffs show conceptual
@@ -46,7 +55,9 @@ node --test tests/test_walkthrough.mjs
 ```
 
 They cover progression gates, the development block, all-or-nothing conflict
-rejection, one durable acceptance across a lost response and retry, and reset.
+rejection, one durable acceptance across a lost response and retry, reset, state
+continuity, external concurrent changes, and the distinction between management
+intent and actual device assignment/runtime.
 The Pages build workflow runs them before upload or deployment. Use the browser
 to verify both page navigation and scenario interactions at desktop/mobile widths;
 without JavaScript, the page links back to the complete static guide.

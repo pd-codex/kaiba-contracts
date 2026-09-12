@@ -1,5 +1,6 @@
 import data from './walkthrough-data.mjs';
 import {scenarios, steps, initialState, unlockedStep, visit, advance, evaluate, reconcile} from './walkthrough-model.mjs';
+import {deviceTransition, stateFields} from './device-transitions.mjs';
 
 const $ = id => document.getElementById(id);
 let state = initialState();
@@ -17,6 +18,19 @@ function definitionList(element, values) {
     const dd = document.createElement('dd'); dd.textContent = String(value);
     div.append(dt, dd); return div;
   }));
+}
+
+function showState(element, snapshot, changed = []) {
+  definitionList(element, stateFields.map(([key, label]) => [label, snapshot[key]]));
+  stateFields.forEach(([key], index) => {
+    const row = element.children[index];
+    row.dataset.field = key;
+    if (changed.includes(key)) {
+      row.classList.add('changed');
+      const mark = document.createElement('span'); mark.className = 'change-label'; mark.textContent = 'Changed';
+      row.querySelector('dt').append(mark);
+    }
+  });
 }
 
 function inspect(step, result) {
@@ -76,6 +90,7 @@ function inspect(step, result) {
 
 function render(focus = false) {
   const step = steps[state.step];
+  const transition = deviceTransition(state);
   const result = state.results[step.id];
   const completed = Object.values(state.results).filter(result => result.kind === 'passed').length;
   $('scenario').value = state.scenario;
@@ -100,12 +115,27 @@ function render(focus = false) {
   $('step-number').textContent = `STEP ${String(state.step + 1).padStart(2, '0')}`;
   $('step-status').textContent = result?.kind === 'passed' ? 'Explored' : result?.kind === 'blocked' ? 'Blocked' : result?.kind === 'unknown' ? 'Outcome unknown' : 'Ready to explore';
   $('step-status').className = `badge ${result?.kind === 'passed' ? 'specified' : 'deferred'}`;
-  $('step-title').textContent = step.title;
-  $('step-description').textContent = step.description;
+  $('step-title').textContent = transition.title;
+  $('step-description').textContent = transition.description;
   $('producer').textContent = step.producer;
   $('consumer').textContent = step.consumer;
   list($('inputs'), step.inputs); list($('gates'), step.gates);
-  $('step-note').textContent = step.note;
+  $('step-note').textContent = transition.note || step.note;
+  $('external-event').hidden = !transition.event;
+  $('external-event').textContent = transition.event;
+  $('entry-phase').textContent = transition.entry.phase;
+  showState($('entry-state'), transition.entry);
+  $('operations-heading').textContent = transition.previewOnly ? 'Operations still required' : result ? result.kind === 'blocked' ? 'Checks performed; work stopped' : 'Operations performed' : 'Operations to perform';
+  list($('operations'), transition.operations);
+  $('device-effect').textContent = transition.effect;
+  $('exit-phase').textContent = transition.exit?.phase || 'Exit state not established';
+  $('exit-card').className = `device-state exiting ${result?.kind || 'pending'}`;
+  $('exit-pending').hidden = Boolean(transition.exit);
+  $('exit-state').hidden = !transition.exit;
+  $('exit-change-summary').hidden = !transition.exit;
+  if (transition.exit) showState($('exit-state'), transition.exit, transition.changed);
+  else $('exit-state').replaceChildren();
+  $('exit-change-summary').textContent = transition.previewOnly ? 'No execution performed. These device operations are still required.' : transition.changed.length ? `${transition.changed.length} state ${transition.changed.length === 1 ? 'dimension' : 'dimensions'} changed. Highlighted rows show the difference.` : 'Device state is unchanged across this step.';
   $('outcome').hidden = !result;
   $('outcome').className = `outcome ${result?.kind || ''}`;
   $('outcome').textContent = result?.message || '';
@@ -120,17 +150,21 @@ function render(focus = false) {
   $('acceptance-count').textContent = String(state.acceptanceCount);
   $('caller-state').textContent = state.results.accept?.kind === 'unknown' ? 'Unknown after lost reply' : state.results.accept?.kind === 'blocked' ? 'Rejected' : state.publication ? 'Accepted' : state.results.request ? 'Request sent' : 'Not requested';
   $('publication-id').textContent = state.publication && state.results.accept?.kind === 'passed' ? `Stable ID: ${state.publication}` : state.publication ? 'Teaching view: the server committed once; Flow must reconcile.' : 'No accepted publication.';
-  const trace = steps.filter(item => state.results[item.id]).map(item => `${item.contracts.join(' + ')} — ${state.results[item.id].kind === 'passed' ? item.id === 'fulfill' ? 'obligations explored; no fulfillment records created' : 'handoff explored' : state.results[item.id].kind}`);
-  list($('trace'), trace.length ? trace : ['No handoffs explored yet. Start with the provisioning observation.']);
-  if (focus) { $('record-details').open = false; $('step-title').focus({preventScroll: true}); $('step-title').scrollIntoView({block: 'start'}); }
+  const trace = steps.flatMap((item, index) => {
+    if (!state.results[item.id]) return [];
+    const transition = deviceTransition({...state, step: index});
+    return [`${item.label} → ${transition.exit.phase}${state.results[item.id].kind === 'blocked' ? ' · blocked' : state.results[item.id].kind === 'unknown' ? ' · Flow’s outcome unknown' : ''}${transition.changed.length ? '' : ' · device state unchanged'}`];
+  });
+  list($('trace'), trace.length ? trace : ['No exit states recorded yet. Start with device preparation.']);
+  if (focus) { $('record-details').open = false; $('contract-panel').open = false; $('step-title').focus({preventScroll: true}); $('step-title').scrollIntoView({block: 'start'}); }
 }
 
 $('evaluate').addEventListener('click', () => {state = evaluate(state, data.fixtures.publication.record_id); render(); $('outcome').focus({preventScroll: true});});
 $('reconcile').addEventListener('click', () => {state = reconcile(state); render(); $('outcome').focus({preventScroll: true});});
 $('next').addEventListener('click', () => {state = advance(state); render(true);});
 $('back').addEventListener('click', () => {state = visit(state, state.step - 1); render(true);});
-$('scenario').addEventListener('change', event => {state = initialState(event.target.value); $('record-details').open = false; render();});
-$('reset').addEventListener('click', () => {state = initialState(state.scenario); $('record-details').open = false; render();});
+$('scenario').addEventListener('change', event => {state = initialState(event.target.value); $('record-details').open = false; $('contract-panel').open = false; render();});
+$('reset').addEventListener('click', () => {state = initialState(state.scenario); $('record-details').open = false; $('contract-panel').open = false; render();});
 $('restart-blocked').addEventListener('click', () => { $('scenario').focus(); $('scenario').scrollIntoView({block: 'center'}); });
 render();
 $('loading').hidden = true;
