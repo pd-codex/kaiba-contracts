@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Kaiba process: provisioning, device identity, fleet admission, graphical configuration, resolution and publication. Explore the contracts at each handoff.">
+  <meta name="theme-color" content="#132c2c">
+  <title>The Kaiba process · Kaiba contracts</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <aside class="sidebar" aria-label="Documentation navigation">
+    <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">K</span><span>kaiba<span class="brand-sub">CONTRACTS</span></span></a>
+    <p class="nav-label">PROCESS GUIDE</p>
+    <nav aria-label="On this page">
+      <a href="#overview">Overview</a>
+      <a href="#pipeline">The handoffs</a>
+      <a href="#publication">What publish means</a>
+      <a href="#ownership">Project ownership</a>
+      <a href="#today">Where we are today</a>
+      <a href="#catalog">Contract catalog</a>
+      <a href="#rules">Shared guarantees</a>
+      <a href="#reference">Reference</a>
+    </nav>
+    <div class="sidebar-note"><span class="status-dot" aria-hidden="true"></span> Proposed baseline<p>{{version}}</p><small>Architecture and contracts.<br>Development adoption is in progress.</small></div>
+    <a class="repo-link" href="https://github.com/pd-codex/kaiba-contracts">View repository <span aria-hidden="true">↗</span></a>
+  </aside>
+
+  <main id="main">
+    <header class="topbar"><span>Kaiba / System architecture</span><a href="{{source}}/docs/system.md">Read the specification <span aria-hidden="true">↗</span></a></header>
+    <div class="content">
+      <section class="hero" id="overview" aria-labelledby="overview-title">
+        <p class="eyebrow">FROM DEVICE TO FLEET</p>
+        <h1 id="overview-title">Provision with evidence.<br>Configure with intent.</h1>
+        <p class="lead">A shared process for turning provisioned hardware into admitted fleet devices, then publishing a configuration through Kaiba Flow.</p>
+        <p class="hero-description">Each handoff carries a specific fact, a named owner and a clear acceptance gate. This guide connects those boundaries so each project can evolve around the same contracts.</p>
+        <div class="hero-actions"><a class="button" href="#pipeline">Explore the process <span aria-hidden="true">↓</span></a><a class="text-link" href="#today">See the current implementation <span aria-hidden="true">→</span></a></div>
+        <div class="stats" aria-label="Contract coverage">
+          <div><strong>{{specified_count}}</strong><span>specified contracts</span></div>
+          <div><strong>{{deferred_count}}</strong><span>contracts to define</span></div>
+          <div><strong>01</strong><span>development integration slice</span></div>
+        </div>
+        <p class="caption">“Specified” means draft schemas and local fixtures exist. Production conformance remains open. This guide summarizes the <a href="{{source}}/docs/system.md">authoritative specification</a>.</p>
+      </section>
+
+      <section id="pipeline" aria-labelledby="pipeline-title">
+        <div class="section-heading"><p class="eyebrow">01 / THE HANDOFFS</p><h2 id="pipeline-title">A pipeline built on explicit contracts</h2><p>The main path begins with a provisioning observation and ends with durable publication. Component definitions feed both the editor and the resolver.</p></div>
+        <nav class="stage-index" aria-label="Jump to a handoff">
+          <a href="#provisioning"><span>01</span>Provision</a><a href="#identity"><span>02</span>Bind identity</a><a href="#admission"><span>03</span>Admit to fleet</a><a href="#components"><span>↳</span>Define components</a><a href="#authoring"><span>04</span>Author in Flow</a><a href="#resolution"><span>05</span>Resolve &amp; review</a><a href="#publish"><span>06</span>Publish intent</a><a href="#fulfillment"><span>+</span>Fulfill &amp; confirm</a>
+        </nav>
+        <div class="notice"><strong>Dependencies, not a rigid sequence.</strong> Identity activation is part of the proposed production enrollment transaction. Early candidate evidence can support activation; final completion evidence follows it. Requiring final completion before activation would create a circular dependency.</div>
+
+        <div class="stages">
+          <article class="stage" id="provisioning">
+            <div class="stage-number" aria-hidden="true">01</div>
+            <div class="stage-content"><div class="stage-heading"><h3>Provision and report the observation</h3><span class="badge specified">Specified</span></div><p class="owner">OWNER · PROVISIONING AUTHORITY</p><p>The provisioning project runs the physical workflow and retains its control state and independent audit. Its export reports what was observed about one exact transaction.</p><dl class="handoff"><div><dt>Accepts</dt><dd>Approved profile, transaction, exact physical target and scoped authority.</dd></div><div><dt>Produces</dt><dd><a href="{{source}}/contracts/provisioning-record.md"><code>ProvisioningRecord</code></a> with raw source state, revision, readiness claims and evidence references.</dd></div><div><dt>Consumer gate</dt><dd>Authenticate origin, enforce tenant and domain, verify authoritative evidence and current freshness. A successful lane outcome alone grants no fleet access.</dd></div></dl><p class="boundary-note">Development anchor: <code>security_applied</code> still has both production and enrollment readiness set to false.</p></div>
+          </article>
+          <article class="stage" id="identity">
+            <div class="stage-number" aria-hidden="true">02</div>
+            <div class="stage-content"><div class="stage-heading"><h3>Bind the exact device identity</h3><span class="badge specified">Specified</span></div><p class="owner">OWNER · REGISTRATION, CERTIFICATE &amp; INVENTORY AUTHORITIES</p><p>Identity services assign the canonical logical identity and bind it to a particular provisioned instance, storage generation and credential tuple.</p><dl class="handoff"><div><dt>Accepts</dt><dd>Fresh bootstrap and operational-key proof, provisioning evidence and current identity policy.</dd></div><div><dt>Produces</dt><dd><a href="{{source}}/contracts/device-binding.md"><code>DeviceBinding</code></a>, exposing authoritative inventory state and lifecycle.</dd></div><div><dt>Consumer gate</dt><dd>A staged binding becomes active only after verification and atomic inventory activation. Hostnames, MAC addresses and intended names are correlation hints.</dd></div></dl><p class="boundary-note">A replacement instance cannot inherit the old instance’s credentials or desired assignments.</p></div>
+          </article>
+          <article class="stage" id="admission">
+            <div class="stage-number" aria-hidden="true">03</div>
+            <div class="stage-content"><div class="stage-heading"><h3>Decide fleet participation</h3><span class="badge deferred">Contract deferred</span></div><p class="owner">OWNER · FLEET ADMISSION</p><p>Admission decides whether the exact instance can participate now and carries its platform constraints into configuration resolution.</p><dl class="handoff"><div><dt>Accepts</dt><dd>Current active binding, tenant authorization, qualified platform and fresh policy.</dd></div><div><dt>Produces</dt><dd><code>FleetTarget</code>: instance, capabilities, restrictions, policy decision and freshness.</dd></div><div><dt>Consumer gate</dt><dd>Recheck participation when freezing a plan and before consequential actions. Historical eligibility does not override quarantine or revocation.</dd></div></dl><p class="boundary-note">The development inbox exposes candidates with blockers. It does not issue admitted fleet targets.</p></div>
+          </article>
+          <article class="stage side-input" id="components">
+            <div class="stage-number" aria-hidden="true">↳</div>
+            <div class="stage-content"><div class="stage-heading"><h3>Define the building blocks</h3><span class="badge deferred">Contract deferred</span></div><p class="owner">SIDE INPUT · COMPONENT OWNERS</p><p>Reviewed component definitions give the graphical editor and the resolver the same vocabulary. Both consume the same pinned component versions.</p><dl class="handoff"><div><dt>Accepts</dt><dd>A component definition and its reviewed implementation semantics.</dd></div><div><dt>Produces</dt><dd><code>ComponentContract</code>: configuration schema, typed ports, compatibility, permissions, resolution behavior and health requirements.</dd></div><div><dt>Consumer gate</dt><dd>Agree these semantics before the editor or a compiler claims conformance.</dd></div></dl></div>
+          </article>
+          <article class="stage" id="authoring">
+            <div class="stage-number" aria-hidden="true">04</div>
+            <div class="stage-content"><div class="stage-heading"><h3>Compose a configuration in Flow</h3><span class="badge deferred">Contract deferred</span></div><p class="owner">OWNER · KAIBA FLOW / AUTHORING</p><p>An operator connects typed components, configures values and selects the intended fleet scope. Flow captures declarative intent for resolution.</p><dl class="handoff"><div><dt>Accepts</dt><dd>Pinned component versions, user choices and scoped secret references.</dd></div><div><dt>Produces</dt><dd><code>ConfigurationRevision</code>: an immutable graph snapshot, version pins and authoring provenance.</dd></div><div><dt>Consumer gate</dt><dd>Keep editable drafts separate from immutable revisions. Secret values must never enter graph records, browser bundles or build outputs.</dd></div></dl><p class="boundary-note">The first Flow branch reads candidate observations. Graph authoring against shared contracts is a future slice.</p></div>
+          </article>
+          <article class="stage" id="resolution">
+            <div class="stage-number" aria-hidden="true">05</div>
+            <div class="stage-content"><div class="stage-heading"><h3>Resolve exact scope, then review</h3><span class="badge deferred">Contract deferred</span></div><p class="owner">OWNER · RESOLVER; REVIEWED BY THE OPERATOR</p><p>The resolver combines the graph with admitted instances, platform constraints, baselines, group settings and allowed device overrides. Flow presents the resulting plan and findings.</p><dl class="handoff"><div><dt>Accepts</dt><dd>Immutable graph, component pins, selected targets, platform profiles and layered configuration.</dd></div><div><dt>Produces</dt><dd><code>DeploymentPlan</code>: exact instances, effective inputs and value provenance, eligible/deferred/blocked targets, expected desired-state revisions, approvals, expiry and rollout policy.</dd></div><div><dt>Consumer gate</dt><dd>Conflicts at the same layer block the affected target. Platform security constraints remain locked. The operator reviews the exact eligible list and exclusions.</dd></div></dl><p class="boundary-note">Group membership is resolved into exact instances. Later additions, replacements or edits require a new reviewed plan.</p></div>
+          </article>
+          <article class="stage" id="publish">
+            <div class="stage-number" aria-hidden="true">06</div>
+            <div class="stage-content"><div class="stage-heading"><h3>Publish the reviewed intent</h3><span class="badge specified">Specified</span></div><p class="owner">OWNER · PUBLICATION AUTHORITY</p><p>Flow submits the exact reviewed plan. The authority checks current scope and durably records acceptance together with recoverable execution intent.</p><dl class="handoff"><div><dt>Accepts</dt><dd><a href="{{source}}/contracts/publication.md"><code>PublishRequest</code></a>: plan reference and digest, ordered eligible target tuples, expected revisions and a stable idempotency key. Authentication supplies actor and tenant.</dd></div><div><dt>Produces</dt><dd><code>Publication</code>: immutable acceptance, authenticated actor, authorization reference and the exact accepted request.</dd></div><div><dt>Consumer gate</dt><dd>Validate the plan, approvals, current admission and every expected revision. Accept the whole reviewed eligible list or reject the request.</dd></div></dl><p class="boundary-note">The UI can say “publication accepted.” A running configuration requires later execution evidence.</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="publication" aria-labelledby="publication-title">
+        <div class="section-heading"><p class="eyebrow">02 / THE COMMIT POINT</p><h2 id="publication-title">What the Publish button promises</h2><p>Publication is the durable acceptance of exact reviewed intent. Its meaning stays stable even when execution is delayed or fails.</p></div>
+        <div class="publication-grid"><div class="panel"><span class="panel-label">BEFORE ACCEPTANCE</span><h3>Everything still matches</h3><ul><li>The plan’s version, digest and review remain valid.</li><li>Requested targets exactly equal its ordered eligible list.</li><li>Current admission, approvals and expected revisions pass.</li></ul></div><div class="panel dark"><span class="panel-label">AT ACCEPTANCE</span><h3>Intent is recoverable</h3><ul><li>The request identity and accepted record are durable.</li><li>Execution intent survives a crash before dispatch.</li><li>The response identifies one stable publication.</li></ul></div></div>
+        <div class="notice"><strong>If the response is lost:</strong> the caller’s outcome is unknown. Retry the identical request with the same idempotency key, or query its status. Changing the content under that key is a conflict; automatically making a new key risks duplicate intent.</div>
+        <div id="fulfillment" class="subsection"><h3>After acceptance: separate facts and gates</h3><p>These downstream contract formats remain deferred. The acceptance schema does not implement them.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Fulfillment records"><table><thead><tr><th scope="col">Fact</th><th scope="col">Record</th><th scope="col">What it establishes</th></tr></thead><tbody><tr><th scope="row">Built</th><td><code>BuildResult</code></td><td>Complete effective inputs map to exact artifacts and provenance.</td></tr><tr><th scope="row">Authorized</th><td><code>AuthorizedRelease</code></td><td>A separate authority approves those artifact digests.</td></tr><tr><th scope="row">Assigned</th><td><code>DesiredAssignment</code></td><td>An exact instance receives an attempt after current policy and desired-state revision checks.</td></tr><tr><th scope="row">Observed &amp; appraised</th><td><code>DeviceObservation</code><br><code>PolicyDecision</code></td><td>Sequenced device evidence is evaluated by an independent policy authority.</td></tr><tr><th scope="row">Confirmed</th><td><code>ExecutionResult</code></td><td>Attempt-correlated evidence supports the reported outcome.</td></tr></tbody></table></div><p class="caption">A timeout never proves success. Unknown outcomes stop rollout expansion; offline targets remain deferred until a newly authorized attempt.</p></div>
+      </section>
+
+      <section id="ownership" aria-labelledby="ownership-title">
+        <div class="section-heading"><p class="eyebrow">03 / OWNERSHIP</p><h2 id="ownership-title">Projects meet at the boundary</h2><p>These are logical responsibilities. Sharing a service or deployment does not combine authority, key custody or permissions.</p></div>
+        <div class="ownership-grid"><article class="panel"><span class="panel-label">THE SOURCE</span><h3><a href="https://github.com/PseudoDesign/kaiba-provisioning">kaiba-provisioning ↗</a></h3><p>Physical workflow, control state, independent audit and the export adapter. It emits observations grounded in its own evidence.</p></article><article class="panel"><span class="panel-label">THE AGREEMENT</span><h3><a href="https://github.com/pd-codex/kaiba-contracts">kaiba-contracts ↗</a></h3><p>Shared semantics, schemas, examples and conformance obligations. Each producer and consumer reviews changes here.</p></article><article class="panel"><span class="panel-label">THE COORDINATION</span><h3><a href="https://github.com/pd-codex/kaiba-controller">kaiba-controller ↗</a></h3><p>Today: a durable observation inbox and scoped read views. Future orchestration must consume identity, admission and publication decisions through their contracts.</p></article><article class="panel"><span class="panel-label">THE OPERATOR EXPERIENCE</span><h3>kaiba-flow</h3><p>Candidate visibility and user intent. Future authoring, plan review and publication requests. Read credentials stay in its server adapter.</p></article></div>
+        <p class="caption">Identity, admission, build, signing and appraisal retain distinct authority roles. Their eventual deployment and repository layout remain open.</p>
+      </section>
+
+      <section id="today" aria-labelledby="today-title">
+        <div class="section-heading"><p class="eyebrow">04 / IMPLEMENTATION SNAPSHOT</p><h2 id="today-title">Start with the provisioning inbox</h2><p>As reviewed on 12 September 2026. This first slice makes provisioning observations visible without granting enrollment, admission or publication privileges.</p></div>
+        <ol class="milestones"><li><span class="badge deferred">Adapter patch</span><div><h3>Export from provisioning</h3><p>A read-only adapter exports immutable records and privately retained evidence. The tested patch lives in <a href="https://github.com/pd-codex/kaiba-controller/blob/2ed56b53b500a960ac5235c79d4d2dc122542e3f/integrations/provisioning-export.patch">kaiba-controller</a>; landing it in the provisioning repository remains pending.</p></div></li><li><span class="badge specified">Development</span><div><h3>Retain and assess in the controller</h3><p>The <a href="https://github.com/pd-codex/kaiba-controller/tree/2ed56b53b500a960ac5235c79d4d2dc122542e3f">development controller</a> stores revisions and import outcomes durably, checks retained evidence and exposes scoped candidate/history APIs. Every candidate remains ineligible for production admission.</p></div></li><li><span class="badge deferred">Review branch</span><div><h3>Read observations in Flow</h3><p>The <code>mvp/provisioning-inbox</code> source branch adds candidate details, blockers, revision history and import history. It has an explicit rehearsal mode and a server-side controller adapter. The branch has not been deployed to the existing prototype.</p></div></li><li><span class="badge deferred">Next gates</span><div><h3>Earn the right to publish</h3><p>Implement live authority verification and fresh device binding, then admission. Define component, configuration and plan contracts before connecting graph authoring to real publication.</p></div></li></ol>
+        <p class="caption">The experimental mapping is proposed in <a href="https://github.com/pd-codex/kaiba-contracts/pull/1">contracts PR #1</a>. Retained evidence checks establish limited integrity; live authority verification and production qualification remain open. Flow branch snapshot: <code>a5ef296</code>.</p>
+      </section>
+
+      <section id="catalog" aria-labelledby="catalog-title">
+        <div class="section-heading"><p class="eyebrow">05 / CONTRACT CATALOG</p><h2 id="catalog-title">One vocabulary across the system</h2><p>Generated from the repository’s <a href="{{source}}/docs/catalog.md">contract catalog</a> at build time. Specified contracts have draft schemas and record-local fixtures; deferred contracts describe required boundaries with wire formats still to agree.</p></div>
+        <div class="table-scroll catalog-table" tabindex="0" role="region" aria-label="All shared contracts"><table><thead><tr><th scope="col">Contract</th><th scope="col">Producer → consumer</th><th scope="col">Required meaning</th><th scope="col">Coverage</th></tr></thead><tbody>{{catalog_rows}}</tbody></table></div>
+      </section>
+
+      <section id="rules" aria-labelledby="rules-title">
+        <div class="section-heading"><p class="eyebrow">06 / SHARED GUARANTEES</p><h2 id="rules-title">What every handoff preserves</h2></div>
+        <div class="rules-grid"><article><span class="rule-number">01</span><h3>Exact identity</h3><p>Logical device, provisioned instance, storage generation and credential tuple are separate identities. Replacement creates a new boundary.</p></article><article><span class="rule-number">02</span><h3>Immutable evidence</h3><p>Record revisions are immutable. Structured records use RFC 8785 digests; evidence digests bind exact retained bytes. A URI is a locator.</p></article><article><span class="rule-number">03</span><h3>Current authority</h3><p>Authenticate origin and enforce tenant, domain, freshness and current policy. Possessing a valid record or digest grants no authority.</p></article><article><span class="rule-number">04</span><h3>Explicit configuration</h3><p>Preserve field provenance through platform constraints, tenant baseline, group settings and allowed device overrides. Equal-layer conflicts block.</p></article><article><span class="rule-number">05</span><h3>Stable retries</h3><p>Repeat the same logical operation with the same identity. Conflicting content is rejected. Lost responses remain unknown until reconciled.</p></article><article><span class="rule-number">06</span><h3>Scoped secret references</h3><p>Keep private keys, tokens and secret values out of shared records, public artifacts, graphs and Nix outputs. Pass scoped references only.</p></article></div>
+        <a class="text-link" href="{{source}}/docs/common-rules.md">Read the common rules <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section id="reference" aria-labelledby="reference-title">
+        <div class="section-heading"><p class="eyebrow">07 / KEEP GOING</p><h2 id="reference-title">From guide to specification</h2><p>The Markdown specifications and JSON schemas in this repository are the authority. This page is an explanatory guide; it does not change contract semantics or release status.</p></div>
+        <div class="reference-links"><a href="{{source}}/docs/system.md"><strong>System specification</strong><span>Pipeline, authority ownership and global invariants ↗</span></a><a href="{{source}}/docs/conformance.md"><strong>Conformance &amp; examples</strong><span>Schema checks, record-local checks and runtime obligations ↗</span></a><a href="{{source}}/docs/adoption.md"><strong>Adoption checklist</strong><span>Producer and consumer gates before claiming support ↗</span></a><a href="{{source}}/CONTRIBUTING.md"><strong>Change the contracts</strong><span>Compatibility, review and shared ownership ↗</span></a><a href="{{source}}/docs/sources.md"><strong>Source baseline</strong><span>Pinned upstream decisions and design provenance ↗</span></a><a href="{{source}}/docs/decisions/0002-publication-is-durable-intent.md"><strong>Why publication is durable intent</strong><span>The decision behind the acceptance boundary ↗</span></a></div>
+      </section>
+      <footer><span>KAIBA CONTRACTS · {{version}}</span><span>Source <a href="{{source}}/README.md">{{revision}}</a> · <a href="#overview">Back to top ↑</a></span></footer>
+    </div>
+  </main>
+</body>
+</html>
