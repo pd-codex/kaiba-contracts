@@ -23,6 +23,11 @@ jobs:
           python-version: '3.12'
       - name: Build and check guide links
         run: python tools/build_site.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check walkthrough scenario behavior
+        run: node --test tests/test_walkthrough.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
