@@ -12,6 +12,11 @@ hardware, authenticate a device, or authorize a release.
 
 ## Read in this order
 
+The [process guide website](https://pd-codex.github.io/kaiba-contracts/) provides
+a visual walkthrough of the handoffs, ownership, contract coverage and current
+development slice. It is published by GitHub Pages once the repository's Pages
+source is enabled. See [website maintenance and setup](website/README.md).
+
 1. [System specification](docs/system.md): pipeline, authorities, and invariants.
 2. [Contract catalog](docs/catalog.md): every handoff, including deferred contracts.
 3. [Common rules](docs/common-rules.md): identity, digests, versioning, and errors.
