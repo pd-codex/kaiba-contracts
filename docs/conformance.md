@@ -64,3 +64,7 @@ schema-valid. This deliberately demonstrates the limit of local validation.
 An implementing subsystem records its actual integration tests and evidence
 against these IDs. Hardware production qualification is an additional platform
 gate, never satisfied by this repository's fixtures or CI.
+
+The [authenticated enrollment rehearsal](integrations/enrollment-rehearsal.md)
+assigns concrete cross-repository scenarios to these obligations. Its synthetic
+eligibility path and real development-denial path remain distinct.

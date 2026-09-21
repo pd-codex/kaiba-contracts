@@ -49,3 +49,10 @@ Record the contract-set tag/commit, supported wire versions, owning component,
 evidence of schema/local checks and runtime scenarios, compatibility/migration
 plan, and review approval. This baseline supplies no adoption records and no
 production eligibility grants.
+
+## Enrollment implementation profile
+
+Use the [authenticated enrollment rehearsal](integrations/enrollment-rehearsal.md)
+for the provisioning-to-fleet integration. Implementations pin the shared schemas
+and run the existing example corpus as well as their independent runtime tests.
+This profile does not adopt or complete production admission.
