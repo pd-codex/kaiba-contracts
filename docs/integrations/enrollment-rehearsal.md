@@ -26,9 +26,9 @@ adoption approval.
 | Owning component | Implementation and coverage | Boundary |
 | --- | --- | --- |
 | Provisioning exporter, control and audit read surfaces | [Provisioning PR #60](https://github.com/PseudoDesign/kaiba-provisioning/pull/60), commit `a48816dd145774fa0541c1e564f190f08c155884`; producer mapping, authorization and durable revision tests | Produces development ProvisioningRecord only; no eligibility upgrade |
-| Fleet verifier, inventory, RA and relying endpoint | [Fleet PR #1](https://github.com/PseudoDesign/kaiba-fleet/pull/1), commit `3fef2b84f63aee2a9dc7e0e4031b4f67248aa65b`; schema corpus, challenge/certificate checks and native process rehearsal | Consumes ProvisioningRecord; emits staged/active/denied DeviceBinding only within the isolated rehearsal |
+| Fleet verifier, inventory, RA and relying endpoint | [Fleet PR #1](https://github.com/PseudoDesign/kaiba-fleet/pull/1), commit `310169cd2f53b8faf4f9b96ac107098a28c8bed1`; schema corpus, challenge/certificate checks and native process rehearsal | Consumes ProvisioningRecord; emits staged/active/denied DeviceBinding only within the isolated rehearsal |
 
-The [native x86/ARM process run](https://github.com/PseudoDesign/kaiba-fleet/actions/runs/35659646453)
+The [native x86/ARM process run](https://github.com/PseudoDesign/kaiba-fleet/actions/runs/35660019176)
 retains a secret-free report with exact source revisions and outcomes for 17
 scenario groups. It uses the packaged producer at the commit above, independent
 service processes and PostgreSQL. The
