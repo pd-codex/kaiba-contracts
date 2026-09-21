@@ -58,6 +58,14 @@ changes; implementation, deployment, key custody, and internal state remain in
 the owning project. See [contributing](CONTRIBUTING.md) and the
 [adoption checklist](docs/adoption.md).
 
+The implementation owners are
+[kaiba-provisioning](https://github.com/PseudoDesign/kaiba-provisioning) for the
+ProvisioningRecord producer and
+[kaiba-fleet](https://github.com/PseudoDesign/kaiba-fleet) for enrollment,
+identity inventory and the DeviceBinding producer. Fleet is an initial
+repository with planned implementation; naming owners does not establish
+contract adoption or production conformance.
+
 The provisioning baseline is pinned in [sources](docs/sources.md). Its current
 development posture cannot enter `enrollment_ready`. The proposed production
 examples here do not change that status.

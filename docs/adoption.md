@@ -1,5 +1,17 @@
 # Adoption checklist
 
+## Implementation owners
+
+- [kaiba-provisioning](https://github.com/PseudoDesign/kaiba-provisioning) owns physical provisioning, evidence export and the ProvisioningRecord producer.
+- [kaiba-fleet](https://github.com/PseudoDesign/kaiba-fleet) owns fleet inventory, enrollment, activation and credential lifecycle, consuming ProvisioningRecord and producing DeviceBinding.
+- This repository owns shared semantics and conformance requirements.
+
+The [enrollment handoff](https://github.com/PseudoDesign/kaiba-provisioning/pull/59)
+scopes the first producer adapter and isolated consumer rehearsal. Fleet's
+implementation is planned; service transport, durable store, CA integration,
+evidence authentication and policy freshness still need decisions. Repository
+ownership does not replace adoption records or runtime integration evidence.
+
 ## Initial integration order
 
 1. Review ProvisioningRecord with provisioning/control/audit owners. Agree the
