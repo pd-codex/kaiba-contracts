@@ -19,6 +19,17 @@ production enrollment. It also coordinates activation before final completion.
 This repository proposes adapters and shared semantics; it does not change
 upstream state machines or close production qualification gates.
 
+## Fleet implementation owner
+
+[PseudoDesign/kaiba-fleet](https://github.com/PseudoDesign/kaiba-fleet) is the
+selected implementation repository for inventory, enrollment and credential
+lifecycle. It targets consumption of ProvisioningRecord and production of
+DeviceBinding. Its initial README scopes an isolated enrollment rehearsal;
+there is no implemented fleet service or completed adoption claim yet.
+
+This ownership reference is separate from the pinned historical provisioning
+baseline above. It does not change wire contracts or establish qualification.
+
 ## Kaiba Flow
 
 The current UI is a design prototype with sample devices and simulated actions.
