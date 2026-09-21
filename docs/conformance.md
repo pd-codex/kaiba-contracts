@@ -15,7 +15,7 @@ credentials, devices, signing keys, clocks, inventory or policy services.
 | DB-05: immutable tuple and scope | Rejected instance, tenant, storage generation and key mutation within one binding |
 | PUB-03: target uniqueness and exact request binding | Duplicate-instance fixture and changed plan/instance/revision/key cases |
 | SYS-06: publication meaning | Reject a Publication reporting `running` |
-| Digest interoperability | JCS ordering/escaping, key-order-insensitive retries, linked record digests and request substitution |
+| Digest interoperability | JCS ordering/escaping, equivalent integer spellings, key-order-insensitive retries, linked record digests and request substitution |
 | Strict parsing | Duplicate keys, non-JSON numbers and non-interoperable integer rejection |
 | Offline schema resolution | Every schema reference resolves from the bundled registry |
 

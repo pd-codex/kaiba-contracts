@@ -25,14 +25,14 @@ adoption approval.
 
 | Owning component | Implementation and coverage | Boundary |
 | --- | --- | --- |
-| Provisioning exporter, control and audit read surfaces | [Provisioning PR #60](https://github.com/PseudoDesign/kaiba-provisioning/pull/60), commit `348fef70d33f3b02d5f0e50051d90729b130228c`; producer mapping, authorization and durable revision tests | Produces development ProvisioningRecord only; no eligibility upgrade |
-| Fleet verifier, inventory, RA and relying endpoint | [Fleet PR #1](https://github.com/PseudoDesign/kaiba-fleet/pull/1), commit `07ab11cf321353d96f2afd7c90cbf4d3d17067c8`; schema corpus, challenge/certificate checks and native process rehearsal | Consumes ProvisioningRecord; emits staged/active/denied DeviceBinding only within the isolated rehearsal |
+| Provisioning exporter, control and audit read surfaces | [Provisioning PR #60](https://github.com/PseudoDesign/kaiba-provisioning/pull/60), commit `a48816dd145774fa0541c1e564f190f08c155884`; producer mapping, authorization and durable revision tests | Produces development ProvisioningRecord only; no eligibility upgrade |
+| Fleet verifier, inventory, RA and relying endpoint | [Fleet PR #1](https://github.com/PseudoDesign/kaiba-fleet/pull/1), commit `3fef2b84f63aee2a9dc7e0e4031b4f67248aa65b`; schema corpus, challenge/certificate checks and native process rehearsal | Consumes ProvisioningRecord; emits staged/active/denied DeviceBinding only within the isolated rehearsal |
 
-The [native x86/ARM process run](https://github.com/PseudoDesign/kaiba-fleet/actions/runs/35657644704)
-retains a secret-free report with exact source revisions and outcomes for 16
+The [native x86/ARM process run](https://github.com/PseudoDesign/kaiba-fleet/actions/runs/35659646453)
+retains a secret-free report with exact source revisions and outcomes for 17
 scenario groups. It uses the packaged producer at the commit above, independent
 service processes and PostgreSQL. The
-[producer CI](https://github.com/PseudoDesign/kaiba-provisioning/actions/runs/35657227415)
+[producer CI](https://github.com/PseudoDesign/kaiba-provisioning/actions/runs/35659561707)
 retains its repository-wide validation. These are software integration results;
 the required physical admission evidence remains separate.
 

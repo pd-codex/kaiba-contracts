@@ -152,6 +152,12 @@ class ContractTests(unittest.TestCase):
         expected = b'{"a":"line\\nend","z":1}'
         self.assertEqual(digest(value), 'sha256:' + hashlib.sha256(expected).hexdigest())
 
+    def test_jcs_integer_spellings_are_equivalent(self):
+        expected = digest(loads('{"revision":1}'))
+        for raw in ['{"revision":1.0}', '{"revision":1e0}', '{"revision":0.1e1}']:
+            with self.subTest(raw=raw):
+                self.assertEqual(digest(loads(raw)), expected)
+
     def test_schema_registry_references_are_bundled(self):
         identifiers = {schema['$id'] for schema in SCHEMAS.values()}
 
