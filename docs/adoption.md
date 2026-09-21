@@ -7,9 +7,10 @@
 - This repository owns shared semantics and conformance requirements.
 
 The [enrollment handoff](https://github.com/PseudoDesign/kaiba-provisioning/pull/59)
-scopes the first producer adapter and isolated consumer rehearsal. Fleet's
-implementation is planned; service transport, durable store, CA integration,
-evidence authentication and policy freshness still need decisions. Repository
+scopes the first producer adapter and isolated consumer rehearsal. The
+[implementation profile](integrations/enrollment-rehearsal.md) selects Go,
+PostgreSQL, HTTPS/mTLS, configured authority resolution and a disposable test CA.
+Production CA integration and admission coordination remain open. Repository
 ownership does not replace adoption records or runtime integration evidence.
 
 ## Initial integration order

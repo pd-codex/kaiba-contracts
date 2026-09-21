@@ -15,6 +15,34 @@ The earlier development-controller inbox proposal remains a separate observation
 consumer. Its retained-evidence check does not substitute for this profile's live
 verification. No controller state, endpoint or contract is reassigned by this work.
 
+## Implementation adoption records for review
+
+Both implementations pin shared commit
+`9ebf773d5d07d61d8cb522aea66160d37562e6b1` and support wire version
+`0.1.0-draft.1` only. Bundled schemas resolve offline; wire semantics are unchanged
+by these PRs. Review status is **pending maintainer review**, not production
+adoption approval.
+
+| Owning component | Implementation and coverage | Boundary |
+| --- | --- | --- |
+| Provisioning exporter, control and audit read surfaces | [Provisioning PR #60](https://github.com/PseudoDesign/kaiba-provisioning/pull/60), commit `348fef70d33f3b02d5f0e50051d90729b130228c`; producer mapping, authorization and durable revision tests | Produces development ProvisioningRecord only; no eligibility upgrade |
+| Fleet verifier, inventory, RA and relying endpoint | [Fleet PR #1](https://github.com/PseudoDesign/kaiba-fleet/pull/1), commit `07ab11cf321353d96f2afd7c90cbf4d3d17067c8`; schema corpus, challenge/certificate checks and native process rehearsal | Consumes ProvisioningRecord; emits staged/active/denied DeviceBinding only within the isolated rehearsal |
+
+The [native x86/ARM process run](https://github.com/PseudoDesign/kaiba-fleet/actions/runs/35657644704)
+retains a secret-free report with exact source revisions and outcomes for 16
+scenario groups. It uses the packaged producer at the commit above, independent
+service processes and PostgreSQL. The
+[producer CI](https://github.com/PseudoDesign/kaiba-provisioning/actions/runs/35657227415)
+retains its repository-wide validation. These are software integration results;
+the required physical admission evidence remains separate.
+
+Compatibility changes require a reviewed schema/policy mapping and rerunning the
+shared corpus and native process suite. Unknown contract versions fail closed.
+There is no automatic relabeling or migration of records to a new wire version.
+Fleet begins with database schema version 1 and rejects newer unknown database
+versions. Future database upgrades require their own migration design. Exact
+pins remain until the corresponding compatibility review approves an update.
+
 ## Resolution and freshness
 
 Provisioning exports use operator-configured authority, tenant, domain and
