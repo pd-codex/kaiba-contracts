@@ -1,0 +1,180 @@
+[
+  {
+    "name": "device-a",
+    "adoption": "examples/valid/pilot-adoption-a.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/valid/pilot-decision-a.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": true
+  },
+  {
+    "name": "device-b",
+    "adoption": "examples/valid/pilot-adoption-b.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/valid/pilot-decision-b.json",
+    "binding": "examples/valid/pilot-binding-b-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": true
+  },
+  {
+    "name": "cross-device-adoption",
+    "adoption": "examples/context/pilot-cross-device-adoption-adoption.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/valid/pilot-decision-a.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-REF"
+  },
+  {
+    "name": "cross-device-decision",
+    "adoption": "examples/valid/pilot-adoption-a.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/context/pilot-cross-device-decision-decision.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-REF"
+  },
+  {
+    "name": "cross-device-binding",
+    "adoption": "examples/valid/pilot-adoption-a.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/valid/pilot-decision-a.json",
+    "binding": "examples/context/pilot-cross-device-binding-binding.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-BINDING"
+  },
+  {
+    "name": "expired",
+    "adoption": "examples/valid/pilot-adoption-a.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/valid/pilot-decision-a.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T13:00:00Z",
+    "valid": false,
+    "rule": "PILOT-TIME"
+  },
+  {
+    "name": "future",
+    "adoption": "examples/valid/pilot-adoption-a.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/valid/pilot-decision-a.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T11:59:59Z",
+    "valid": false,
+    "rule": "PILOT-TIME"
+  },
+  {
+    "name": "missing-custody",
+    "adoption": "examples/context/pilot-missing-custody-adoption.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/context/pilot-missing-custody-decision.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-BLOCKER"
+  },
+  {
+    "name": "unresolved-mutation",
+    "adoption": "examples/context/pilot-unresolved-mutation-adoption.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/context/pilot-unresolved-mutation-decision.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-BLOCKER"
+  },
+  {
+    "name": "key-exposure",
+    "adoption": "examples/context/pilot-key-exposure-adoption.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/context/pilot-key-exposure-decision.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-BLOCKER"
+  },
+  {
+    "name": "conflicting-ownership",
+    "adoption": "examples/context/pilot-conflicting-ownership-adoption.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/context/pilot-conflicting-ownership-decision.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-BLOCKER"
+  },
+  {
+    "name": "unencrypted",
+    "adoption": "examples/context/pilot-unencrypted-adoption.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/context/pilot-unencrypted-decision.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-BLOCKER"
+  },
+  {
+    "name": "missing-gap",
+    "adoption": "examples/valid/pilot-adoption-a.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/context/pilot-missing-gap-decision.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-GAPS"
+  },
+  {
+    "name": "denied",
+    "adoption": "examples/valid/pilot-adoption-a.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/context/pilot-denied-decision.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-DENIED"
+  },
+  {
+    "name": "policy-revision",
+    "adoption": "examples/valid/pilot-adoption-a.json",
+    "policy": "examples/context/pilot-policy-revision-policy.json",
+    "decision": "examples/valid/pilot-decision-a.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-REF"
+  },
+  {
+    "name": "stale-observation",
+    "adoption": "examples/valid/pilot-adoption-a.json",
+    "policy": "examples/context/pilot-stale-observation-policy.json",
+    "decision": "examples/context/pilot-stale-observation-decision.json",
+    "binding": "examples/valid/pilot-binding-a-active.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-TIME"
+  },
+  {
+    "name": "audience-substitution",
+    "adoption": "examples/valid/pilot-adoption-a.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/valid/pilot-decision-a.json",
+    "binding": "examples/context/pilot-audience-substitution-binding.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-BINDING"
+  },
+  {
+    "name": "issuer-substitution",
+    "adoption": "examples/valid/pilot-adoption-a.json",
+    "policy": "examples/valid/pilot-policy.json",
+    "decision": "examples/valid/pilot-decision-a.json",
+    "binding": "examples/context/pilot-issuer-substitution-binding.json",
+    "checked_at": "2026-09-23T12:10:00Z",
+    "valid": false,
+    "rule": "PILOT-BINDING"
+  }
+]

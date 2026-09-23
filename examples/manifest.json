@@ -114,5 +114,113 @@
     "valid": false,
     "level": "schema",
     "reason": "date-time format must be asserted"
+  },
+  {
+    "path": "examples/valid/pilot-adoption-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-adoption-b.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-policy.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-decision-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-binding-a-staged.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-binding-a-active.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-decision-b.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-binding-b-staged.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-binding-b-active.json",
+    "valid": true
+  },
+  {
+    "path": "examples/invalid/pilot-qualified-upgrade.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "pilot-qualified-upgrade"
+  },
+  {
+    "path": "examples/invalid/pilot-invented-programming.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "pilot-invented-programming"
+  },
+  {
+    "path": "examples/invalid/pilot-rehearsal-source.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "pilot-rehearsal-source"
+  },
+  {
+    "path": "examples/invalid/pilot-passed-without-evidence.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "pilot-passed-without-evidence"
+  },
+  {
+    "path": "examples/invalid/pilot-third-target.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "pilot-third-target"
+  },
+  {
+    "path": "examples/invalid/pilot-admin-permission.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "pilot-admin-permission"
+  },
+  {
+    "path": "examples/invalid/pilot-duplicate-target.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "pilot-duplicate-target"
+  },
+  {
+    "path": "examples/invalid/pilot-invalid-window.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "pilot-invalid-window"
+  },
+  {
+    "path": "examples/invalid/pilot-false-cold-boot.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "pilot-false-cold-boot"
+  },
+  {
+    "path": "examples/invalid/pilot-activation-policy-mismatch.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "pilot-activation-policy-mismatch"
+  },
+  {
+    "path": "examples/invalid/pilot-legacy-relabel.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "pilot-legacy-relabel"
+  },
+  {
+    "path": "examples/invalid/pilot-secret-field.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "pilot-secret-field"
   }
 ]

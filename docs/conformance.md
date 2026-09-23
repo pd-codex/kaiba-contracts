@@ -19,9 +19,17 @@ credentials, devices, signing keys, clocks, inventory or policy services.
 | Strict parsing | Duplicate keys, non-JSON numbers and non-interoperable integer rejection |
 | Offline schema resolution | Every schema reference resolves from the bundled registry |
 
-`examples/manifest.json` declares 8 valid and 14 invalid records and identifies
+`examples/manifest.json` declares valid and invalid records and identifies
 whether each rejection comes from schema or semantic checks. Tests fail when a
 new example is absent from the manifest or a rejection occurs at the wrong level.
+
+The [pilot linked corpus](../examples/pilot-handoff-cases.json) additionally
+checks exact adoption/policy/decision/binding links at an explicit fixture time.
+Pilot tests cover target substitutions, exact accepted gaps, expiry/freshness,
+non-waivable blockers, version/profile isolation and immutable pilot bindings.
+The [pilot contract](../contracts/pilot-enrollment.md#offline-checks-and-runtime-obligations)
+lists the separate runtime scenarios. Passing this corpus is not a credential,
+approval, authenticated evidence check or completed hardware test.
 
 ## Example interpretation
 

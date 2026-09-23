@@ -1,0 +1,206 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.2.0-draft.1:pilot-device-binding",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "PilotDeviceBinding"
+    },
+    "contract_version": {
+      "const": "0.2.0-draft.1"
+    },
+    "record_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "revision": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/revision"
+    },
+    "issued_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "authority_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "tenant_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "security_domain_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "correlation_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "logical_device_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "instance_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "storage_generation": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/generation"
+    },
+    "bootstrap_identity_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+    },
+    "credential": {
+      "type": "object",
+      "properties": {
+        "slot": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+        },
+        "role": {
+          "const": "pilot_management"
+        },
+        "key_generation": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/generation"
+        },
+        "spki_digest": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/digest"
+        },
+        "issuer_id": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+        },
+        "certificate_serial": {
+          "type": "string",
+          "pattern": "^[1-9a-f][0-9a-f]{0,39}$"
+        },
+        "not_before": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+        },
+        "not_after": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+        }
+      },
+      "required": [
+        "slot",
+        "role",
+        "key_generation",
+        "spki_digest",
+        "issuer_id",
+        "certificate_serial",
+        "not_before",
+        "not_after"
+      ],
+      "additionalProperties": false
+    },
+    "state": {
+      "enum": [
+        "staged",
+        "active",
+        "superseded",
+        "quarantined",
+        "revoked",
+        "retired"
+      ]
+    },
+    "activation": {
+      "type": "object",
+      "properties": {
+        "activated_at": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+        },
+        "verifier_receipt_ref": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+        },
+        "policy_ref": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+        },
+        "restart_kind": {
+          "const": "client_process"
+        }
+      },
+      "required": [
+        "activated_at",
+        "verifier_receipt_ref",
+        "policy_ref",
+        "restart_kind"
+      ],
+      "additionalProperties": false
+    },
+    "supersedes": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "target": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/pilotTarget"
+    },
+    "adoption_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "admission_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "policy_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "audience": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "profile": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/pilotProfile"
+    },
+    "permissions": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/pilotPermissions"
+    },
+    "full_qualification": {
+      "const": false
+    }
+  },
+  "required": [
+    "contract",
+    "contract_version",
+    "record_id",
+    "revision",
+    "issued_at",
+    "authority_id",
+    "tenant_id",
+    "security_domain_id",
+    "correlation_id",
+    "logical_device_id",
+    "instance_id",
+    "storage_generation",
+    "bootstrap_identity_ref",
+    "credential",
+    "state",
+    "target",
+    "adoption_ref",
+    "admission_ref",
+    "policy_ref",
+    "audience",
+    "profile",
+    "permissions",
+    "full_qualification"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "active"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "activation"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "staged"
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "required": [
+            "activation"
+          ]
+        }
+      }
+    }
+  ]
+}

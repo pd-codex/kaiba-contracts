@@ -17,6 +17,10 @@ DETAILS = {
     "DeviceBinding": "contracts/device-binding.md",
     "PublishRequest": "contracts/publication.md",
     "Publication": "contracts/publication.md",
+    "PilotAdoptionRecord": "contracts/pilot-enrollment.md",
+    "PilotPolicy": "contracts/pilot-enrollment.md",
+    "PilotAdmissionDecision": "contracts/pilot-enrollment.md",
+    "PilotDeviceBinding": "contracts/pilot-enrollment.md",
 }
 FIXTURES = (
     "provisioning-development", "provisioning-production-candidate",

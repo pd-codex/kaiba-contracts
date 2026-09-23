@@ -1,0 +1,75 @@
+{
+  "contract": "PilotPolicy",
+  "contract_version": "0.2.0-draft.1",
+  "record_id": "fixture:pilot-policy",
+  "revision": 1,
+  "issued_at": "2026-09-23T12:00:00Z",
+  "authority_id": "fixture-policy-authority",
+  "tenant_id": "fixture-tenant",
+  "security_domain_id": "pilot-fixture",
+  "correlation_id": "fixture:pilot-policy",
+  "profile": "rpi5-existing-luks-pilot-v1",
+  "targets": [
+    {
+      "asset_ref": "fixture-device-a",
+      "identity_ref": {
+        "uri": "urn:kaiba:fixture:identity-a",
+        "digest": "sha256:207554e1d17a88f402020c93f89102058dd1330d1f670ea6d50baa7ca1c9c836"
+      },
+      "storage_ref": {
+        "uri": "urn:kaiba:fixture:storage-a",
+        "digest": "sha256:0bfd2b35422979160f8695a84f6174f2e7510dbc4f3749e4c5dabab7e70f33f9"
+      }
+    },
+    {
+      "asset_ref": "fixture-device-b",
+      "identity_ref": {
+        "uri": "urn:kaiba:fixture:identity-b",
+        "digest": "sha256:cfc6a6cd32958c13474f11120db022e87fd2f8cbd57d164a6537a9f5c489bfe8"
+      },
+      "storage_ref": {
+        "uri": "urn:kaiba:fixture:storage-b",
+        "digest": "sha256:57e7f46e53ae78597fdf4ae40c816dc80a7934c95c5bc705805b44bc4a86a9e2"
+      }
+    },
+    {
+      "asset_ref": "third",
+      "identity_ref": {
+        "uri": "urn:kaiba:fixture:identity-a",
+        "digest": "sha256:207554e1d17a88f402020c93f89102058dd1330d1f670ea6d50baa7ca1c9c836"
+      },
+      "storage_ref": {
+        "uri": "urn:kaiba:fixture:storage-a",
+        "digest": "sha256:0bfd2b35422979160f8695a84f6174f2e7510dbc4f3749e4c5dabab7e70f33f9"
+      }
+    }
+  ],
+  "enrollment_audience": "fixture-pilot-audience",
+  "operational_issuer_id": "fixture-pilot-issuer",
+  "permissions": [
+    "pilot:self:read",
+    "pilot:diagnostic-reference:submit"
+  ],
+  "allowed_gaps": [
+    "FA-01",
+    "FA-02",
+    "FA-03",
+    "FA-04",
+    "FA-05",
+    "FA-06",
+    "FA-07",
+    "FA-08"
+  ],
+  "valid_from": "2026-09-23T12:00:00Z",
+  "expires_at": "2026-09-23T13:00:00Z",
+  "review_ref": {
+    "uri": "urn:kaiba:fixture:policy-review",
+    "digest": "sha256:cfe5de30f0405dd593eba7d31b2e513b998608cd703e313f8f3b45d2e5d0cef3"
+  },
+  "full_qualification": false,
+  "max_observation_age_seconds": 3600,
+  "qualification_policy_ref": {
+    "uri": "urn:kaiba:fixture:qualification-baseline",
+    "digest": "sha256:1816b3b87ca9e2b5d7527d27c287f5dccd6bba654fcddfde74a03ffba39e9532"
+  }
+}

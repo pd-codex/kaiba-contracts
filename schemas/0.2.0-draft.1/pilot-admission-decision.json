@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.2.0-draft.1:pilot-admission-decision",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "PilotAdmissionDecision"
+    },
+    "contract_version": {
+      "const": "0.2.0-draft.1"
+    },
+    "record_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "authority_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "tenant_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "security_domain_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "correlation_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "revision": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/revision"
+    },
+    "issued_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "target": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/pilotTarget"
+    },
+    "adoption_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "policy_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "decision": {
+      "enum": [
+        "approved",
+        "denied"
+      ]
+    },
+    "accepted_gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/faCondition"
+      },
+      "minItems": 0,
+      "maxItems": 8,
+      "uniqueItems": true
+    },
+    "approver_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "review_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+    },
+    "reason": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/text"
+    },
+    "valid_from": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "expires_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "full_qualification": {
+      "const": false
+    }
+  },
+  "required": [
+    "contract",
+    "contract_version",
+    "record_id",
+    "authority_id",
+    "tenant_id",
+    "security_domain_id",
+    "correlation_id",
+    "revision",
+    "issued_at",
+    "target",
+    "adoption_ref",
+    "policy_ref",
+    "decision",
+    "accepted_gaps",
+    "approver_id",
+    "review_ref",
+    "reason",
+    "valid_from",
+    "expires_at",
+    "full_qualification"
+  ],
+  "additionalProperties": false
+}

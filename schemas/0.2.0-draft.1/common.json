@@ -1,0 +1,548 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.2.0-draft.1:common",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,199}$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:[0-5]\\d:[0-5]\\d(?:\\.\\d{1,6})?Z$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "generation": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "recordRef": {
+      "type": "object",
+      "properties": {
+        "record_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,199}$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "record_id",
+        "revision",
+        "digest"
+      ],
+      "additionalProperties": false
+    },
+    "evidenceRef": {
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "uri",
+        "digest"
+      ],
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "logical_device_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,199}$"
+        },
+        "instance_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,199}$"
+        },
+        "storage_generation": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "expected_desired_state_revision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "logical_device_id",
+        "instance_id",
+        "storage_generation",
+        "expected_desired_state_revision"
+      ],
+      "additionalProperties": false
+    },
+    "pilotTarget": {
+      "type": "object",
+      "properties": {
+        "asset_ref": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+        },
+        "identity_ref": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+        },
+        "storage_ref": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+        }
+      },
+      "required": [
+        "asset_ref",
+        "identity_ref",
+        "storage_ref"
+      ],
+      "additionalProperties": false
+    },
+    "pilotPermissions": {
+      "const": [
+        "pilot:self:read",
+        "pilot:diagnostic-reference:submit"
+      ]
+    },
+    "faCondition": {
+      "enum": [
+        "FA-01",
+        "FA-02",
+        "FA-03",
+        "FA-04",
+        "FA-05",
+        "FA-06",
+        "FA-07",
+        "FA-08"
+      ]
+    },
+    "pilotProfile": {
+      "const": "rpi5-existing-luks-pilot-v1"
+    },
+    "qualification": {
+      "type": "object",
+      "properties": {
+        "FA-01": {
+          "type": "object",
+          "properties": {
+            "outcome": {
+              "enum": [
+                "passed",
+                "blocked",
+                "not_evaluated"
+              ]
+            },
+            "reason": {
+              "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/text"
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+              },
+              "minItems": 0,
+              "maxItems": 64,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "outcome",
+            "reason",
+            "evidence_refs"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "outcome": {
+                    "const": "passed"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "FA-02": {
+          "type": "object",
+          "properties": {
+            "outcome": {
+              "enum": [
+                "passed",
+                "blocked",
+                "not_evaluated"
+              ]
+            },
+            "reason": {
+              "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/text"
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+              },
+              "minItems": 0,
+              "maxItems": 64,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "outcome",
+            "reason",
+            "evidence_refs"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "outcome": {
+                    "const": "passed"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "FA-03": {
+          "type": "object",
+          "properties": {
+            "outcome": {
+              "enum": [
+                "passed",
+                "blocked",
+                "not_evaluated"
+              ]
+            },
+            "reason": {
+              "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/text"
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+              },
+              "minItems": 0,
+              "maxItems": 64,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "outcome",
+            "reason",
+            "evidence_refs"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "outcome": {
+                    "const": "passed"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "FA-04": {
+          "type": "object",
+          "properties": {
+            "outcome": {
+              "enum": [
+                "passed",
+                "blocked",
+                "not_evaluated"
+              ]
+            },
+            "reason": {
+              "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/text"
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+              },
+              "minItems": 0,
+              "maxItems": 64,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "outcome",
+            "reason",
+            "evidence_refs"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "outcome": {
+                    "const": "passed"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "FA-05": {
+          "type": "object",
+          "properties": {
+            "outcome": {
+              "enum": [
+                "passed",
+                "blocked",
+                "not_evaluated"
+              ]
+            },
+            "reason": {
+              "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/text"
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+              },
+              "minItems": 0,
+              "maxItems": 64,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "outcome",
+            "reason",
+            "evidence_refs"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "outcome": {
+                    "const": "passed"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "FA-06": {
+          "type": "object",
+          "properties": {
+            "outcome": {
+              "enum": [
+                "passed",
+                "blocked",
+                "not_evaluated"
+              ]
+            },
+            "reason": {
+              "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/text"
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+              },
+              "minItems": 0,
+              "maxItems": 64,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "outcome",
+            "reason",
+            "evidence_refs"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "outcome": {
+                    "const": "passed"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "FA-07": {
+          "type": "object",
+          "properties": {
+            "outcome": {
+              "enum": [
+                "passed",
+                "blocked",
+                "not_evaluated"
+              ]
+            },
+            "reason": {
+              "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/text"
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+              },
+              "minItems": 0,
+              "maxItems": 64,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "outcome",
+            "reason",
+            "evidence_refs"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "outcome": {
+                    "const": "passed"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "FA-08": {
+          "type": "object",
+          "properties": {
+            "outcome": {
+              "enum": [
+                "passed",
+                "blocked",
+                "not_evaluated"
+              ]
+            },
+            "reason": {
+              "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/text"
+            },
+            "evidence_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+              },
+              "minItems": 0,
+              "maxItems": 64,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "outcome",
+            "reason",
+            "evidence_refs"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "outcome": {
+                    "const": "passed"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "evidence_refs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "FA-01",
+        "FA-02",
+        "FA-03",
+        "FA-04",
+        "FA-05",
+        "FA-06",
+        "FA-07",
+        "FA-08"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

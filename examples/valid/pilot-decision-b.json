@@ -1,0 +1,52 @@
+{
+  "contract": "PilotAdmissionDecision",
+  "contract_version": "0.2.0-draft.1",
+  "record_id": "fixture:decision-b",
+  "revision": 1,
+  "issued_at": "2026-09-23T12:00:00Z",
+  "authority_id": "fixture-policy-authority",
+  "tenant_id": "fixture-tenant",
+  "security_domain_id": "pilot-fixture",
+  "correlation_id": "fixture:decision-b",
+  "target": {
+    "asset_ref": "fixture-device-b",
+    "identity_ref": {
+      "uri": "urn:kaiba:fixture:identity-b",
+      "digest": "sha256:cfc6a6cd32958c13474f11120db022e87fd2f8cbd57d164a6537a9f5c489bfe8"
+    },
+    "storage_ref": {
+      "uri": "urn:kaiba:fixture:storage-b",
+      "digest": "sha256:57e7f46e53ae78597fdf4ae40c816dc80a7934c95c5bc705805b44bc4a86a9e2"
+    }
+  },
+  "adoption_ref": {
+    "record_id": "fixture:adoption-b",
+    "revision": 1,
+    "digest": "sha256:394496209a3e5e241e4d806cdeb8e625d5c25c0d7f85a45a471fa9a6ea18e7d7"
+  },
+  "policy_ref": {
+    "record_id": "fixture:pilot-policy",
+    "revision": 1,
+    "digest": "sha256:7067b03ef57a1dc903b99a4aebf4dfe67743bec70434f767167d63ee144e912e"
+  },
+  "decision": "approved",
+  "accepted_gaps": [
+    "FA-01",
+    "FA-02",
+    "FA-03",
+    "FA-04",
+    "FA-05",
+    "FA-06",
+    "FA-07",
+    "FA-08"
+  ],
+  "approver_id": "fixture-approver",
+  "review_ref": {
+    "uri": "urn:kaiba:fixture:admission-review-b",
+    "digest": "sha256:1144a116b8aebc0c7aa3ccc4a87bb2242c583beeb6f291c0cec84f12d00cd630"
+  },
+  "reason": "Synthetic offline conformance approval, never a live grant.",
+  "valid_from": "2026-09-23T12:00:00Z",
+  "expires_at": "2026-09-23T13:00:00Z",
+  "full_qualification": false
+}

@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.2.0-draft.1:pilot-adoption-record",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "PilotAdoptionRecord"
+    },
+    "contract_version": {
+      "const": "0.2.0-draft.1"
+    },
+    "record_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "authority_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "tenant_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "security_domain_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "correlation_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "revision": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/revision"
+    },
+    "issued_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "purpose": {
+      "const": "existing_device_adoption"
+    },
+    "target": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/pilotTarget"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "existing_device_adoption"
+        },
+        "repository": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "observation_id": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+        },
+        "observed_at": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+        },
+        "inventory_ref": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+        },
+        "custody_review_ref": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+        },
+        "workload_review_ref": {
+          "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+        }
+      },
+      "required": [
+        "kind",
+        "repository",
+        "commit",
+        "observation_id",
+        "observed_at",
+        "inventory_ref",
+        "custody_review_ref",
+        "workload_review_ref"
+      ],
+      "additionalProperties": false
+    },
+    "conditions": {
+      "type": "object",
+      "properties": {
+        "target_authenticated": {
+          "type": "boolean"
+        },
+        "encrypted_persistence_observed": {
+          "type": "boolean"
+        },
+        "custody_review_complete": {
+          "type": "boolean"
+        },
+        "workloads_recorded": {
+          "type": "boolean"
+        },
+        "unresolved_mutation": {
+          "type": "boolean"
+        },
+        "conflicting_ownership": {
+          "type": "boolean"
+        },
+        "known_key_exposure": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "target_authenticated",
+        "encrypted_persistence_observed",
+        "custody_review_complete",
+        "workloads_recorded",
+        "unresolved_mutation",
+        "conflicting_ownership",
+        "known_key_exposure"
+      ],
+      "additionalProperties": false
+    },
+    "qualification": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/qualification"
+    },
+    "full_qualification": {
+      "const": false
+    },
+    "qualification_policy_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+    }
+  },
+  "required": [
+    "contract",
+    "contract_version",
+    "record_id",
+    "authority_id",
+    "tenant_id",
+    "security_domain_id",
+    "correlation_id",
+    "revision",
+    "issued_at",
+    "purpose",
+    "target",
+    "source",
+    "conditions",
+    "qualification",
+    "full_qualification",
+    "qualification_policy_ref"
+  ],
+  "additionalProperties": false
+}
