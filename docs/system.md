@@ -54,6 +54,13 @@ The catalog specifies which contracts have detailed schemas in this baseline.
 An opaque reference to a deferred contract does not establish its semantics or
 make it executable.
 
+The [existing-device pilot](../contracts/pilot-enrollment.md) is a separate,
+restricted admission path with versioned adoption, policy, decision and binding
+records. It retains incomplete qualification and the installed storage/unlock
+configuration. It does not inherit the original production deployment proposal's
+online-unlock or A/B-update prerequisites below, and it does not grant publication
+or deployment authority. The original wire records keep their existing meanings.
+
 ## Authority ownership
 
 | Authority | Owns | Must not infer or grant |

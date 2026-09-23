@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.2.0-draft.1:pilot-policy",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "PilotPolicy"
+    },
+    "contract_version": {
+      "const": "0.2.0-draft.1"
+    },
+    "record_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "authority_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "tenant_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "security_domain_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "correlation_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "revision": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/revision"
+    },
+    "issued_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "profile": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/pilotProfile"
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/pilotTarget"
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true
+    },
+    "enrollment_audience": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "operational_issuer_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "permissions": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/pilotPermissions"
+    },
+    "allowed_gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/faCondition"
+      },
+      "minItems": 0,
+      "maxItems": 8,
+      "uniqueItems": true
+    },
+    "valid_from": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "expires_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "review_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+    },
+    "full_qualification": {
+      "const": false
+    },
+    "max_observation_age_seconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 604800
+    },
+    "qualification_policy_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+    }
+  },
+  "required": [
+    "contract",
+    "contract_version",
+    "record_id",
+    "authority_id",
+    "tenant_id",
+    "security_domain_id",
+    "correlation_id",
+    "revision",
+    "issued_at",
+    "profile",
+    "targets",
+    "enrollment_audience",
+    "operational_issuer_id",
+    "permissions",
+    "allowed_gaps",
+    "valid_from",
+    "expires_at",
+    "review_ref",
+    "full_qualification",
+    "max_observation_age_seconds",
+    "qualification_policy_ref"
+  ],
+  "additionalProperties": false
+}

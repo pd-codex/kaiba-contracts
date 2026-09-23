@@ -5,8 +5,10 @@ configuration. This repository defines the records, responsibilities, and
 guarantees that connect Kaiba subsystems. It does not implement a provisioning
 lane, controller, signer, device agent, or production admission service.
 
-**Status: proposed baseline `0.1.0-draft.1`.** These contracts have not yet been
-adopted by the producer and consumer projects. Passing the included tests means
+**Status: proposed contract set `0.2.0-draft.1`.** The new pilot family has not yet
+been adopted by the producer or consumer. The original family is used by the
+[isolated enrollment rehearsal](docs/integrations/enrollment-rehearsal.md).
+Passing the included tests means
 the documents' sample records satisfy the checked rules; it does not qualify
 hardware, authenticate a device, or authorize a release.
 
@@ -30,9 +32,13 @@ development restrictions, conflicting assignments and a lost confirmation.
    - [ProvisioningRecord](contracts/provisioning-record.md)
    - [DeviceBinding](contracts/device-binding.md)
    - [Publication](contracts/publication.md), including `PublishRequest`
+   - [Existing-device pilot enrollment](contracts/pilot-enrollment.md)
 5. [Conformance and examples](docs/conformance.md).
 
-Schemas live in [schemas/0.1.0-draft.1](schemas/0.1.0-draft.1). They use JSON
+The original wire family remains in [schemas/0.1.0-draft.1](schemas/0.1.0-draft.1).
+The new pilot family lives in [schemas/0.2.0-draft.1](schemas/0.2.0-draft.1).
+Both use exact contract/version dispatch; pilot records do not upgrade legacy
+readiness or confer full qualification. They use JSON
 Schema Draft 2020-12 and resolve entirely from local files. Examples use fictitious
 identifiers and evidence references; they contain no credentials or live grants.
 
@@ -62,10 +68,11 @@ The implementation owners are
 [kaiba-provisioning](https://github.com/PseudoDesign/kaiba-provisioning) for the
 ProvisioningRecord producer and
 [kaiba-fleet](https://github.com/PseudoDesign/kaiba-fleet) for enrollment,
-identity inventory and the DeviceBinding producer. Fleet is an initial
-repository with planned implementation; naming owners does not establish
-contract adoption or production conformance.
+identity inventory and the DeviceBinding producer. Fleet implements the isolated
+rehearsal; pilot runtime support and fully qualified admission remain separate
+work. Naming owners does not establish contract adoption or production conformance.
 
 The provisioning baseline is pinned in [sources](docs/sources.md). Its current
 development posture cannot enter `enrollment_ready`. The proposed production
-examples here do not change that status.
+examples here do not change that status. The proposed pilot family needs explicit
+producer/consumer adoption and its own authenticated policy before live use.

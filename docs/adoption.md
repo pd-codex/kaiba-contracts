@@ -13,6 +13,29 @@ PostgreSQL, HTTPS/mTLS, configured authority resolution and a disposable test CA
 Production CA integration and admission coordination remain open. Repository
 ownership does not replace adoption records or runtime integration evidence.
 
+## Proposed pilot adoption order
+
+The [pilot family](../contracts/pilot-enrollment.md), wire `0.2.0-draft.1`, is
+specified here but not supported by the current producer or consumer. Their
+existing `0.1.0-draft.1` pins and rehearsal restrictions remain authoritative.
+
+1. Review the new policy, adoption, decision and binding semantics together.
+2. Implement and test opt-in consumer support with pilot trust disabled by default.
+3. Update the provisioning producer/client to the same reviewed contracts commit;
+   export actual adoption evidence without manufacturing provisioning operations.
+4. Run the packaged two-device integration scenarios with disposable PKI. Record
+   matching pins, approved role/transport mappings, evidence resolution and results.
+5. Review per-device history/gaps, dedicated issuer custody, durable stores,
+   recovery and the malak execution packet before enabling real pilot issuance.
+
+There is no automatic conversion of retained records. During deployment overlap,
+each endpoint explicitly supports its reviewed family; it never falls back from
+an unknown pilot version to rehearsal or qualified behavior. Rollback disables
+new pilot issuance and denies/revokes pilot access under its reviewed recovery
+procedure; it cannot reinterpret pilot credentials as legacy DeviceBindings.
+Existing records and their pinned schemas remain available for audit. Retiring
+pilot trust or promoting a device requires a separate reviewed lifecycle.
+
 ## Initial integration order
 
 1. Review ProvisioningRecord with provisioning/control/audit owners. Agree the

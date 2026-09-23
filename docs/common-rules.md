@@ -69,11 +69,15 @@ execute-once journal, fence, approval, or ambiguous-outcome rules.
 
 ## Versioning
 
-`VERSION` identifies the complete reviewed contract set. Wire records carry an
-exact `contract_version`; this baseline accepts only `0.1.0-draft.1`. Consumers
-pin a commit or published tag, and explicitly enumerate supported wire versions.
-There is no assumed compatibility among prereleases. No stable release is made
-by this baseline commit.
+`VERSION` identifies the proposed contract set, currently `0.2.0-draft.1`.
+Individual wire families retain their exact versions: ProvisioningRecord,
+DeviceBinding, PublishRequest and Publication remain at `0.1.0-draft.1`; the
+four new [pilot records](../contracts/pilot-enrollment.md) use `0.2.0-draft.1`.
+The bundled validator enumerates these exact contract/version pairs. A different
+combination is rejected, including an old record relabelled with the new version.
+The old schemas and examples are unchanged. Consumers pin a commit or published
+tag and explicitly enumerate supported families and versions. This PR does not
+update runtime pins or publish a stable release.
 
 After adoption, changes to fields, enums, defaults, authority, freshness,
 canonicalization or acceptance semantics require a new reviewed contract version

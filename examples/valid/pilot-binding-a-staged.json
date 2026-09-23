@@ -1,0 +1,62 @@
+{
+  "contract": "PilotDeviceBinding",
+  "contract_version": "0.2.0-draft.1",
+  "record_id": "fixture:binding-a",
+  "revision": 1,
+  "issued_at": "2026-09-23T12:00:00Z",
+  "authority_id": "fixture-inventory-authority",
+  "tenant_id": "fixture-tenant",
+  "security_domain_id": "pilot-fixture",
+  "correlation_id": "fixture:binding-a",
+  "logical_device_id": "fixture-logical-a",
+  "instance_id": "fixture-instance-a",
+  "storage_generation": 1,
+  "bootstrap_identity_ref": {
+    "uri": "urn:kaiba:fixture:identity-a",
+    "digest": "sha256:207554e1d17a88f402020c93f89102058dd1330d1f670ea6d50baa7ca1c9c836"
+  },
+  "credential": {
+    "slot": "slot-management",
+    "role": "pilot_management",
+    "key_generation": 1,
+    "spki_digest": "sha256:b2e01dd638a97d6412c7ef5699d6e92bc8cc72281e4ef4108305aef7520326fd",
+    "issuer_id": "fixture-pilot-issuer",
+    "certificate_serial": "a1",
+    "not_before": "2026-09-23T12:00:00Z",
+    "not_after": "2026-09-23T13:00:00Z"
+  },
+  "state": "staged",
+  "target": {
+    "asset_ref": "fixture-device-a",
+    "identity_ref": {
+      "uri": "urn:kaiba:fixture:identity-a",
+      "digest": "sha256:207554e1d17a88f402020c93f89102058dd1330d1f670ea6d50baa7ca1c9c836"
+    },
+    "storage_ref": {
+      "uri": "urn:kaiba:fixture:storage-a",
+      "digest": "sha256:0bfd2b35422979160f8695a84f6174f2e7510dbc4f3749e4c5dabab7e70f33f9"
+    }
+  },
+  "adoption_ref": {
+    "record_id": "fixture:adoption-a",
+    "revision": 1,
+    "digest": "sha256:f4ad74b576d3f69f232efcfa436cc587b5504bbcb5ccdba5b571a2e0d53407ec"
+  },
+  "policy_ref": {
+    "record_id": "fixture:pilot-policy",
+    "revision": 1,
+    "digest": "sha256:7067b03ef57a1dc903b99a4aebf4dfe67743bec70434f767167d63ee144e912e"
+  },
+  "admission_ref": {
+    "record_id": "fixture:decision-a",
+    "revision": 1,
+    "digest": "sha256:7aa573296cb77a3d9caa9b5b0f029a895edbc768575939e8c17d877efd18ce92"
+  },
+  "audience": "fixture-pilot-audience",
+  "profile": "rpi5-existing-luks-pilot-v1",
+  "permissions": [
+    "pilot:self:read",
+    "pilot:diagnostic-reference:submit"
+  ],
+  "full_qualification": false
+}
