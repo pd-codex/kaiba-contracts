@@ -36,12 +36,13 @@ development restrictions, conflicting assignments and a lost confirmation.
    - [Explicit pilot renewal authorization](contracts/pilot-renewal-authorization.md)
    - [Pilot renewal installation and cutover](contracts/pilot-renewal-cutover.md)
    - [Proposed expired pilot recovery](contracts/pilot-expired-recovery.md)
+   - [Recovery issuance, installation and cutover](contracts/pilot-recovery-cutover.md)
 5. [Conformance and examples](docs/conformance.md).
 
 The original wire family remains in [schemas/0.1.0-draft.1](schemas/0.1.0-draft.1).
 The new pilot family lives in [schemas/0.2.0-draft.1](schemas/0.2.0-draft.1).
 The additive renewal authorization lives in [schemas/0.3.0-draft.1](schemas/0.3.0-draft.1).
-Proposed recovery approval/key proof lives in [schemas/0.4.0-draft.1](schemas/0.4.0-draft.1); runtime adoption remains pending.
+Proposed recovery approval, key proof and cutover live in [schemas/0.4.0-draft.1](schemas/0.4.0-draft.1); runtime adoption remains pending.
 All use exact contract/version dispatch; pilot records do not upgrade legacy
 readiness or confer full qualification. They use JSON
 Schema Draft 2020-12 and resolve entirely from local files. Examples use fictitious

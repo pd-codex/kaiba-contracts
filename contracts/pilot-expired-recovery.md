@@ -2,8 +2,8 @@
 
 This additive **0.4.0-draft.1** slice defines `PilotRecoveryAuthorization` and
 `PilotRecoveryKeyChallenge`. It specifies approval and proof of the existing key
-only. It does not yet define recovery successor bindings, installation receipts or
-cutover, and cannot be deployed as a complete recovery protocol. Fleet owns the
+only. [Recovery issuance, installation and cutover](pilot-recovery-cutover.md)
+define the remaining record linkage; runtime adoption is still required. Fleet owns the
 authority/issuer; provisioning owns the protected device client. Both must adopt
 exact contract pins and demonstrate integration before a reviewed live operation.
 
@@ -81,13 +81,10 @@ operation. Existing abandoned operations require separately reviewed resolution.
 ## Subsequent implementation gates
 
 Proof verification alone grants no relying access and no signing permission.
-Recovery issuer grants/ledger checks, versioned staged successor binding,
-successor-only installation proof, atomic current-credential cutover and protected
-client history still require explicit contract and implementation work. Keep the
-expired predecessor denied throughout; staged credentials receive only the
-installation protocol's narrowly scoped access. Cutover must recheck current
-revocation, admission, binding and operation under the authority lock. Recovery
-must never delete prior issuance rows or bypass the no-automatic-signing-retry rule.
+The [recovery cutover contract](pilot-recovery-cutover.md) specifies the issuer
+reservation, successor binding, installation proof and atomic history transition.
+Fleet/issuer and protected-client implementation, real-service integration and
+reviewed live execution remain separate gates. No automatic signing retry is allowed.
 
 ## Conformance and compatibility
 
