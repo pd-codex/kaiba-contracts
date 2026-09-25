@@ -34,6 +34,7 @@ development restrictions, conflicting assignments and a lost confirmation.
    - [Publication](contracts/publication.md), including `PublishRequest`
    - [Existing-device pilot enrollment](contracts/pilot-enrollment.md)
    - [Explicit pilot renewal authorization](contracts/pilot-renewal-authorization.md)
+   - [Pilot renewal installation and cutover](contracts/pilot-renewal-cutover.md)
 5. [Conformance and examples](docs/conformance.md).
 
 The original wire family remains in [schemas/0.1.0-draft.1](schemas/0.1.0-draft.1).

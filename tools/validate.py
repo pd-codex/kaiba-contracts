@@ -29,6 +29,8 @@ for required_format in ('date-time', 'uri'):
     if required_format not in FORMATS.checkers:
         raise RuntimeError(f'Missing {required_format} validation; install requirements-dev.txt')
 CONTRACTS = {
+    ('PilotDeviceBinding', '0.3.0-draft.1'): 'pilot-device-binding',
+    ('PilotRenewalInstallationReceipt', '0.3.0-draft.1'): 'pilot-renewal-installation-receipt',
     ('PilotRenewalAuthorization', '0.3.0-draft.1'): 'pilot-renewal-authorization',
     ('ProvisioningRecord', '0.1.0-draft.1'): 'provisioning-record',
     ('DeviceBinding', '0.1.0-draft.1'): 'device-binding',
@@ -94,6 +96,13 @@ def validate(record):
         rfc8785.dumps(record)
     except (ValueError, UnicodeError) as error:
         return [f'encoding: {error}']
+    if record['contract'] == 'PilotRenewalInstallationReceipt':
+        start, end = _time(record['challenge_issued_at']), _time(record['challenge_expires_at'])
+        verified = _time(record['verified_at'])
+        if not start <= verified < end or not 0 < (end-start).total_seconds() <= 300:
+            errors.append('RENEWAL-PROOF-TIME: verification outside bounded challenge')
+        if _time(record['issued_at']) < verified:
+            errors.append('RENEWAL-PROOF-TIME: receipt predates verification')
     if record['contract'] == 'PilotRenewalAuthorization':
         start, end = _time(record['valid_from']), _time(record['expires_at'])
         if not start < end or (end-start).total_seconds() > 7*24*60*60:
@@ -180,6 +189,8 @@ def validate_binding_transition(previous, current):
     if previous['contract'] == 'PilotDeviceBinding':
         immutable += ('target', 'adoption_ref', 'admission_ref', 'policy_ref',
                       'audience', 'profile', 'permissions', 'full_qualification')
+    if previous['contract'] == 'PilotDeviceBinding' and previous['contract_version'] == '0.3.0-draft.1':
+        immutable += ('credential_revision', 'certificate_digest', 'renewal_authorization_ref', 'predecessor_binding_ref')
     for field in immutable:
         if previous[field] != current[field]:
             errors.append(f'DB-05: tuple field changed: {field}')
@@ -313,6 +324,8 @@ def validate_pilot_renewal(authorization, predecessor, adoption, policy, decisio
         errors.append('RENEWAL-WINDOW: authorization is not current')
     if a['predecessor_binding_ref'] != record_ref(b) or a['predecessor_certificate_digest'] != predecessor_certificate_digest:
         errors.append('RENEWAL-PREDECESSOR: exact binding/certificate mismatch')
+    if b['contract_version'] == '0.3.0-draft.1' and (b['credential_revision'] != predecessor_credential_revision or b['certificate_digest'] != predecessor_certificate_digest):
+        errors.append('RENEWAL-PREDECESSOR: runtime facts differ from versioned binding')
     if type(predecessor_credential_revision) is not int or a['predecessor_credential_revision'] != predecessor_credential_revision:
         errors.append('RENEWAL-REVISION: predecessor differs from runtime revision')
     for field in ('logical_device_id', 'instance_id', 'storage_generation', 'target', 'tenant_id', 'security_domain_id', 'audience', 'profile', 'permissions'):

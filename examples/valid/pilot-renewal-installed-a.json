@@ -1,0 +1,39 @@
+{
+  "tenant_id": "fixture-tenant",
+  "security_domain_id": "pilot-fixture",
+  "correlation_id": "fixture:renewal-a-2",
+  "full_qualification": false,
+  "contract": "PilotRenewalInstallationReceipt",
+  "contract_version": "0.3.0-draft.1",
+  "record_id": "fixture:renewal-installed-a",
+  "revision": 1,
+  "issued_at": "2026-09-23T12:18:00Z",
+  "authority_id": "fixture-renewal-verifier",
+  "purpose": "pilot_renewal_installed_key",
+  "operation_id": "fixture-renewal-a-2",
+  "authorization_ref": {
+    "record_id": "fixture:renewal-a-2",
+    "revision": 1,
+    "digest": "sha256:76241c9c3363cbd90759e8b6155b5decc2988b86844958b25f3090651dc8d40d"
+  },
+  "predecessor_binding_ref": {
+    "record_id": "fixture:binding-a",
+    "revision": 2,
+    "digest": "sha256:68f2839644247f99c867cdec25aed83e807c242fab6a373f3f5817ff2c84383c"
+  },
+  "staged_binding_ref": {
+    "record_id": "fixture:renewed-binding-a",
+    "revision": 1,
+    "digest": "sha256:7ab969d3a87c0487fed25531f3fe4bd3c03399951c7f8e92579a30fe6e6503d0"
+  },
+  "certificate_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "proof_ref": {
+    "uri": "urn:kaiba:fixture:renewal-installed-proof",
+    "digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "nonce": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "challenge_issued_at": "2026-09-23T12:16:00Z",
+  "challenge_expires_at": "2026-09-23T12:21:00Z",
+  "verified_at": "2026-09-23T12:17:00Z",
+  "restart_kind": "client_process"
+}

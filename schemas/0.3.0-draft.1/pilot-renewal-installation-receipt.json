@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.3.0-draft.1:pilot-renewal-installation-receipt",
+  "type": "object",
+  "properties": {
+    "record_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "revision": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/revision"
+    },
+    "issued_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "authority_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "tenant_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "security_domain_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "correlation_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "full_qualification": {
+      "const": false
+    },
+    "contract": {
+      "const": "PilotRenewalInstallationReceipt"
+    },
+    "contract_version": {
+      "const": "0.3.0-draft.1"
+    },
+    "purpose": {
+      "const": "pilot_renewal_installed_key"
+    },
+    "operation_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "authorization_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "predecessor_binding_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "staged_binding_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "certificate_digest": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/digest"
+    },
+    "proof_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/evidenceRef"
+    },
+    "nonce": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{48}$"
+    },
+    "challenge_issued_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "challenge_expires_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "verified_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "restart_kind": {
+      "const": "client_process"
+    }
+  },
+  "required": [
+    "record_id",
+    "revision",
+    "issued_at",
+    "authority_id",
+    "tenant_id",
+    "security_domain_id",
+    "correlation_id",
+    "full_qualification",
+    "contract",
+    "contract_version",
+    "purpose",
+    "operation_id",
+    "authorization_ref",
+    "predecessor_binding_ref",
+    "staged_binding_ref",
+    "certificate_digest",
+    "proof_ref",
+    "nonce",
+    "challenge_issued_at",
+    "challenge_expires_at",
+    "verified_at",
+    "restart_kind"
+  ],
+  "additionalProperties": false
+}
