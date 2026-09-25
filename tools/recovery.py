@@ -33,7 +33,7 @@ def validate_pilot_recovery(authorization, predecessor, adoption, policy, decisi
         errors.append('RECOVERY-WINDOW: authorization is not current')
     if a['predecessor_binding_ref'] != record_ref(b) or a['predecessor_certificate_digest'] != predecessor_certificate_digest:
         errors.append('RECOVERY-PREDECESSOR: exact binding/certificate mismatch')
-    if b['contract_version'] == '0.3.0-draft.1' and (b['credential_revision'] != predecessor_credential_revision or b['certificate_digest'] != predecessor_certificate_digest):
+    if b['contract_version'] in ('0.3.0-draft.1', '0.4.0-draft.1') and (b['credential_revision'] != predecessor_credential_revision or b['certificate_digest'] != predecessor_certificate_digest):
         errors.append('RECOVERY-PREDECESSOR: runtime facts differ from versioned binding')
     if (b['contract_version'] == '0.2.0-draft.1' and predecessor_credential_revision != 1) or type(predecessor_credential_revision) is not int or a['predecessor_credential_revision'] != predecessor_credential_revision:
         errors.append('RECOVERY-REVISION: predecessor differs from runtime revision')

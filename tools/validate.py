@@ -29,6 +29,8 @@ for required_format in ('date-time', 'uri'):
     if required_format not in FORMATS.checkers:
         raise RuntimeError(f'Missing {required_format} validation; install requirements-dev.txt')
 CONTRACTS = {
+    ('PilotDeviceBinding', '0.4.0-draft.1'): 'pilot-device-binding',
+    ('PilotRecoveryInstallationReceipt', '0.4.0-draft.1'): 'pilot-recovery-installation-receipt',
     ('PilotRecoveryAuthorization', '0.4.0-draft.1'): 'pilot-recovery-authorization',
     ('PilotRecoveryKeyChallenge', '0.4.0-draft.1'): 'pilot-recovery-key-challenge',
     ('PilotDeviceBinding', '0.3.0-draft.1'): 'pilot-device-binding',
@@ -98,7 +100,7 @@ def validate(record):
         rfc8785.dumps(record)
     except (ValueError, UnicodeError) as error:
         return [f'encoding: {error}']
-    if record['contract'] == 'PilotRenewalInstallationReceipt':
+    if record['contract'] in ('PilotRenewalInstallationReceipt', 'PilotRecoveryInstallationReceipt'):
         start, end = _time(record['challenge_issued_at']), _time(record['challenge_expires_at'])
         verified = _time(record['verified_at'])
         if not start <= verified < end or not 0 < (end-start).total_seconds() <= 300:
@@ -200,6 +202,8 @@ def validate_binding_transition(previous, current):
                       'audience', 'profile', 'permissions', 'full_qualification')
     if previous['contract'] == 'PilotDeviceBinding' and previous['contract_version'] == '0.3.0-draft.1':
         immutable += ('credential_revision', 'certificate_digest', 'renewal_authorization_ref', 'predecessor_binding_ref')
+    if previous['contract'] == 'PilotDeviceBinding' and previous['contract_version'] == '0.4.0-draft.1':
+        immutable += ('credential_revision', 'certificate_digest', 'recovery_authorization_ref', 'predecessor_binding_ref')
     for field in immutable:
         if previous[field] != current[field]:
             errors.append(f'DB-05: tuple field changed: {field}')
@@ -333,7 +337,7 @@ def validate_pilot_renewal(authorization, predecessor, adoption, policy, decisio
         errors.append('RENEWAL-WINDOW: authorization is not current')
     if a['predecessor_binding_ref'] != record_ref(b) or a['predecessor_certificate_digest'] != predecessor_certificate_digest:
         errors.append('RENEWAL-PREDECESSOR: exact binding/certificate mismatch')
-    if b['contract_version'] == '0.3.0-draft.1' and (b['credential_revision'] != predecessor_credential_revision or b['certificate_digest'] != predecessor_certificate_digest):
+    if b['contract_version'] in ('0.3.0-draft.1', '0.4.0-draft.1') and (b['credential_revision'] != predecessor_credential_revision or b['certificate_digest'] != predecessor_certificate_digest):
         errors.append('RENEWAL-PREDECESSOR: runtime facts differ from versioned binding')
     if type(predecessor_credential_revision) is not int or a['predecessor_credential_revision'] != predecessor_credential_revision:
         errors.append('RENEWAL-REVISION: predecessor differs from runtime revision')

@@ -308,5 +308,32 @@
     "path": "examples/invalid/pilot-recovery-long-challenge.json",
     "valid": false,
     "level": "semantic"
+  },
+  {
+    "path": "examples/valid/pilot-recovery-staged-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-recovery-installed-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-recovery-active-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/invalid/pilot-recovery-installation-wrong-purpose.json",
+    "valid": false,
+    "level": "schema"
+  },
+  {
+    "path": "examples/invalid/pilot-recovery-active-without-receipt.json",
+    "valid": false,
+    "level": "schema"
+  },
+  {
+    "path": "examples/invalid/pilot-recovery-installation-expired-proof.json",
+    "valid": false,
+    "level": "semantic"
   }
 ]

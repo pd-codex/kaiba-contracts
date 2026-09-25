@@ -67,5 +67,5 @@ verification and atomic predecessor rejection remain implementation obligations.
 
 [PilotRecoveryAuthorization and PilotRecoveryKeyChallenge](../contracts/pilot-expired-recovery.md)
 define separate supervised approval and existing-key proof in 0.4.0-draft.1.
-They grant no access by themselves. Recovery issuance, installation, cutover and
-runtime adoption remain pending.
+They grant no access by themselves. [Recovery issuance, installation and cutover](../contracts/pilot-recovery-cutover.md)
+complete the proposed record linkage; runtime adoption remains pending.
