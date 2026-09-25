@@ -271,5 +271,42 @@
     "path": "examples/invalid/pilot-renewal-long-challenge.json",
     "valid": false,
     "level": "semantic"
+  },
+  {
+    "path": "examples/valid/pilot-recovery-predecessor.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-recovery-authorization-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-recovery-challenge-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/invalid/pilot-recovery-normal-mode.json",
+    "valid": false,
+    "level": "schema"
+  },
+  {
+    "path": "examples/invalid/pilot-recovery-before-expiry.json",
+    "valid": false,
+    "level": "semantic"
+  },
+  {
+    "path": "examples/invalid/pilot-recovery-revision.json",
+    "valid": false,
+    "level": "semantic"
+  },
+  {
+    "path": "examples/invalid/pilot-recovery-wrong-purpose.json",
+    "valid": false,
+    "level": "schema"
+  },
+  {
+    "path": "examples/invalid/pilot-recovery-long-challenge.json",
+    "valid": false,
+    "level": "semantic"
   }
 ]
