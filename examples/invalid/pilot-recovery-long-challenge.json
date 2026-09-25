@@ -1,0 +1,28 @@
+{
+  "revision": 1,
+  "issued_at": "2026-09-23T12:15:00Z",
+  "authority_id": "fixture-renewal-authority",
+  "tenant_id": "fixture-tenant",
+  "security_domain_id": "pilot-fixture",
+  "correlation_id": "fixture:recovery-a-2",
+  "operation_id": "fixture-recovery-a-2",
+  "instance_id": "fixture-instance-a",
+  "predecessor_binding_ref": {
+    "record_id": "fixture:binding-a",
+    "revision": 2,
+    "digest": "sha256:3adf1c06d8a91883ed2bc330e53d8e9deada6e96c7458654221c39e546e78f4f"
+  },
+  "predecessor_certificate_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "spki_digest": "sha256:b2e01dd638a97d6412c7ef5699d6e92bc8cc72281e4ef4108305aef7520326fd",
+  "contract": "PilotRecoveryKeyChallenge",
+  "contract_version": "0.4.0-draft.1",
+  "record_id": "fixture:recovery-challenge-a-2",
+  "purpose": "pilot_expired_recovery_key_possession",
+  "authorization_ref": {
+    "record_id": "fixture:recovery-a-2",
+    "revision": 1,
+    "digest": "sha256:54988f601f1867f0e9868c4d277f6e2217fa2daa1c871d5dc587529a246ef5f6"
+  },
+  "nonce": "abababababababababababababababababababababababab",
+  "expires_at": "2026-09-23T12:20:01Z"
+}

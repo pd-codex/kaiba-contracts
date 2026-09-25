@@ -15,7 +15,7 @@ from referencing import Registry, Resource
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = (ROOT / 'VERSION').read_text().strip()
-SUPPORTED_VERSIONS = ('0.1.0-draft.1', '0.2.0-draft.1', '0.3.0-draft.1')
+SUPPORTED_VERSIONS = ('0.1.0-draft.1', '0.2.0-draft.1', '0.3.0-draft.1', '0.4.0-draft.1')
 SCHEMAS = {
     f'{version}/{p.stem}': json.loads(p.read_text())
     for version in SUPPORTED_VERSIONS
@@ -29,6 +29,8 @@ for required_format in ('date-time', 'uri'):
     if required_format not in FORMATS.checkers:
         raise RuntimeError(f'Missing {required_format} validation; install requirements-dev.txt')
 CONTRACTS = {
+    ('PilotRecoveryAuthorization', '0.4.0-draft.1'): 'pilot-recovery-authorization',
+    ('PilotRecoveryKeyChallenge', '0.4.0-draft.1'): 'pilot-recovery-key-challenge',
     ('PilotDeviceBinding', '0.3.0-draft.1'): 'pilot-device-binding',
     ('PilotRenewalInstallationReceipt', '0.3.0-draft.1'): 'pilot-renewal-installation-receipt',
     ('PilotRenewalAuthorization', '0.3.0-draft.1'): 'pilot-renewal-authorization',
@@ -103,7 +105,7 @@ def validate(record):
             errors.append('RENEWAL-PROOF-TIME: verification outside bounded challenge')
         if _time(record['issued_at']) < verified:
             errors.append('RENEWAL-PROOF-TIME: receipt predates verification')
-    if record['contract'] == 'PilotRenewalAuthorization':
+    if record['contract'] in ('PilotRenewalAuthorization', 'PilotRecoveryAuthorization'):
         start, end = _time(record['valid_from']), _time(record['expires_at'])
         if not start < end or (end-start).total_seconds() > 7*24*60*60:
             errors.append('RENEWAL-WINDOW: requires positive window of at most seven days')
@@ -111,6 +113,13 @@ def validate(record):
             errors.append('RENEWAL-WINDOW: authorization issued after its start')
         if record['successor_credential_revision'] != record['predecessor_credential_revision'] + 1:
             errors.append('RENEWAL-REVISION: successor must immediately follow predecessor')
+    if record['contract'] == 'PilotRecoveryAuthorization':
+        if _time(record['predecessor_access_expires_at']) > _time(record['issued_at']):
+            errors.append('RECOVERY-EXPIRY: predecessor must have expired before approval')
+    if record['contract'] == 'PilotRecoveryKeyChallenge':
+        start, end = _time(record['issued_at']), _time(record['expires_at'])
+        if not 0 < (end-start).total_seconds() <= 300:
+            errors.append('RECOVERY-PROOF-TIME: challenge must last at most five minutes')
     if record['contract'] in ('DeviceBinding', 'PilotDeviceBinding'):
         credential = record['credential']
         start, end = _time(credential['not_before']), _time(credential['not_after'])

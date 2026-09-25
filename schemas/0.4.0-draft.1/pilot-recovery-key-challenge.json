@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.4.0-draft.1:pilot-recovery-key-challenge",
+  "type": "object",
+  "properties": {
+    "record_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "revision": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/revision"
+    },
+    "issued_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "authority_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "tenant_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "security_domain_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "correlation_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "contract": {
+      "const": "PilotRecoveryKeyChallenge"
+    },
+    "contract_version": {
+      "const": "0.4.0-draft.1"
+    },
+    "purpose": {
+      "const": "pilot_expired_recovery_key_possession"
+    },
+    "nonce": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{48}$"
+    },
+    "operation_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "instance_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "authorization_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "predecessor_binding_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "predecessor_certificate_digest": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/digest"
+    },
+    "spki_digest": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/digest"
+    },
+    "expires_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "revision",
+    "issued_at",
+    "authority_id",
+    "tenant_id",
+    "security_domain_id",
+    "correlation_id",
+    "contract",
+    "contract_version",
+    "purpose",
+    "nonce",
+    "operation_id",
+    "instance_id",
+    "authorization_ref",
+    "predecessor_binding_ref",
+    "predecessor_certificate_digest",
+    "spki_digest",
+    "expires_at"
+  ]
+}

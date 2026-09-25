@@ -62,3 +62,10 @@ not implemented or authorized by this record.
 [Renewal installation and cutover](../contracts/pilot-renewal-cutover.md) adds
 proposed 0.3 successor binding and installation-receipt linkage. Runtime proof
 verification and atomic predecessor rejection remain implementation obligations.
+
+## Proposed expired pilot recovery
+
+[PilotRecoveryAuthorization and PilotRecoveryKeyChallenge](../contracts/pilot-expired-recovery.md)
+define separate supervised approval and existing-key proof in 0.4.0-draft.1.
+They grant no access by themselves. Recovery issuance, installation, cutover and
+runtime adoption remain pending.
