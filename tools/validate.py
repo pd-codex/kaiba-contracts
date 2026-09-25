@@ -15,7 +15,7 @@ from referencing import Registry, Resource
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = (ROOT / 'VERSION').read_text().strip()
-SUPPORTED_VERSIONS = ('0.1.0-draft.1', '0.2.0-draft.1')
+SUPPORTED_VERSIONS = ('0.1.0-draft.1', '0.2.0-draft.1', '0.3.0-draft.1')
 SCHEMAS = {
     f'{version}/{p.stem}': json.loads(p.read_text())
     for version in SUPPORTED_VERSIONS
@@ -29,6 +29,7 @@ for required_format in ('date-time', 'uri'):
     if required_format not in FORMATS.checkers:
         raise RuntimeError(f'Missing {required_format} validation; install requirements-dev.txt')
 CONTRACTS = {
+    ('PilotRenewalAuthorization', '0.3.0-draft.1'): 'pilot-renewal-authorization',
     ('ProvisioningRecord', '0.1.0-draft.1'): 'provisioning-record',
     ('DeviceBinding', '0.1.0-draft.1'): 'device-binding',
     ('PublishRequest', '0.1.0-draft.1'): 'publish-request',
@@ -93,6 +94,14 @@ def validate(record):
         rfc8785.dumps(record)
     except (ValueError, UnicodeError) as error:
         return [f'encoding: {error}']
+    if record['contract'] == 'PilotRenewalAuthorization':
+        start, end = _time(record['valid_from']), _time(record['expires_at'])
+        if not start < end or (end-start).total_seconds() > 7*24*60*60:
+            errors.append('RENEWAL-WINDOW: requires positive window of at most seven days')
+        if _time(record['issued_at']) > start:
+            errors.append('RENEWAL-WINDOW: authorization issued after its start')
+        if record['successor_credential_revision'] != record['predecessor_credential_revision'] + 1:
+            errors.append('RENEWAL-REVISION: successor must immediately follow predecessor')
     if record['contract'] in ('DeviceBinding', 'PilotDeviceBinding'):
         credential = record['credential']
         start, end = _time(credential['not_before']), _time(credential['not_after'])
@@ -279,6 +288,44 @@ def validate_pilot_binding(binding, adoption, policy, decision, *, checked_at):
         activated = _time(binding['activation']['activated_at'])
         if not max(_time(decision['issued_at']), _time(decision['valid_from'])) <= activated < _time(decision['expires_at']):
             errors.append('PILOT-TIME: activation outside admission decision')
+    return errors
+
+
+def validate_pilot_renewal(authorization, predecessor, adoption, policy, decision,
+                           *, checked_at, predecessor_certificate_digest,
+                           predecessor_credential_revision):
+    """Offline consistency only; certificate facts must come from authenticated runtime state."""
+    errors = validate(authorization) + validate(predecessor)
+    if authorization.get('contract') != 'PilotRenewalAuthorization' or predecessor.get('contract') != 'PilotDeviceBinding':
+        errors.append('RENEWAL-TYPE: wrong record types')
+    if errors:
+        return errors
+    errors += validate_pilot_handoff(adoption, policy, decision, checked_at=checked_at)
+    if errors:
+        return errors
+    a, b = authorization, predecessor
+    now = _time(checked_at)
+    if _time(b['issued_at']) > now or _time(a['issued_at']) < max(_time(adoption['issued_at']), _time(policy['issued_at']), _time(decision['issued_at'])):
+        errors.append('RENEWAL-TIME: future predecessor or authorization predates reviewed records')
+    if b['state'] != 'active' or not _time(b['credential']['not_before']) <= now < _time(b['credential']['not_after']):
+        errors.append('RENEWAL-PREDECESSOR: normal renewal needs active unexpired credential')
+    if not _time(a['valid_from']) <= now < _time(a['expires_at']) or _time(a['issued_at']) > now:
+        errors.append('RENEWAL-WINDOW: authorization is not current')
+    if a['predecessor_binding_ref'] != record_ref(b) or a['predecessor_certificate_digest'] != predecessor_certificate_digest:
+        errors.append('RENEWAL-PREDECESSOR: exact binding/certificate mismatch')
+    if type(predecessor_credential_revision) is not int or a['predecessor_credential_revision'] != predecessor_credential_revision:
+        errors.append('RENEWAL-REVISION: predecessor differs from runtime revision')
+    for field in ('logical_device_id', 'instance_id', 'storage_generation', 'target', 'tenant_id', 'security_domain_id', 'audience', 'profile', 'permissions'):
+        if a[field] != b[field]:
+            errors.append(f'RENEWAL-IDENTITY: {field} changed')
+    for field, old in [('credential_slot','slot'),('key_generation','key_generation'),('spki_digest','spki_digest'),('issuer_id','issuer_id')]:
+        if a[field] != b['credential'][old]:
+            errors.append(f'RENEWAL-IDENTITY: {field} changed')
+    for field, value in [('adoption_ref',record_ref(adoption)),('policy_ref',record_ref(policy)),('admission_ref',record_ref(decision)),('target',adoption['target']),('tenant_id',adoption['tenant_id']),('security_domain_id',adoption['security_domain_id']),('audience',policy['enrollment_audience']),('profile',policy['profile']),('permissions',policy['permissions']),('issuer_id',policy['operational_issuer_id'])]:
+        if a[field] != value:
+            errors.append(f'RENEWAL-RECORDS: {field} mismatch')
+    if _time(a['valid_from']) < max(_time(policy['valid_from']),_time(decision['valid_from']),_time(decision['issued_at'])) or _time(a['expires_at']) > min(_time(policy['expires_at']),_time(decision['expires_at'])):
+        errors.append('RENEWAL-WINDOW: outside approved policy/decision interval')
     return errors
 
 

@@ -222,5 +222,32 @@
     "valid": false,
     "level": "schema",
     "reason": "pilot-secret-field"
+  },
+  {
+    "path": "examples/valid/pilot-renewal-policy.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-renewal-decision-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-renewal-authorization-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/invalid/pilot-renewal-window.json",
+    "valid": false,
+    "level": "semantic"
+  },
+  {
+    "path": "examples/invalid/pilot-renewal-generation.json",
+    "valid": false,
+    "level": "semantic"
+  },
+  {
+    "path": "examples/invalid/pilot-renewal-recovery.json",
+    "valid": false,
+    "level": "schema"
   }
 ]

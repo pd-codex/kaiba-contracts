@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.3.0-draft.1:pilot-renewal-authorization",
+  "type": "object",
+  "properties": {
+    "record_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "revision": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/revision"
+    },
+    "issued_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "authority_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "tenant_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "security_domain_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "correlation_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "logical_device_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "instance_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "storage_generation": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/generation"
+    },
+    "target": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/pilotTarget"
+    },
+    "adoption_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "admission_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "policy_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "audience": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "profile": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/pilotProfile"
+    },
+    "permissions": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/pilotPermissions"
+    },
+    "full_qualification": {
+      "const": false
+    },
+    "contract": {
+      "const": "PilotRenewalAuthorization"
+    },
+    "contract_version": {
+      "const": "0.3.0-draft.1"
+    },
+    "mode": {
+      "const": "same_key_unexpired"
+    },
+    "operation_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "predecessor_binding_ref": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/recordRef"
+    },
+    "predecessor_certificate_digest": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/digest"
+    },
+    "predecessor_credential_revision": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/revision"
+    },
+    "successor_credential_revision": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/revision"
+    },
+    "credential_slot": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "key_generation": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/generation"
+    },
+    "spki_digest": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/digest"
+    },
+    "issuer_id": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/id"
+    },
+    "valid_from": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    },
+    "expires_at": {
+      "$ref": "urn:kaiba:contracts:0.2.0-draft.1:common#/$defs/timestamp"
+    }
+  },
+  "required": [
+    "record_id",
+    "revision",
+    "issued_at",
+    "authority_id",
+    "tenant_id",
+    "security_domain_id",
+    "correlation_id",
+    "logical_device_id",
+    "instance_id",
+    "storage_generation",
+    "target",
+    "adoption_ref",
+    "admission_ref",
+    "policy_ref",
+    "audience",
+    "profile",
+    "permissions",
+    "full_qualification",
+    "contract",
+    "contract_version",
+    "mode",
+    "operation_id",
+    "predecessor_binding_ref",
+    "predecessor_certificate_digest",
+    "predecessor_credential_revision",
+    "successor_credential_revision",
+    "credential_slot",
+    "key_generation",
+    "spki_digest",
+    "issuer_id",
+    "valid_from",
+    "expires_at"
+  ],
+  "additionalProperties": false
+}

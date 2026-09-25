@@ -76,3 +76,12 @@ gate, never satisfied by this repository's fixtures or CI.
 The [authenticated enrollment rehearsal](integrations/enrollment-rehearsal.md)
 assigns concrete cross-repository scenarios to these obligations. Its synthetic
 eligibility path and real development-denial path remain distinct.
+
+## Proposed renewal authorization
+
+`tests/test_renewal.py` checks the new 0.3.0-draft.1 authorization schema and
+linked consistency with existing pilot records. Runtime certificate facts are
+explicit inputs, not authenticated by these checks. Fleet integration must still
+prove operator authorization, issuance history, crash recovery, proof binding,
+atomic cutover, retained-connection rejection, expiry and restore behavior.
+Passing these fixtures does not establish a usable renewal implementation.
