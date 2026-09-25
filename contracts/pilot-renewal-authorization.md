@@ -32,9 +32,9 @@ credential recovery require separate contracts and cannot use this mode.
 
 The first slice supports references to existing 0.2.0-draft.1 pilot records. It
 does not change their schemas or relax the old binding-transition validator.
-A versioned successor-binding/installation/cutover contract and runtime migration
-are required before operational adoption; this authorization record alone cannot
-make those transitions valid.
+The proposed [successor binding and installation/cutover contract](pilot-renewal-cutover.md)
+defines those linked transitions. Runtime migration and integration remain required
+before adoption; this authorization record alone cannot make them valid.
 
 ## Window and fresh records
 

@@ -58,3 +58,7 @@ claims conformance.
 explicit same-key renewal to an exact predecessor, successor reviewed records
 and a window of at most seven days. Issuance, installation and activation are
 not implemented or authorized by this record.
+
+[Renewal installation and cutover](../contracts/pilot-renewal-cutover.md) adds
+proposed 0.3 successor binding and installation-receipt linkage. Runtime proof
+verification and atomic predecessor rejection remain implementation obligations.

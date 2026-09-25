@@ -1,0 +1,74 @@
+{
+  "contract": "PilotDeviceBinding",
+  "contract_version": "0.3.0-draft.1",
+  "record_id": "fixture:renewed-binding-a",
+  "revision": 1,
+  "issued_at": "2026-09-23T12:16:00Z",
+  "authority_id": "fixture-inventory-authority",
+  "tenant_id": "fixture-tenant",
+  "security_domain_id": "pilot-fixture",
+  "correlation_id": "fixture:binding-a",
+  "logical_device_id": "fixture-logical-a",
+  "instance_id": "fixture-instance-a",
+  "storage_generation": 1,
+  "bootstrap_identity_ref": {
+    "uri": "urn:kaiba:fixture:identity-a",
+    "digest": "sha256:207554e1d17a88f402020c93f89102058dd1330d1f670ea6d50baa7ca1c9c836"
+  },
+  "credential": {
+    "slot": "slot-management",
+    "role": "pilot_management",
+    "key_generation": 1,
+    "spki_digest": "sha256:b2e01dd638a97d6412c7ef5699d6e92bc8cc72281e4ef4108305aef7520326fd",
+    "issuer_id": "fixture-pilot-issuer",
+    "certificate_serial": "a2",
+    "not_before": "2026-09-23T12:15:00Z",
+    "not_after": "2026-09-30T12:15:00Z"
+  },
+  "state": "staged",
+  "target": {
+    "asset_ref": "fixture-device-a",
+    "identity_ref": {
+      "uri": "urn:kaiba:fixture:identity-a",
+      "digest": "sha256:207554e1d17a88f402020c93f89102058dd1330d1f670ea6d50baa7ca1c9c836"
+    },
+    "storage_ref": {
+      "uri": "urn:kaiba:fixture:storage-a",
+      "digest": "sha256:0bfd2b35422979160f8695a84f6174f2e7510dbc4f3749e4c5dabab7e70f33f9"
+    }
+  },
+  "adoption_ref": {
+    "record_id": "fixture:adoption-a",
+    "revision": 1,
+    "digest": "sha256:f4ad74b576d3f69f232efcfa436cc587b5504bbcb5ccdba5b571a2e0d53407ec"
+  },
+  "policy_ref": {
+    "record_id": "fixture:pilot-policy",
+    "revision": 2,
+    "digest": "sha256:b96b30991dc39e4e9510a8f491b68cddca6cbac7c034b7a81e2ea6343f4dc79f"
+  },
+  "admission_ref": {
+    "record_id": "fixture:decision-a",
+    "revision": 2,
+    "digest": "sha256:eb1afd535c61d30576b83250196516b0d7b4b25389b22ef6a21f0fda9749b791"
+  },
+  "audience": "fixture-pilot-audience",
+  "profile": "rpi5-existing-luks-pilot-v1",
+  "permissions": [
+    "pilot:self:read",
+    "pilot:diagnostic-reference:submit"
+  ],
+  "full_qualification": false,
+  "credential_revision": 2,
+  "certificate_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "renewal_authorization_ref": {
+    "record_id": "fixture:renewal-a-2",
+    "revision": 1,
+    "digest": "sha256:76241c9c3363cbd90759e8b6155b5decc2988b86844958b25f3090651dc8d40d"
+  },
+  "predecessor_binding_ref": {
+    "record_id": "fixture:binding-a",
+    "revision": 2,
+    "digest": "sha256:68f2839644247f99c867cdec25aed83e807c242fab6a373f3f5817ff2c84383c"
+  }
+}

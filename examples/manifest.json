@@ -249,5 +249,27 @@
     "path": "examples/invalid/pilot-renewal-recovery.json",
     "valid": false,
     "level": "schema"
+  },
+  {
+    "path": "examples/valid/pilot-renewal-staged-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-renewal-installed-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/pilot-renewal-active-a.json",
+    "valid": true
+  },
+  {
+    "path": "examples/invalid/pilot-renewal-wrong-proof-purpose.json",
+    "valid": false,
+    "level": "schema"
+  },
+  {
+    "path": "examples/invalid/pilot-renewal-long-challenge.json",
+    "valid": false,
+    "level": "semantic"
   }
 ]

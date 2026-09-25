@@ -85,3 +85,8 @@ explicit inputs, not authenticated by these checks. Fleet integration must still
 prove operator authorization, issuance history, crash recovery, proof binding,
 atomic cutover, retained-connection rejection, expiry and restore behavior.
 Passing these fixtures does not establish a usable renewal implementation.
+
+`tests/test_renewal_cutover.py` and `tools/renewal.py` check successor staging,
+installation receipt linkage and activation ordering. They cannot establish
+signature verification, crash recovery or live predecessor rejection; those
+remain required native fleet integration scenarios.
