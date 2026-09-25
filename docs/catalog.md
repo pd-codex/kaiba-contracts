@@ -51,3 +51,10 @@ retains its origin. Conflicts at the same layer block the affected target;
 platform security constraints cannot be overridden. The precise merge rules
 must be finalized with ComponentContract and DeploymentPlan before a compiler
 claims conformance.
+
+## Proposed pilot renewal authorization
+
+[PilotRenewalAuthorization](../contracts/pilot-renewal-authorization.md) binds an
+explicit same-key renewal to an exact predecessor, successor reviewed records
+and a window of at most seven days. Issuance, installation and activation are
+not implemented or authorized by this record.
