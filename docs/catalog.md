@@ -7,6 +7,7 @@ record-local fixtures in this baseline; no entry has production conformance.
 | --- | --- | --- | --- |
 | ProvisioningRecord | Provisioning → identity/admission | Observed outcome, posture, readiness claims and authoritative evidence | Specified |
 | DeviceBinding | Inventory → relying services/admission | Exact canonical identity/instance/credential binding and lifecycle snapshot | Specified |
+| WorkloadBinding | Membership registry → SPIFFE relying services | Canonical workload identity, active enrollment instance and per-request permission; unadopted additive 0.5 draft | Specified |
 | PilotAdoptionRecord | Provisioning → pilot admission | Existing-device observations and separately retained qualification gaps | Specified |
 | PilotPolicy | Policy authority → pilot admission/relying services | Exact two-target cohort, issuer, audience, permissions and validity | Specified |
 | PilotAdmissionDecision | Policy authority → pilot admission | Exact adoption/policy approval or denial and accepted gaps | Specified |

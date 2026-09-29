@@ -5,8 +5,9 @@ configuration. This repository defines the records, responsibilities, and
 guarantees that connect Kaiba subsystems. It does not implement a provisioning
 lane, controller, signer, device agent, or production admission service.
 
-**Status: proposed contract set `0.3.0-draft.1`.** The additive renewal authorization
-has not yet been adopted by the producer or consumer. The original family is used by the
+**Status: proposed contract set `0.4.0-draft.1`, plus an isolated
+`0.5.0-draft.1` WorkloadBinding draft.** Additive families require explicit
+producer and consumer adoption. The original family is used by the
 [isolated enrollment rehearsal](docs/integrations/enrollment-rehearsal.md).
 Passing the included tests means
 the documents' sample records satisfy the checked rules; it does not qualify
@@ -37,12 +38,16 @@ development restrictions, conflicting assignments and a lost confirmation.
    - [Pilot renewal installation and cutover](contracts/pilot-renewal-cutover.md)
    - [Proposed expired pilot recovery](contracts/pilot-expired-recovery.md)
    - [Recovery issuance, installation and cutover](contracts/pilot-recovery-cutover.md)
+   - [Proposed SPIFFE WorkloadBinding](contracts/workload-binding.md)
 5. [Conformance and examples](docs/conformance.md).
 
 The original wire family remains in [schemas/0.1.0-draft.1](schemas/0.1.0-draft.1).
 The new pilot family lives in [schemas/0.2.0-draft.1](schemas/0.2.0-draft.1).
 The additive renewal authorization lives in [schemas/0.3.0-draft.1](schemas/0.3.0-draft.1).
 Proposed recovery approval, key proof and cutover live in [schemas/0.4.0-draft.1](schemas/0.4.0-draft.1); runtime adoption remains pending.
+The isolated, unadopted WorkloadBinding draft lives in
+[schemas/0.5.0-draft.1](schemas/0.5.0-draft.1). This additive family leaves the
+existing contract-set `VERSION`, enrollment and pilot wire families unchanged.
 All use exact contract/version dispatch; pilot records do not upgrade legacy
 readiness or confer full qualification. They use JSON
 Schema Draft 2020-12 and resolve entirely from local files. Examples use fictitious
