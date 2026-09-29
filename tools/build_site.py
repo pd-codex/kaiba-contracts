@@ -16,6 +16,7 @@ DETAILS = {
     "ProvisioningRecord": "contracts/provisioning-record.md",
     "DeviceBinding": "contracts/device-binding.md",
     "WorkloadBinding": "contracts/workload-binding.md",
+    "DNSWorkloadAuthorization": "contracts/dns-workload-authorization.md",
     "PublishRequest": "contracts/publication.md",
     "Publication": "contracts/publication.md",
     "PilotAdoptionRecord": "contracts/pilot-enrollment.md",

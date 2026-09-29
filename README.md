@@ -6,7 +6,8 @@ guarantees that connect Kaiba subsystems. It does not implement a provisioning
 lane, controller, signer, device agent, or production admission service.
 
 **Status: proposed contract set `0.4.0-draft.1`, plus an isolated
-`0.5.0-draft.1` WorkloadBinding draft.** Additive families require explicit
+`0.5.0-draft.1` WorkloadBinding draft and transient DNSWorkloadAuthorization
+RPC response.** Additive families require explicit
 producer and consumer adoption. The original family is used by the
 [isolated enrollment rehearsal](docs/integrations/enrollment-rehearsal.md).
 Passing the included tests means
@@ -39,13 +40,14 @@ development restrictions, conflicting assignments and a lost confirmation.
    - [Proposed expired pilot recovery](contracts/pilot-expired-recovery.md)
    - [Recovery issuance, installation and cutover](contracts/pilot-recovery-cutover.md)
    - [Proposed SPIFFE WorkloadBinding](contracts/workload-binding.md)
+   - [Per-request DNS workload authorization](contracts/dns-workload-authorization.md)
 5. [Conformance and examples](docs/conformance.md).
 
 The original wire family remains in [schemas/0.1.0-draft.1](schemas/0.1.0-draft.1).
 The new pilot family lives in [schemas/0.2.0-draft.1](schemas/0.2.0-draft.1).
 The additive renewal authorization lives in [schemas/0.3.0-draft.1](schemas/0.3.0-draft.1).
 Proposed recovery approval, key proof and cutover live in [schemas/0.4.0-draft.1](schemas/0.4.0-draft.1); runtime adoption remains pending.
-The isolated, unadopted WorkloadBinding draft lives in
+The isolated, unadopted WorkloadBinding and DNSWorkloadAuthorization drafts live in
 [schemas/0.5.0-draft.1](schemas/0.5.0-draft.1). This additive family leaves the
 existing contract-set `VERSION`, enrollment and pilot wire families unchanged.
 All use exact contract/version dispatch; pilot records do not upgrade legacy

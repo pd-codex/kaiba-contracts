@@ -6,11 +6,18 @@ contradiction is a contract defect to resolve, not permission to choose one.
 
 ## Records and references
 
-Emitted records carry `contract`, `contract_version`, `record_id`, `revision`,
+Durable emitted records carry `contract`, `contract_version`, `record_id`, `revision`,
 `issued_at`, `authority_id`, `tenant_id`, `security_domain_id`, and
 `correlation_id`. IDs are opaque, case-sensitive values. Revision numbers are
 monotonic within a record ID; every `(record_id, revision)` is immutable.
 An issuance timestamp records history and never implies current authorization.
+
+An explicitly specified transient RPC result is not a durable record. The
+additive [DNSWorkloadAuthorization](../contracts/dns-workload-authorization.md)
+response has only its exact contract/version and request-bound fields; it MUST
+NOT invent a record ID, revision, authority claim, or common record envelope.
+Common JSON encoding rules still apply. Its authenticated exchange and per-call
+freshness requirements replace record references, not membership policy.
 
 `RecordRef` binds `record_id`, `revision`, and `digest`. A consumer MUST retrieve
 the named version from an authorized source and compare all three. The digest
@@ -95,3 +102,7 @@ or upgrade any existing family. Its identity-bearing path components use the
 contract's narrower lowercase grammar instead of the general opaque-ID grammar.
 Its record envelope continues to use the common rules above. Runtime adoption
 and migration remain separate gates.
+
+The additional `DNSWorkloadAuthorization` / `0.5.0-draft.1` pair is a transient
+RPC response in that same additive directory. It leaves WorkloadBinding and
+all existing families unchanged and requires separate producer/consumer review.
