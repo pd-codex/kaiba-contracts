@@ -90,3 +90,25 @@ Passing these fixtures does not establish a usable renewal implementation.
 installation receipt linkage and activation ordering. They cannot establish
 signature verification, crash recovery or live predecessor rejection; those
 remain required native fleet integration scenarios.
+
+## Proposed SPIFFE workload binding
+
+`tests/test_workload_binding.py` and the workload-binding corpus validate the
+isolated `0.5.0-draft.1` schema, canonical URI/component equality, namespace
+boundaries, allowed states and permissions, closed fields and exact version
+dispatch. Tests retain valid non-active records and untrusted authority claims
+to demonstrate that structural validity is not authorization.
+
+The following require independent runtime evidence before adoption:
+
+| ID | Scenario | Required owner/result |
+| --- | --- | --- |
+| INT-WB-01 | Wrong trust domain, device, instance or workload; untrusted registry; caller-supplied assertion | Registry/DNS deny before a DNS mutation |
+| INT-WB-02 | Active workload record with inactive or replaced enrollment; missing permission; unassigned DNS name | Registry/DNS deny despite valid SVID authentication |
+| INT-WB-03 | Registry unavailable, missing or stale; quarantine, retirement or permission removal on an existing connection | Relying service checks each request and denies within the adopted invalidation policy |
+| INT-WB-04 | Real SVID rotation, expiry, trust rollover, agent restart and authority outage | Workload API consumer preserves membership through rotation, rejects invalid credentials and uses no file-credential fallback |
+| INT-WB-05 | Provider membership loss or provider SVID presented to a local service | Provider denial leaves local identity intact; cross-domain authority is rejected |
+
+A file-backed prototype registry or synthetic SVID test is useful software
+evidence only. It does not demonstrate production inventory authentication,
+physical attestation, offline rollback protection or an adopted SPIRE service.

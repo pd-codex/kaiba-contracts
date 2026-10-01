@@ -80,3 +80,14 @@ Use the [authenticated enrollment rehearsal](integrations/enrollment-rehearsal.m
 for the provisioning-to-fleet integration. Implementations pin the shared schemas
 and run the existing example corpus as well as their independent runtime tests.
 This profile does not adopt or complete production admission.
+
+## Proposed SPIFFE workload family
+
+[WorkloadBinding](../contracts/workload-binding.md), wire `0.5.0-draft.1`, is an
+isolated, unadopted addition. Fleet registry and DNS consumers must review its
+canonical identity mapping, authenticated current enrollment lookup, per-request
+authorization, namespace/resource scope and [INT-WB scenarios](conformance.md#proposed-spiffe-workload-binding).
+Record matching schema pins and independent runtime evidence before enabling it.
+Existing exact-tuple DeviceBinding and pilot consumers retain their current
+behavior. A prototype fixture registry cannot substitute for live admission or
+authorize a production migration.

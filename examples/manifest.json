@@ -335,5 +335,75 @@
     "path": "examples/invalid/pilot-recovery-installation-expired-proof.json",
     "valid": false,
     "level": "semantic"
+  },
+  {
+    "path": "examples/valid/workload-binding-active.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/workload-binding-quarantined.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/workload-binding-retired.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/workload-binding-no-permissions.json",
+    "valid": true
+  },
+  {
+    "path": "examples/invalid/workload-binding-other-instance.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "WB-IDENTITY: URI must bind the same enrollment instance"
+  },
+  {
+    "path": "examples/invalid/workload-binding-other-domain.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "WB-IDENTITY: URI must bind the same trust domain"
+  },
+  {
+    "path": "examples/invalid/workload-binding-uri-alias.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "WB-IDENTITY: query-bearing aliases are not canonical identities"
+  },
+  {
+    "path": "examples/invalid/workload-binding-unsafe-segment.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "WB-IDENTITY: identity segments cannot contain dots or slashes"
+  },
+  {
+    "path": "examples/invalid/workload-binding-noncanonical-domain.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "WB-IDENTITY: trust domains must already be canonical lowercase"
+  },
+  {
+    "path": "examples/invalid/workload-binding-unknown-permission.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "WB-AUTH: this draft permits only dns:update"
+  },
+  {
+    "path": "examples/invalid/workload-binding-duplicate-permission.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "WB-AUTH: permissions are unique"
+  },
+  {
+    "path": "examples/invalid/workload-binding-old-version.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "WorkloadBinding has an isolated exact version"
+  },
+  {
+    "path": "examples/invalid/workload-binding-certificate-field.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "WorkloadBinding does not adopt per-SVID serial authorization"
   }
 ]

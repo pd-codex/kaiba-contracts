@@ -69,10 +69,12 @@ execute-once journal, fence, approval, or ambiguous-outcome rules.
 
 ## Versioning
 
-`VERSION` identifies the proposed contract set, currently `0.2.0-draft.1`.
+`VERSION` identifies the proposed contract set, currently `0.4.0-draft.1`.
 Individual wire families retain their exact versions: ProvisioningRecord,
 DeviceBinding, PublishRequest and Publication remain at `0.1.0-draft.1`; the
 four new [pilot records](../contracts/pilot-enrollment.md) use `0.2.0-draft.1`.
+Renewal and recovery additions retain their `0.3.0-draft.1` and
+`0.4.0-draft.1` wire families respectively.
 The bundled validator enumerates these exact contract/version pairs. A different
 combination is rejected, including an old record relabelled with the new version.
 The old schemas and examples are unchanged. Consumers pin a commit or published
@@ -86,3 +88,10 @@ not automatically backward compatible. Documentation-only corrections may keep
 the wire version only if they do not change accepted behavior; record the review.
 Producer and consumer deployment order, overlap windows, rollback and retirement
 must accompany each incompatible change.
+
+The isolated [WorkloadBinding](../contracts/workload-binding.md) draft adds only
+the exact pair `WorkloadBinding` / `0.5.0-draft.1`; it does not change `VERSION`
+or upgrade any existing family. Its identity-bearing path components use the
+contract's narrower lowercase grammar instead of the general opaque-ID grammar.
+Its record envelope continues to use the common rules above. Runtime adoption
+and migration remain separate gates.

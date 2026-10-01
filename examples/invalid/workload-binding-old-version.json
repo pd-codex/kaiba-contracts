@@ -1,0 +1,20 @@
+{
+  "contract": "WorkloadBinding",
+  "contract_version": "0.4.0-draft.1",
+  "record_id": "workload-binding-fixture-001",
+  "revision": 1,
+  "issued_at": "2026-09-28T12:00:00Z",
+  "authority_id": "registry-fixture",
+  "tenant_id": "tenant-fixture",
+  "security_domain_id": "domain-fixture-provider",
+  "correlation_id": "correlation-workload-fixture-001",
+  "trust_domain": "kaiba.network",
+  "logical_device_id": "device-fixture-001",
+  "instance_id": "instance-fixture-001",
+  "workload": "dns-updater",
+  "spiffe_id": "spiffe://kaiba.network/device/device-fixture-001/instance/instance-fixture-001/workload/dns-updater",
+  "state": "active",
+  "permissions": [
+    "dns:update"
+  ]
+}

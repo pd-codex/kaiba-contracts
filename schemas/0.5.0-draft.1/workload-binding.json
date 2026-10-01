@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.5.0-draft.1:workload-binding",
+  "title": "Proposed WorkloadBinding; record validation does not authorize access",
+  "type": "object",
+  "$defs": {
+    "segment": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9][a-z0-9_-]*(?![\\s\\S])"
+    }
+  },
+  "properties": {
+    "contract": { "const": "WorkloadBinding" },
+    "contract_version": { "const": "0.5.0-draft.1" },
+    "record_id": { "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id" },
+    "revision": { "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/revision" },
+    "issued_at": { "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/timestamp" },
+    "authority_id": { "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id" },
+    "tenant_id": { "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id" },
+    "security_domain_id": { "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id" },
+    "correlation_id": { "$ref": "urn:kaiba:contracts:0.1.0-draft.1:common#/$defs/id" },
+    "trust_domain": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 253,
+      "pattern": "^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*(?![\\s\\S])"
+    },
+    "logical_device_id": { "$ref": "urn:kaiba:contracts:0.5.0-draft.1:workload-binding#/$defs/segment" },
+    "instance_id": { "$ref": "urn:kaiba:contracts:0.5.0-draft.1:workload-binding#/$defs/segment" },
+    "workload": { "$ref": "urn:kaiba:contracts:0.5.0-draft.1:workload-binding#/$defs/segment" },
+    "spiffe_id": { "type": "string", "format": "uri", "maxLength": 482 },
+    "state": { "enum": ["active", "quarantined", "retired"] },
+    "permissions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "enum": ["dns:update"] }
+    }
+  },
+  "required": [
+    "contract", "contract_version", "record_id", "revision", "issued_at",
+    "authority_id", "tenant_id", "security_domain_id", "correlation_id",
+    "trust_domain", "logical_device_id", "instance_id", "workload",
+    "spiffe_id", "state", "permissions"
+  ],
+  "additionalProperties": false
+}
