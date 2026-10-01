@@ -17,7 +17,7 @@ from referencing import Registry, Resource
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = (ROOT / 'VERSION').read_text().strip()
 SUPPORTED_VERSIONS = ('0.1.0-draft.1', '0.2.0-draft.1', '0.3.0-draft.1', '0.4.0-draft.1',
-                      '0.5.0-draft.1')
+                      '0.5.0-draft.1', '0.6.0-draft.1')
 SCHEMAS = {
     f'{version}/{p.stem}': json.loads(p.read_text())
     for version in SUPPORTED_VERSIONS
@@ -31,6 +31,7 @@ for required_format in ('date-time', 'uri'):
     if required_format not in FORMATS.checkers:
         raise RuntimeError(f'Missing {required_format} validation; install requirements-dev.txt')
 CONTRACTS = {
+    ('PilotRenewalDelegation', '0.6.0-draft.1'): 'pilot-renewal-delegation',
     ('DNSWorkloadAuthorization', '0.5.0-draft.1'): 'dns-workload-authorization',
     ('WorkloadBinding', '0.5.0-draft.1'): 'workload-binding',
     ('PilotDeviceBinding', '0.4.0-draft.1'): 'pilot-device-binding',
@@ -119,6 +120,9 @@ def validate(record):
         rfc8785.dumps(record)
     except (ValueError, UnicodeError) as error:
         return [f'encoding: {error}']
+    if record['contract'] == 'PilotRenewalDelegation':
+        from tools.delegation import check_delegation
+        errors += check_delegation(record)
     if record['contract'] == 'WorkloadBinding':
         expected = (f"spiffe://{record['trust_domain']}/device/{record['logical_device_id']}"
                     f"/instance/{record['instance_id']}/workload/{record['workload']}")

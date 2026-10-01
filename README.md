@@ -7,7 +7,7 @@ lane, controller, signer, device agent, or production admission service.
 
 **Status: proposed contract set `0.4.0-draft.1`, plus an isolated
 `0.5.0-draft.1` WorkloadBinding draft and transient DNSWorkloadAuthorization
-RPC response.** Additive families require explicit
+RPC response, and a `0.6.0-draft.1` [bounded renewal delegation](contracts/pilot-renewal-delegation.md).** Additive families require explicit
 producer and consumer adoption. The original family is used by the
 [isolated enrollment rehearsal](docs/integrations/enrollment-rehearsal.md).
 Passing the included tests means
