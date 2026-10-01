@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -30,6 +31,7 @@ for required_format in ('date-time', 'uri'):
     if required_format not in FORMATS.checkers:
         raise RuntimeError(f'Missing {required_format} validation; install requirements-dev.txt')
 CONTRACTS = {
+    ('DNSWorkloadAuthorization', '0.5.0-draft.1'): 'dns-workload-authorization',
     ('WorkloadBinding', '0.5.0-draft.1'): 'workload-binding',
     ('PilotDeviceBinding', '0.4.0-draft.1'): 'pilot-device-binding',
     ('PilotRecoveryInstallationReceipt', '0.4.0-draft.1'): 'pilot-recovery-installation-receipt',
@@ -83,6 +85,21 @@ def _time(value):
     return datetime.fromisoformat(value.replace('Z', '+00:00'))
 
 
+def dns_workload_identity(value):
+    """Parse this RPC's narrow canonical URI; does not authenticate a peer."""
+    if not isinstance(value, str):
+        return None
+    label = r'[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?'
+    segment = r'[a-z0-9][a-z0-9_-]{0,63}'
+    matched = re.fullmatch(
+        rf'spiffe://(?P<domain>{label}(?:\.{label})*)/device/'
+        rf'(?P<logical>{segment})/instance/(?P<instance>{segment})/workload/dns-updater',
+        value)
+    if matched is None or len(matched['domain']) > 253:
+        return None
+    return matched.groupdict()
+
+
 def validate(record):
     if not isinstance(record, dict):
         return ['unsupported contract']
@@ -107,6 +124,16 @@ def validate(record):
                     f"/instance/{record['instance_id']}/workload/{record['workload']}")
         if record['spiffe_id'] != expected:
             errors.append('WB-IDENTITY: SPIFFE ID must exactly match the trust domain and workload tuple')
+    if record['contract'] == 'DNSWorkloadAuthorization':
+        identity = dns_workload_identity(record['spiffe_id'])
+        if (identity is None or identity['logical'] != record['logical_device_id']
+                or identity['instance'] != record['instance_id']):
+            errors.append('DNS-AUTH-IDENTITY: expected exact dns-updater workload tuple')
+        prefix = f"pi-{record['dns_device_id']}."
+        if not record['hostname'].startswith(prefix) or len(record['hostname']) <= len(prefix):
+            errors.append('DNS-AUTH-NAME: hostname must bind the independently assigned DNS device ID')
+        if (_time(record['expires_at']) - _time(record['checked_at'])).total_seconds() != 5:
+            errors.append('DNS-AUTH-TIME: response window must be exactly five seconds')
     if record['contract'] in ('PilotRenewalInstallationReceipt', 'PilotRecoveryInstallationReceipt'):
         start, end = _time(record['challenge_issued_at']), _time(record['challenge_expires_at'])
         verified = _time(record['verified_at'])

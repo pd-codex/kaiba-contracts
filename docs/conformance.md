@@ -112,3 +112,26 @@ The following require independent runtime evidence before adoption:
 A file-backed prototype registry or synthetic SVID test is useful software
 evidence only. It does not demonstrate production inventory authentication,
 physical attestation, offline rollback protection or an adopted SPIRE service.
+
+## Proposed DNS workload authorization
+
+`tests/test_dns_authorization.py`, `tools/dns_authorization.py`, and the
+`dns-authorization-*` corpus check the closed success response, canonical peer
+tuple, independent numeric DNS assignment, exact five-second interval, nonce
+and peer correlation, configured-zone matching, and strict expiry boundaries.
+The request fixture is context for an RPC, not another durable record family.
+Structural validity does not establish authenticated transport, freshness of
+the underlying registry query, or one-time use.
+
+| ID | Runtime scenario | Required owner/result |
+| --- | --- | --- |
+| INT-DNS-AUTH-01 | Unlisted controller or unexpected registry SPIFFE identity, even under a trusted CA | Registry/controller deny before DNS desired-state mutation |
+| INT-DNS-AUTH-02 | Fresh SVID but missing permission, inactive/replaced enrollment, or absent/conflicting assignment | Fleet checks one current PostgreSQL statement snapshot and denies |
+| INT-DNS-AUTH-03 | Quarantine/retirement/permission removal commits before the next request on an existing TLS connection | New registry query denies; an earlier authorized in-flight request may finish |
+| INT-DNS-AUTH-04 | Wrong response nonce/peer/name, future/expired timestamp, wrong interval, malformed response, redirect, denial or registry outage | Controller fails closed without legacy or file-registry fallback |
+| INT-DNS-AUTH-05 | Two incoming requests within five seconds, including retry or reused TLS | Distinct fresh request nonces and live registry checks; no cached/reused response |
+| INT-DNS-AUTH-06 | Nonnumeric logical ID and replacement instance with an existing numeric DNS assignment | Preserve assigned `pi-<ID>` name and DNS idempotency/write-precondition semantics |
+
+Producers and consumers provide their own integration evidence for these
+scenarios. Offline tests and a valid DTO do not satisfy production adoption,
+hardware qualification, or an actual deployment gate.

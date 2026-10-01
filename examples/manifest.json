@@ -405,5 +405,73 @@
     "valid": false,
     "level": "schema",
     "reason": "WorkloadBinding does not adopt per-SVID serial authorization"
+  },
+  {
+    "path": "examples/valid/dns-authorization-current.json",
+    "valid": true
+  },
+  {
+    "path": "examples/valid/dns-authorization-fractional-rollover.json",
+    "valid": true
+  },
+  {
+    "path": "examples/invalid/dns-authorization-other-instance.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "DNS-AUTH-IDENTITY: instance differs from the authenticated workload URI"
+  },
+  {
+    "path": "examples/invalid/dns-authorization-wrong-workload.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "DNS-AUTH-IDENTITY: only dns-updater may request DNS update permission"
+  },
+  {
+    "path": "examples/invalid/dns-authorization-wrong-dns-id.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "DNS-AUTH-NAME: hostname does not bind its separately assigned DNS ID"
+  },
+  {
+    "path": "examples/invalid/dns-authorization-extended-window.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "DNS-AUTH-TIME: window must be exactly five seconds"
+  },
+  {
+    "path": "examples/invalid/dns-authorization-envelope-field.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "DNSWorkloadAuthorization is a closed transient RPC response"
+  },
+  {
+    "path": "examples/invalid/dns-authorization-uppercase-nonce.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "DNS-AUTH-REQUEST: nonce must be 32 lowercase hexadecimal characters"
+  },
+  {
+    "path": "examples/invalid/dns-authorization-offset-time.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "DNS-AUTH-TIME: only canonical UTC Z timestamps are accepted"
+  },
+  {
+    "path": "examples/invalid/dns-authorization-nanosecond-time.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "DNS-AUTH-TIME: fractional precision is at most six digits"
+  },
+  {
+    "path": "examples/invalid/dns-authorization-hostname-alias.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "DNS-AUTH-NAME: names are canonical without a trailing dot"
+  },
+  {
+    "path": "examples/invalid/dns-authorization-old-version.json",
+    "valid": false,
+    "level": "schema",
+    "reason": "DNSWorkloadAuthorization has its own exact contract/version dispatch"
   }
 ]
