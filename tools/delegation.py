@@ -1,7 +1,8 @@
 """Offline delegation consistency. Authenticity/currentness require live readers."""
 from datetime import timedelta
+import copy
 
-from tools.validate import _time, validate
+from tools.validate import _time, validate, digest
 
 
 def check_delegation(record):
@@ -53,7 +54,7 @@ def validate_delegated_renewal(delegation, authorization, *, checked_at, princip
         errors.append('DELEGATION-RENEWAL: inactive term')
     if principal != d['automation_principal']:
         errors.append('DELEGATION-RENEWAL: wrong automation principal')
-    if any(a[k] != d[k] for k in ('tenant_id', 'security_domain_id')):
+    if any(a[k] != d[k] for k in ('authority_id', 'tenant_id', 'security_domain_id')):
         errors.append('DELEGATION-RENEWAL: wrong authority scope')
     if not _time(d['activated_at']) <= _time(a['valid_from']) <= now < _time(a['expires_at']) <= _time(d['expires_at']):
         errors.append('DELEGATION-RENEWAL: authorization outside term')
@@ -66,3 +67,18 @@ def validate_delegated_renewal(delegation, authorization, *, checked_at, princip
         if member[field] != a[field]:
             errors.append(f'DELEGATION-RENEWAL: changed {field}')
     return errors
+
+
+def delegation_evidence_digest(adoption):
+    """Portable JCS evidence scope; observation refresh cannot alter facts."""
+    errors = validate(adoption)
+    if errors or adoption.get('contract') != 'PilotAdoptionRecord':
+        raise ValueError('valid PilotAdoptionRecord required')
+    normalized = copy.deepcopy(adoption)
+    for field in ('contract', 'contract_version', 'record_id', 'issued_at',
+                  'authority_id', 'tenant_id', 'security_domain_id', 'correlation_id'):
+        normalized[field] = ''
+    normalized['revision'] = 0
+    normalized['source']['observation_id'] = ''
+    normalized['source']['observed_at'] = ''
+    return digest(normalized)

@@ -21,8 +21,11 @@ installation proof and atomic activation contracts, including predecessors
 issued through the recovery protocol.
 
 `evidence_scope_digest` is JCS/SHA-256 of the adoption record with metadata
-replaced by zero values and source observation ID and observation timestamp
-replaced by empty strings, using Fleet's typed adoption representation. All
+normalized as follows: `contract`, `contract_version`, `record_id`, `issued_at`,
+`authority_id`, `tenant_id`, `security_domain_id` and `correlation_id` become empty
+strings; `revision` becomes zero; `source.observation_id` and `source.observed_at`
+become empty strings. Preserve every other field and use JCS encoding.
+`tools.delegation.delegation_evidence_digest` is the portable reference helper. All
 measured conditions, qualification outcomes, evidence references, source
 repository/commit and target remain included. Refreshing observation timestamps
 does not authorize changed evidence. Freshness rules continue to apply.

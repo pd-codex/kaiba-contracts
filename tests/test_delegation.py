@@ -3,7 +3,7 @@ import unittest
 
 from tests.test_contracts import example
 from tools.validate import validate
-from tools.delegation import validate_delegation_transition, validate_delegated_renewal
+from tools.delegation import validate_delegation_transition, validate_delegated_renewal, delegation_evidence_digest
 
 
 class DelegationTests(unittest.TestCase):
@@ -62,3 +62,20 @@ class DelegationTests(unittest.TestCase):
     def test_unknown_authority_extension_rejected(self):
         self.delegation['allow_recovery'] = True
         self.assertTrue(validate(self.delegation))
+
+
+    def test_authority_scope_cannot_change(self):
+        self.authorization['authority_id'] = 'other-authority'
+        self.assertTrue(self.check())
+
+    def test_evidence_digest_allows_only_metadata_and_observation_refresh(self):
+        original = example('pilot-adoption-a')
+        changed = copy.deepcopy(original)
+        changed['revision'] += 1
+        changed['record_id'] = 'fresh-observation'
+        changed['issued_at'] = '2026-09-24T12:00:00Z'
+        changed['source']['observed_at'] = '2026-09-24T11:59:00Z'
+        changed['source']['observation_id'] = 'fresh-measurement'
+        self.assertEqual(delegation_evidence_digest(original), delegation_evidence_digest(changed))
+        changed['conditions']['known_key_exposure'] = True
+        self.assertNotEqual(delegation_evidence_digest(original), delegation_evidence_digest(changed))
