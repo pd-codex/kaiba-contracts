@@ -473,5 +473,21 @@
     "valid": false,
     "level": "schema",
     "reason": "DNSWorkloadAuthorization has its own exact contract/version dispatch"
+  },
+  {
+    "path": "examples/valid/pilot-renewal-delegation.json",
+    "valid": true
+  },
+  {
+    "path": "examples/invalid/pilot-renewal-delegation-extended.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "DELEGATION-SCOPE: fixed bounded authority"
+  },
+  {
+    "path": "examples/invalid/pilot-renewal-delegation-owner-automation.json",
+    "valid": false,
+    "level": "semantic",
+    "reason": "DELEGATION-SCOPE: fixed bounded authority"
   }
 ]
