@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.7.0-draft.1:sandbox-lifecycle",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "SandboxLifecycle"
+    },
+    "contract_version": {
+      "const": "0.7.0-draft.1"
+    },
+    "catalog_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "instance_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "release_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "state_format": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "ready": {
+      "type": "boolean"
+    },
+    "quiesced": {
+      "type": "boolean"
+    },
+    "operation_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    }
+  },
+  "required": [
+    "contract",
+    "contract_version",
+    "catalog_digest",
+    "instance_id",
+    "release_id",
+    "state_format",
+    "ready",
+    "quiesced",
+    "operation_id"
+  ],
+  "additionalProperties": false
+}

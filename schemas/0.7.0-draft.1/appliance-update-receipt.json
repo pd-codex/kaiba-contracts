@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.7.0-draft.1:appliance-update-receipt",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "ApplianceUpdateReceipt"
+    },
+    "contract_version": {
+      "const": "0.7.0-draft.1"
+    },
+    "identity": {
+      "type": "object",
+      "properties": {
+        "authority_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "tenant_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "logical_device_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "instance_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "profile_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "credential_slot": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "storage_generation": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "key_generation": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "spki_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "authority_id",
+        "tenant_id",
+        "logical_device_id",
+        "instance_id",
+        "profile_id",
+        "credential_slot",
+        "storage_generation",
+        "key_generation",
+        "spki_digest"
+      ],
+      "additionalProperties": false
+    },
+    "attempt_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "offer_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "current_release": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "target_release": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "slot": {
+      "enum": [
+        "A",
+        "B"
+      ]
+    },
+    "phase": {
+      "enum": [
+        "writing",
+        "staged",
+        "trial_arming",
+        "trial",
+        "committing",
+        "committed",
+        "confirmed",
+        "fallback",
+        "fallback_pending",
+        "reconciliation"
+      ]
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "journal_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "readback": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "enum": [
+                  "boot",
+                  "root",
+                  "hash",
+                  "metadata"
+                ]
+              },
+              "digest": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              },
+              "size_bytes": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "role",
+              "digest",
+              "size_bytes"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 0
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "enum": [
+                  "boot",
+                  "root",
+                  "hash",
+                  "metadata"
+                ]
+              },
+              "digest": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              },
+              "size_bytes": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "role",
+              "digest",
+              "size_bytes"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "boot_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "outcome": {
+      "enum": [
+        "pending",
+        "confirmed",
+        "fallback",
+        "reconciliation"
+      ]
+    }
+  },
+  "required": [
+    "contract",
+    "contract_version",
+    "identity",
+    "attempt_id",
+    "offer_digest",
+    "current_release",
+    "target_release",
+    "slot",
+    "phase",
+    "sequence",
+    "journal_digest",
+    "readback",
+    "outcome"
+  ],
+  "additionalProperties": false
+}

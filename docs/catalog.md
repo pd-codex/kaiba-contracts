@@ -71,3 +71,11 @@ verification and atomic predecessor rejection remain implementation obligations.
 define separate supervised approval and existing-key proof in 0.4.0-draft.1.
 They grant no access by themselves. [Recovery issuance, installation and cutover](../contracts/pilot-recovery-cutover.md)
 complete the proposed record linkage; runtime adoption remains pending.
+
+## Production appliance family: 0.7.0-draft.1
+
+[Appliance protocol](../contracts/appliance-updates.md): signed A/B release variants,
+exact qualification grants, monotonic offers, phase leases, bounded receipts,
+production credential proof/results, built-in catalog lifecycle and fixed-code
+diagnostics. The [Go reference runtime](../runtime/README.md) adds authenticated
+wire validation; schemas and Python retain their consistency-only assurance.
