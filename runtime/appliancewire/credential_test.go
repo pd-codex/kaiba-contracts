@@ -5,6 +5,8 @@ import (
 	"crypto/elliptic"
 	"crypto/rand"
 	"crypto/x509"
+	"crypto/x509/pkix"
+	"encoding/asn1"
 	"math/big"
 	"net/url"
 	"testing"
@@ -25,7 +27,7 @@ func TestCertificateExactRoleIdentityAndWindow(t *testing.T) {
 	roots.AddCert(ca)
 	id := testIdentity()
 	id.SPKI = SPKIDigest(&key.PublicKey)
-	for _, mutation := range []string{"valid", "identity", "role", "name", "lifetime", "key-usage", "uri"} {
+	for _, mutation := range []string{"valid", "identity", "role", "name", "lifetime", "key-usage", "uri", "hidden-name", "subject"} {
 		t.Run(mutation, func(t *testing.T) {
 			uri, _ := CertificateURI(id)
 			c := &x509.Certificate{SerialNumber: big.NewInt(2), NotBefore: now.Add(-time.Second), NotAfter: now.Add(30*24*time.Hour - time.Second), KeyUsage: x509.KeyUsageDigitalSignature, ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth}, URIs: []*url.URL{uri}}
@@ -41,6 +43,11 @@ func TestCertificateExactRoleIdentityAndWindow(t *testing.T) {
 				c.NotAfter = c.NotAfter.Add(time.Hour)
 			case "key-usage":
 				c.KeyUsage |= x509.KeyUsageKeyEncipherment
+			case "subject":
+				c.Subject.CommonName = "another-role"
+			case "hidden-name":
+				hidden, _ := asn1.Marshal([]asn1.RawValue{{Class: asn1.ClassContextSpecific, Tag: 6, Bytes: []byte(uri.String())}, {Class: asn1.ClassContextSpecific, Tag: 0, IsCompound: true, Bytes: []byte{}}})
+				c.ExtraExtensions = []pkix.Extension{{Id: asn1.ObjectIdentifier{2, 5, 29, 17}, Value: hidden}}
 			case "uri":
 				c.URIs = append(c.URIs, uri)
 			}
