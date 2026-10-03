@@ -489,5 +489,19 @@
     "valid": false,
     "level": "semantic",
     "reason": "DELEGATION-SCOPE: fixed bounded authority"
+  },
+  {
+    "path": "examples/valid/appliance-release.json",
+    "valid": true
+  },
+  {
+    "path": "examples/invalid/appliance-duplicate-slot.json",
+    "valid": false,
+    "level": "semantic"
+  },
+  {
+    "path": "examples/invalid/appliance-command.json",
+    "valid": false,
+    "level": "schema"
   }
 ]

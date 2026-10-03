@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:kaiba:contracts:0.7.0-draft.1:appliance-release",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "ApplianceRelease"
+    },
+    "contract_version": {
+      "const": "0.7.0-draft.1"
+    },
+    "release_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "profile_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "layout_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "source_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "state_format": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "readable_state_formats": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 9007199254740991
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "catalog_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "slot": {
+            "enum": [
+              "A",
+              "B"
+            ]
+          },
+          "verity_root_hash": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "artifacts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "enum": [
+                    "boot",
+                    "root",
+                    "hash",
+                    "metadata"
+                  ]
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "size_bytes": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "role",
+                "digest",
+                "size_bytes"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 4,
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "slot",
+          "verity_root_hash",
+          "artifacts"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 2,
+      "maxItems": 2
+    }
+  },
+  "required": [
+    "contract",
+    "contract_version",
+    "release_id",
+    "profile_id",
+    "layout_digest",
+    "source_revision",
+    "state_format",
+    "readable_state_formats",
+    "catalog_digest",
+    "images"
+  ],
+  "additionalProperties": false
+}
